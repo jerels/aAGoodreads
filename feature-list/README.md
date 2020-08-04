@@ -8,13 +8,13 @@
 
     **Development Estimate:** N/A
 
-    <img src="./images/sample-book-page.png" width="500px">
+    <img src="./images/sample-book-page.PNG" width="500px">
 
     *As a user, I want a central place to access my collection of books so that I can add more and keep them all organized.*
 
     **Development Estimate:** N/A
 
-    <img src="./images/sample-my-books-page.png" width="500px">
+    <img src="./images/sample-my-books-page.PNG" width="500px">
 
 + ### **Bookshelves**
 
@@ -22,7 +22,7 @@
 
     **Development Estimate:** N/A
 
-    <img src='./images/sample-bookshelf-applied.png' width="500px">
+    <img src='./images/sample-bookshelf-applied.PNG' width="500px">
 
 + ### **Reviews**
 
@@ -30,7 +30,7 @@
 
     **Development Estimate:** N/A
 
-    <img src='./images/sample-book-reviews.png' width="500px">
+    <img src='./images/sample-book-reviews.PNG' width="500px">
 
 + ### **Read Status**
 
@@ -38,7 +38,7 @@
 
     **Development Estimate:** N/A
 
-    <img src="./images/sample-read-status.png" width="500px">
+    <img src="./images/sample-read-status.PNG" width="500px">
 
 ## **Bonus Features:**
 
@@ -48,7 +48,7 @@
 
     **Development Estimate:** N/A
 
-    <img src="./images/sample-browse.png" width="500px">
+    <img src="./images/sample-browse.PNG" width="500px">
 
 + ### **Authors**
 
@@ -56,4 +56,4 @@
 
     **Development Estimate:** N/A
 
-    <img src="./images/sample-author-page.png" width="500px">
+    <img src="./images/sample-author-page.PNG" width="500px">
