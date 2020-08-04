@@ -61,3 +61,7 @@
     **Development Estimate:** 1/2 day
 
     <img src="./images/sample-author-page.PNG" width="500px">
+
+## **Database Schema Mockup**
+
+<img src="./images/database-schema-mockup.PNG" width="800px">
