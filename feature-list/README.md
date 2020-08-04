@@ -62,6 +62,6 @@
 
     <img src="./images/sample-author-page.PNG" width="500px">
 
-## **Database Schema Mockup**
+## **Database Schema Mockup:**
 
 <img src="./images/database-schema-mockup.PNG" width="800px">
