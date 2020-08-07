@@ -12,9 +12,10 @@
 
     *As a user, I want to be able to access a log of books and their descriptions so that I can make a decision on whether or not I want to read them.*
 
-    **Development Estimate:** 2 1/2 days(?)
+    **Development Estimate:** 2 1/2 days
 
-    <img src="./images/sample-book-page.PNG" width="500px">
+    <img src="./images/sample-book-page.PNG" width="500px"><br>
+    <img src="./images/sample-book-search.PNG" width="500px">
 
     *As a user, I want a central place to access my collection of books so that I can add more and keep them all organized.*
 
@@ -24,9 +25,18 @@
 
     *As a user, I want to be able to organize my books into various bookshelves so that I can categorize books that I have read, am reading, or want to read however I choose.*
 
-    **Development Estimate:** 1 1/2 days (?)
+    **Development Estimate:** 1 1/2 days
 
     <img src='./images/sample-bookshelf-applied.PNG' width="500px">
+
++ ### **User Authentication**
+
+    *As a site user, I want to be able to log in so that I have a personalized "Goodreads" experience.*
+
+    **Development Estimate:** 1 1/2 days
+
+    <img src='./images/sample-user-authentication.PNG' width="500px"><br>
+    <img src="./images/sample-log-in-page.PNG" width="500px">
 
 + ### **Reviews**
 
@@ -46,6 +56,14 @@
 
 ## **Bonus Features:**
 
++ ### **Homepage**
+
+    *As a user, I want to be able to view a personalized homepage so that I have a more enjoyable experience.*
+
+    **Development Estimate:** 1/2 day
+
+    <img src="./images/sample-homepage.PNG" width="500px">
+
 + ### **Browse**
 
     *As a user, I want to be able to find books similar to ones I've read/by genre so that I can continue to read books that I find enjoyable.*
@@ -61,6 +79,14 @@
     **Development Estimate:** 1/2 day
 
     <img src="./images/sample-author-page.PNG" width="500px">
+
++ ### **Series**
+
+    *As a user, I want to be able to find the next book in a series that I'm reading with relative ease so that I don't have to leave the site to find out what it is.*
+
+    **Development Estimate:** 1/2 day
+
+    <img src="./images/sample-series-page.PNG" width="500px">
 
 ## **Database Schema Mockup:**
 
