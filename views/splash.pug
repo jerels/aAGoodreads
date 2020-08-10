@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel='stylesheet' type='text/css' href='splash.css')
+        link(rel='stylesheet' type='text/css' href='footer.css')
+        title Site-name | Meet your next favorite book
+    body
+        header.header
+            div(class='header__item header__item--title')
+                h1.title__text--good good
+                    span.title__text--reads reads
+            div(class='header__item header__item--log-in')
+                form(action="/log-in" method="post")
+                    .log-in__inputs-container
+                        input(class='log-in__inputs log-in__inputs--email' type='email' name='email' id='email' placeholder='Email Address')
+                        input(class='log-in__inputs log-in__inputs--password' type='password' name='password' id='password' placeholder='Password')
+                    .log-in__bottom-container
+                        input(class='log-in__bottom log-in__bottom--remember-me' type="checkbox" name="remember-me" id='remember-me')
+                        label(for='remember-me' class='log-in__bottom log-in__bottom--remember-me-text') Remember Me
+                        a(class='log-in__bottom log-in__bottom--forgot' href='/forgot') Forgot it?
+                    button(class='log-in__inputs log-in__inputs--submit' type="submit") Sign In
+        .sign-up-container
+            .sign-up__form-container
+                h3.sign-up__form-title New here? Create a free account!
+                .sign-up__form-container--form
+                    form(action='/sign-up' method='post')
+                        input(class='sign-up__input sign-up__inputs--name' type="text" name='name' id='name' placeholder='Name')
+                        input(class='sign-up__input sign-up__inputs--email' type='email' name='email' id='email' placeholder='Email address')
+                        input(class='sign-up__input sign-up__inputs--password' type='password' name='password' id='password' placeholder='Password')
+                        .form__bottom-container
+                            button(class='sign-up__input sign-up__inputs--submit' type="submit") Sign Up
+                            .form__bottom--text-container
+                                <p class='sign-up__disclaimer'> By clicking "Sign Up" I agree to the Goodreads <a class='sign-up__disclaimer--link' href='http://localhost:8080/terms-of-service'>Terms of Service</a> confirm that I am at least 13 years old.
+        .middle-content-container
+            .middle-content__left
+                .middle-content__left--text-container
+                    h3.left__text--header Read with us all season long
+                    a(class='left__item left__item--link' href="/summer-reading") Explore Summer Reading
+            .middle-content__right
+                img(class='right__item right__item--pic' src='https://www.onthisday.com/images/people/mahatma-gandhi-medium.jpg')
+                .middle-content__right--text-container
+                    p(class='right__item right__item--quote') &ldquo;Be the change that you wish to see in the world.&rdquo;
+                    p(class='right__item right__item--name') — Mahatma Gahndi
+        .middle-text-container
+            .middle-text__item.middle-text__left
+                h3.middle-text__left--header Deciding what to read next?
+                p.middle-text__left--text You're in the right place. Browse, search, and read reviews for books that you're interested in, all in one place!
+            .middle-text__item.middle-text__right
+                h3.middle-text__right--header What are your friends reading?
+                p.middle-text__right--text Chances are your friends have reviewed their favorite books on Goodreads. Go check out what they have to say.
+        .book-content-container
+            .book-content__left
+                .book-content__left--text-container
+                    h3(class='book-content__left-text book-content__left-text--because') Because Deborah liked...
+                    h3(class='book-content__left-text book-content__left-text--discovered') She discovered:
+                .book-content__left--image-container
+                    .book-content__left--image-row-container
+                        img(class='book__left-item book-content__left--cover-1' src='https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1474154022l/3._SY475_.jpg')
+                        img(class='book__left-item book-content__left--cover-2' src='https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1474171184l/136251._SY475_.jpg')
+                        img(class='book__left-item book-content__left--cover-3' src='https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554006152l/6.jpg')
+                    img(class='book__left-item book-content__left--arrow' src='https://s.gr-assets.com/assets/home/discovery_arrow.png')
+                    img(class='book__left-item book-content__left--discovered-book' src='https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1587697303l/1._SX318_.jpg')
+            .book-content__right
+                .book-content__right--text-container
+                    h3(class='book-content__right-text book-content__left-text--because') Because Drake liked...
+                    h3(class='book-content__right-text book-content__right-text--discovered') He discovered:
+                .book-content__right--image-container
+                    .book-content__right--image-row-container
+                        img(class='book__right-item book-content__right--cover-1' src='https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1317793965l/11468377.jpg')
+                        img(class='book__right-item book-content__right--cover-2' src='https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1427665815l/905.jpg')
+                        img(class='book__right-item book-content__right--cover-3' src='https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1432253110l/66354._SY475_.jpg')
+                    img(class='book__right-item book-content__right--arrow' src='https://s.gr-assets.com/assets/home/discovery_arrow.png')
+                    img(class='book__right-item book-content__right--discovered-book' src='https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348688766l/857333.jpg')
+        include include/footer.pug

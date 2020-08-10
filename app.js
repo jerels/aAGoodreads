@@ -12,7 +12,8 @@ app.use('/public', express.static('public'));
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
-    res.render('layout');
+  const stylesheets = ['splash.css', 'footer.css'];
+  res.render('splash', {stylesheets});
 });
 
 app.get('/hello', (req, res) => {
