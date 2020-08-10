@@ -5,16 +5,11 @@ const { query } = require("express");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Authors', [
-      {firstName: 'J.K.', lastName: 'Rowling', biography: "Is an author!", createdAt: new Date(), updatedAt: new Date()}
-    ]);
+      {firstName: 'J.K.', lastName: 'Rowling', biography: "Is an author!"}
+    ], {fields: ['firstName', 'lastName', 'biography']});
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    return queryInterface.bulkDelete('Authors', null, {});
   }
 };
