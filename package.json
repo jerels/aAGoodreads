@@ -1,0 +1,41 @@
+{
+  "name": "aAGoodreads",
+  "version": "1.0.0",
+  "description": "A clone of the popular reading social media site Goodreads, complete with features like user authentication, book reviews, and user bookshelves.",
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "csurf": "^1.11.0",
+    "dotenv": "^8.2.0",
+    "dotenv-cli": "^3.2.0",
+    "express-bearer-token": "^2.4.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "per-env": "^1.0.2",
+    "pg": "^8.3.0",
+    "pug": "^2.0.4",
+    "sequelize-cli": "^6.2.0",
+    "sequelize": "^6.3.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
+    "start:production": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PanosPHL/aAGoodreads.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PanosPHL/aAGoodreads/issues"
+  },
+  "homepage": "https://github.com/PanosPHL/aAGoodreads#readme"
+}
