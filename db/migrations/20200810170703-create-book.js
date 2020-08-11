@@ -30,7 +30,7 @@ module.exports = {
         }
       },
       ISBN: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(26),
         allowNull: false
       },
       publishingDate: {

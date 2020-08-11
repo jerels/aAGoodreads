@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     ISBN: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(36),
       allowNull: false
     },
     publishingDate: {

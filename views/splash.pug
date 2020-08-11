@@ -14,8 +14,8 @@ html(lang="en")
             div(class='header__item header__item--log-in')
                 form(action="/log-in" method="post")
                     .log-in__inputs-container
-                        input(class='log-in__inputs log-in__inputs--email' type='email' name='email' id='email' placeholder='Email Address')
-                        input(class='log-in__inputs log-in__inputs--password' type='password' name='password' id='password' placeholder='Password')
+                        input(class='log-in__inputs log-in__inputs--email' type='email' name='email' id='login-email' placeholder='Email Address')
+                        input(class='log-in__inputs log-in__inputs--password' type='password' name='password' id='login-password' placeholder='Password')
                     .log-in__bottom-container
                         input(class='log-in__bottom log-in__bottom--remember-me' type="checkbox" name="remember-me" id='remember-me')
                         label(for='remember-me' class='log-in__bottom log-in__bottom--remember-me-text') Remember Me
@@ -27,8 +27,8 @@ html(lang="en")
                 .sign-up__form-container--form
                     form(action='/sign-up' method='post')
                         input(class='sign-up__input sign-up__inputs--name' type="text" name='name' id='name' placeholder='Name')
-                        input(class='sign-up__input sign-up__inputs--email' type='email' name='email' id='email' placeholder='Email address')
-                        input(class='sign-up__input sign-up__inputs--password' type='password' name='password' id='password' placeholder='Password')
+                        input(class='sign-up__input sign-up__inputs--email' type='email' name='email' id='sign-up-email' placeholder='Email address')
+                        input(class='sign-up__input sign-up__inputs--password' type='password' name='password' id='sign-up-password' placeholder='Password')
                         .form__bottom-container
                             button(class='sign-up__input sign-up__inputs--submit' type="submit") Sign Up
                             .form__bottom--text-container

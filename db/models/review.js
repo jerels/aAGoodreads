@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Review.init({
     content: {
       allowNull: false,
-        type: Sequelize.TEXT,
+        type: DataTypes.TEXT,
         validate: {
           notEmpty: true
         }

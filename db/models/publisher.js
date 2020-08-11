@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   Publisher.init({
     name: {
       allowNull: false,
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       unique: true,
       validate: {
         notEmpty: true

@@ -17,14 +17,14 @@ module.exports = (sequelize, DataTypes) => {
   Bookshelf.init({
     name: {
       allowNull: false,
-      type: Sequelize.STRING(100),
+      type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
     },
     userId: {
       allowNull: false,
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       references: {model: "Users"}
     },
   }, {

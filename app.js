@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const path = require('path');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const csrfProtection = require('csurf')({ cookie: true });
+const { environment } = require('./config');
 const { ValidationError } = require("sequelize");
 const pagesRouter = require("./routes/pages");
 const apiRouter = require("./routes/api");
@@ -12,14 +14,14 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/public', express.static('public'));
+app.use(express.static(path.resolve(__dirname, 'public')));
+console.log(path.resolve(__dirname, 'public'));
 app.use("/api", apiRouter);
 app.use("/", pagesRouter);
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
-  const stylesheets = ['splash.css', 'footer.css'];
-  res.render('splash', {stylesheets});
+  res.render('splash');
 });
 
 
