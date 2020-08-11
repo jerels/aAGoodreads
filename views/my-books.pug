@@ -1,0 +1,10 @@
+extends layout.pug
+
+append head
+    link(rel='stylesheet' type='text/css' href='my-books.css')
+    link(rel='stylesheet' type='text/css' href='header.css')
+    link(rel='stylesheet' type='text/css' href='footer.css')
+
+block content
+    include include/header.pug
+    include include/footer.pug

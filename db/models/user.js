@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true,
         len: {
-          args: [5, 70],
-          msg: "Username must be between 5 and 70 characters long."
+          args: [5, 80],
+          msg: "Username must be between 5 and 80 characters long."
         }
       },
       type: DataTypes.STRING(80)
