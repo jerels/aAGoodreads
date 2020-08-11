@@ -15,7 +15,6 @@ form.addEventListener('submit', async (e) => {
             'Content-Type': 'application/json'
         }
     });
-    console.log(res.ok);
     const data = await res.json();
     if (!res.ok) {
         alert(data.message);

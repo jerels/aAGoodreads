@@ -25,18 +25,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       type: DataTypes.STRING(200)
     },
-    username: {
-      allowNull: false,
-      unique: true,
-      validate: {
-        notEmpty: true,
-        len: {
-          args: [5, 80],
-          msg: "Username must be between 5 and 80 characters long."
-        }
-      },
-      type: DataTypes.STRING(80)
-    },
     hashedPassword: {
       allowNull: false,
       type: DataTypes.STRING.BINARY
@@ -54,8 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       },
       type: DataTypes.STRING(35)
-    },
-    birthday: DataTypes.DATE
+    }
   }, {
     sequelize,
     modelName: 'User',

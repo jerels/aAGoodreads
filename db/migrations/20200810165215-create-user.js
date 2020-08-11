@@ -16,14 +16,6 @@ module.exports = {
           notEmpty: true
         }
       },
-      username: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.STRING(80),
-        validate: {
-          notEmpty: true
-        }
-      },
       hashedPassword: {
         allowNull: false,
         type: Sequelize.STRING.BINARY
@@ -41,10 +33,6 @@ module.exports = {
         validate: {
           notEmpty: true
         }
-      },
-      birthday: {
-        allowNull: false,
-        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

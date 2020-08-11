@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { routeHandler } = require('../utils');
-
+const { routeHandler, handleValidationErrors } = require('../utils');
+const { getUserToken } = require('../utils/auth');
 const csrfProtection = require("csurf")({ cookie: true });
 const jwt = require('jsonwebtoken');
 
@@ -12,15 +12,47 @@ const { Op } = require("sequelize");
 const { User } = db;
 
 
+const { check, validationResult } = require('express-validator');
 
+const validateName = [
+  check('name', 'Name field must be a valid first and last name')
+    .exists()
+    .custom((value, { req }) => {
+      return /^[A-Z][a-z]*\s([A-Z][a-z]*)$/.test(value);
+    })
+]
+
+const validateAuth = [
+  check("email", "Email field must have a valid email.")
+    .exists()
+    .isEmail(),
+  check("password", "Password field must be six or more characters.")
+    .exists()
+    .isLength({min: 6, max: 70}),
+]
 
 //signing up
-router.post("/", (req, res) => {
+router.post("/", validateName, validateAuth, handleValidationErrors, routeHandler(async (req, res, next) => {
+  const { name, email, password } = req.body;
 
-});
+  const nameArr = name.split(' ');
+  const firstName = nameArr[0];
+  const lastName = nameArr[1];
+
+  const user = await User.create({
+    email,
+    hashedPassword: bcrypt.hashSync(password, 10),
+    firstName,
+    lastName,
+  });
+
+  const token = await getUserToken(user);
+  res.cookie('token', token, {maxAge: expiresIn * 1000});
+  res.json({ id: user.id, token });
+}));
 
 // logging in
-router.post("/token", routeHandler(async (req, res, next) => {
+router.post("/token", validateAuth, handleValidationErrors, routeHandler(async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({
     where: { email }
@@ -31,7 +63,7 @@ router.post("/token", routeHandler(async (req, res, next) => {
     err.title = 'Unauthorized';
     throw err;
   }
-  const token = await jwt.sign({ id: user.id, email: user.email }, secret, { expiresIn: parseInt(expiresIn) });
+  const token = await getUserToken(user);
   res.cookie('token', token, {maxAge: expiresIn * 1000});
   res.json({ id: user.id, token });
 }));

@@ -1,4 +1,12 @@
 extends layout.pug
 
+append head
+  link(rel="stylesheet", href="header.css")
+  link(rel='stylesheet' href='footer.css')
+  link(rel='stylesheet' href='my-books.css')
+
 block content
-  h1 Page Not Found
+  include include/header.pug
+  .page-not-found
+    h1 Page Not Found
+  include include/footer.pug
