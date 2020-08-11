@@ -6,13 +6,15 @@ html(lang="en")
         link(rel='stylesheet' type='text/css' href='splash.css')
         link(rel='stylesheet' type='text/css' href='footer.css')
         title Site-name | Meet your next favorite book
+        script(src="/js/login.js" type='module' defer)
+        script(src="/js/signup.js" type='module' defer)
     body
         header.header
             div(class='header__item header__item--title')
                 h1.title__text--good good
                     span.title__text--reads reads
             div(class='header__item header__item--log-in')
-                form(action="/log-in" method="post")
+                form#login
                     .log-in__inputs-container
                         input(class='log-in__inputs log-in__inputs--email' type='email' name='email' id='login-email' placeholder='Email Address')
                         input(class='log-in__inputs log-in__inputs--password' type='password' name='password' id='login-password' placeholder='Password')
@@ -25,8 +27,8 @@ html(lang="en")
             .sign-up__form-container
                 h3.sign-up__form-title New here? Create a free account!
                 .sign-up__form-container--form
-                    form(action='/sign-up' method='post')
-                        input(class='sign-up__input sign-up__inputs--name' type="text" name='name' id='name' placeholder='Name')
+                    form#signup(action='/users' method='post')
+                        input(class='sign-up__input sign-up__inputs--name' type="text" name='name' id='name' placeholder='Full Name i.e. (Jerel Smith)')
                         input(class='sign-up__input sign-up__inputs--email' type='email' name='email' id='sign-up-email' placeholder='Email address')
                         input(class='sign-up__input sign-up__inputs--password' type='password' name='password' id='sign-up-password' placeholder='Password')
                         .form__bottom-container

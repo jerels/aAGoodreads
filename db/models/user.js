@@ -1,14 +1,15 @@
+const bcrypt = require('bcryptjs');
+
 'use strict';
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    validatePassword(password) {
+      return bcrypt.compareSync(password, this.hashedPassword.toString());
+    }
+
     static associate(models) {
       User.hasMany(models.Bookshelf, {foreignkey: "userId"});
       User.hasMany(models.Review, {foreignKey: 'userId'});
@@ -23,18 +24,6 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: true
       },
       type: DataTypes.STRING(200)
-    },
-    username: {
-      allowNull: false,
-      unique: true,
-      validate: {
-        notEmpty: true,
-        len: {
-          args: [5, 70],
-          msg: "Username must be between 5 and 70 characters long."
-        }
-      },
-      type: DataTypes.STRING(80)
     },
     hashedPassword: {
       allowNull: false,
@@ -53,8 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       },
       type: DataTypes.STRING(35)
-    },
-    birthday: DataTypes.DATE
+    }
   }, {
     sequelize,
     modelName: 'User',

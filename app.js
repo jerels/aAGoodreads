@@ -1,55 +1,34 @@
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
-const path = require('path');
-const cors = require("cors");
 const cookieParser = require('cookie-parser');
-const csrfProtection = require('csurf')({ cookie: true });
-const { environment } = require('./config');
-const { ValidationError } = require("sequelize");
-const pagesRouter = require("./routes/pages");
-const apiRouter = require("./routes/api");
+const csrf = require('csurf');
+const path = require('path');
+const apiRouter = require('./routes/api');
+const pagesRouter = require('./routes/pages');
 
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.resolve(__dirname, 'public')));
-console.log(path.resolve(__dirname, 'public'));
-app.use("/api", apiRouter);
-app.use("/", pagesRouter);
+const app = express();
 app.set('view engine', 'pug');
 
-app.get('/', (req, res) => {
-  res.render('splash');
-});
+// Serve static files from public folder
+app.use(express.static(path.resolve(__dirname, 'public')));
 
+app.use(morgan('dev'));
+// Adds cookies to req.cookies
+app.use(cookieParser());
+// Converts req body to POJO
+app.use(express.json());
+// Converts url encoded data to body object
+app.use(express.urlencoded({ extended: false }));
 
+app.use('/api', apiRouter);
+app.use('/', pagesRouter);
 
+// Error handling
 app.use((req, res, next) => {
-    const err = new Error("The requested resource couldn't be found.");
-    err.errors = ["The requested resource couldn't be found."];
-    err.status = 404;
-    next(err);
-  });
+  res.setTimeout(1000);
+  req.setTimeout(1000);
 
-app.use((err, req, res, next) => {
-    // check if error is a Sequelize error:
-    if (err instanceof ValidationError) {
-      err.errors = err.errors.map((e) => e.message);
-      err.title = "Sequelize Error";
-    }
-    next(err);
-  });
-
-app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    const isProduction = environment === "production";
-    res.json({
-      title: err.title || "Server Error",
-      errors: err.errors,
-      stack: isProduction ? null : err.stack,
-    });
-  });
+  next();
+});
 
 module.exports = app;

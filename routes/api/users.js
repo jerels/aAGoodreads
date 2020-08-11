@@ -1,64 +1,72 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
-const { check } = require("express-validator");
-const { asyncHandler, handleValidationErrors } = require("../utils");
-const { getUserToken, requireAuth } = require("../auth");
 const router = express.Router();
-const db = require("../db/models");
+const { routeHandler, handleValidationErrors } = require('../utils');
+const { getUserToken } = require('../utils/auth');
+const csrfProtection = require("csurf")({ cookie: true });
+const jwt = require('jsonwebtoken');
 
-const { User, Tweet } = db;
+const bcrypt = require('bcryptjs');
+const { secret, expiresIn } = require('../../config').jwtConfig;
+const db = require('../../db/models');
+const { Op } = require("sequelize");
+const { User } = db;
 
-const validateUsernameAndPassword = [
-    check("username")
-      .exists({ checkFalsy: true })
-      .withMessage("Please provide a username"),
-    check("password")
-      .exists({ checkFalsy: true })
-      .withMessage("Please provide a password."),
-    handleValidationErrors,
 
-  ];
+const { check, validationResult } = require('express-validator');
 
-router.post("/",
-  check("email")
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage("Please provide a valid email."),
-  validateUsernameAndPassword,
-  asyncHandler(async (req, res) => {
-    const { email, username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, username, hashedPassword });
+const validateName = [
+  check('name', 'Name field must be a valid first and last name')
+    .exists()
+    .custom((value, { req }) => {
+      return /^[A-Z][a-z]*\s([A-Z][a-z]*)$/.test(value);
+    })
+]
 
-    const token = getUserToken(user);
-    res.status(201).json({
-      user: { id: user.id },
-      token,
-    });
-  })
-);
+const validateAuth = [
+  check("email", "Email field must have a valid email.")
+    .exists()
+    .isEmail(),
+  check("password", "Password field must be six or more characters.")
+    .exists()
+    .isLength({min: 6, max: 70}),
+]
 
-router.post(
-  "/token",
-  validateUsernameAndPassword,
-  asyncHandler(async (req, res, next) => {
-    const { username, password } = req.body;
-    const user = await User.findOne({
-      where: {
-        username,
-      },
-    });
+//signing up
+router.post("/", validateName, validateAuth, handleValidationErrors, routeHandler(async (req, res, next) => {
+  const { name, email, password } = req.body;
 
-    if (!user || !user.validatePassword(password)) {
-      const err = new Error("Login failed");
-      err.status = 401;
-      err.title = "Login failed";
-      err.errors = ["The provided credentials were invalid."];
-      return next(err);
-    }
-    const token = getUserToken(user);
-    res.json({ token, user: { id: user.id } });
-  })
-);
+  const nameArr = name.split(' ');
+  const firstName = nameArr[0];
+  const lastName = nameArr[1];
+
+  const user = await User.create({
+    email,
+    hashedPassword: bcrypt.hashSync(password, 10),
+    firstName,
+    lastName,
+  });
+
+  const token = await getUserToken(user);
+  res.cookie('token', token, {maxAge: expiresIn * 1000});
+  res.json({ id: user.id, token });
+}));
+
+// logging in
+router.post("/token", validateAuth, handleValidationErrors, routeHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({
+    where: { email }
+  });
+  if (!user || !user.validatePassword(password)) {
+    const err = new Error('Invalid email/password combination');
+    err.status = 401;
+    err.title = 'Unauthorized';
+    throw err;
+  }
+  const token = await getUserToken(user);
+  res.cookie('token', token, {maxAge: expiresIn * 1000});
+  res.json({ id: user.id, token });
+}));
+
 
 module.exports = router;
