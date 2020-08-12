@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Bookshelf.belongsToMany(models.Book, {through: models.BookBookshelf });
-      Bookshelf.belongsTo(models.User, {foreignkey: "userId"});
+      Bookshelf.belongsToMany(models.Book, { through: models.BookBookshelf });
+      Bookshelf.belongsTo(models.User, { foreignKey: 'userId' });
     }
   };
   Bookshelf.init({
@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       references: {model: "Users"}
     },
+    defaultShelf: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN
+    }
   }, {
     sequelize,
     modelName: 'Bookshelf',
