@@ -5,6 +5,20 @@
     margin: 0;
 }
 
+footer.footer {
+    margin: 0;
+}
+
 body {
     font-family: Helvetica;
+}
+
+.content-container {
+    min-height: 623px;
+}
+
+.content__left-bar {
+    height: 623px;
+    width: 200px;
+    background-color: #789DC4;
 }

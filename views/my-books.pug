@@ -4,7 +4,13 @@ append head
     link(rel='stylesheet' type='text/css' href='my-books.css')
     link(rel='stylesheet' type='text/css' href='header.css')
     link(rel='stylesheet' type='text/css' href='footer.css')
+    script(src='js/my-books.js')
 
 block content
     include include/header.pug
+    .content-container
+        .content__left-bar
+            .content__left-bar--bookshelves
+                .bookshelves__defaults
+                    h3(class='defaults__item defaults__item--header') Bookshelves <a>(Edit)</a>
     include include/footer.pug

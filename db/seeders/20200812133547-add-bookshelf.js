@@ -3,9 +3,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Bookshelves', [
-      { name: 'All', userId: 1, defaultShelf: true},
-      { name: 'Currently Reading', userId: 1, defaultShelf: true},
-      { name: 'Want to Read', userId: 1, defaultShelf: true}
+      { name: 'Currently Reading', userId: 1, defaultShelf: true },
+      { name: 'Read', userId: 1, defaultShelf: true },
+      { name: 'Want to Read', userId: 1, defaultShelf: true }
     ], { fields: ['name', 'userId', 'defaultShelf']});
   },
 

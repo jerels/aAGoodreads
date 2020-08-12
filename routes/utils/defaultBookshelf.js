@@ -1,11 +1,7 @@
 const { Bookshelf } = require('../../db/models');
 
 const createDefaultBookshelves = async (user) => {
-    await Bookshelf.bulkCreate([{
-        name: 'All',
-        userId: user.id,
-        defaultShelf: true
-    },
+    await Bookshelf.bulkCreate([
     {
         name: 'Currently Reading',
         userId: user.id,

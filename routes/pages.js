@@ -24,6 +24,9 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/my-books', (req, res) => {
+    if (!req.cookies.token) {
+        res.redirect('/');
+    }
     res.render('my-books');
 });
 
