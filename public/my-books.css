@@ -14,11 +14,31 @@ body {
 }
 
 .content-container {
-    min-height: 623px;
+    min-height: 750px;
+    display: flex;
 }
 
 .content__left-bar {
-    height: 623px;
-    width: 200px;
+    height: 750px;
+    width: 210px;
+    margin-left: 140px;
     background-color: #789DC4;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.content__book-table {
+    margin: 0;
+}
+
+.book-table__item--header {
+    margin-left: 20px;
+}
+
+table {
+    margin-top: -20px;
+    border-spacing: 20px;
+}
+
+.defaults__item--list {
+    list-style: none;
 }
