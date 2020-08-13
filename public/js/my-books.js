@@ -71,7 +71,7 @@ const shelvesGen = (bookshelves) => {
     console.log(shelveArr);
     let shelveStr = '';
     for (shelf of shelveArr) {
-        shelveStr += `<li><a href='my-books/bookshelves/${shelf.id}'>${shelf.name}</a></li>`;
+        shelveStr += `<li><a href='my-books/bookshelf/${shelf.id}'>${shelf.name}</a></li>`;
     }
 
     return shelveStr;
@@ -130,21 +130,27 @@ const populatePageContent = async () => {
     const myBooksData = await getMyBooksData();
 
     // Populate the Bookshelf list
-    const bookshelfList = document.querySelector('.defaults__item--list');
+    const defaultShelfList = document.querySelector('.default__item--list');
+    const addedShelfList = document.querySelector('.content__added-bookshelves--list');
 
-    let bookshelfStr = `<li class='defaults__list-item defaults__list-item--0'>
+    let defaultShelfStr = `<li class='defaults__list-item defaults__list-item--0'>
     <a class='defaults__list-item-link defaults__list-item-link--link-0' href='/my-books'>All (${count})</a>
     </li>`;
+    let addedShelfStr = '';
 
     for (bookshelf of bookshelves) {
         if (bookshelf.defaultShelf) {
-            bookshelfStr += `
+            defaultShelfStr += `
             <li class='defaults__list-item defaults__list-item--${bookshelf.id}'>
             <a class='defaults__list-item-link defaults__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a>
             </li>`;
+        } else {
+            addedShelfStr += `
+            <li class='added__list-item added__list-item--${bookshelf.id}'>
+            <a class='added__list-item-link added__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a>
+            </li>`
         }
     }
-
 
     // Populate table
     const booksTable = document.querySelector('tbody');
@@ -167,7 +173,8 @@ const populatePageContent = async () => {
         </tr>`;
     }
 
-    bookshelfList.innerHTML = bookshelfStr;
+    defaultShelfList.innerHTML = defaultShelfStr;
+    addedShelfList.innerHTML = addedShelfStr;
     booksTable.innerHTML = bookStr;
 
 }
@@ -189,6 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json'
             }
         });
+
+        if (res.ok) {
+            location.reload();
+        }
 
         return;
     });

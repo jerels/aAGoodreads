@@ -1,12 +1,15 @@
 const express =  require('express');
 const router = express.Router();
 
+const myBooksRouter = require('./my-books');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config').jwtConfig;
 const { User } = require('../db/models');
 const { routeHandler } = require('./utils');
 
-router.get('/', async (req, res) => {
+router.use('/my-books', myBooksRouter);
+
+router.get('/', routeHandler(async (req, res) => {
     if (req.cookies.token) {
         const { token } = req.cookies;
         const payload = jwt.verify(token, secret);
@@ -22,18 +25,7 @@ router.get('/', async (req, res) => {
         }
     }
         res.render('splash');
-});
-
-router.get('/my-books/bookshelf/:id(\\d+)', routeHandler(async (req, res) => {
-    res.render('my-books');
-}))
-
-router.get('/my-books', (req, res) => {
-    if (!req.cookies.token) {
-        res.redirect('/');
-    }
-    res.render('my-books');
-});
+}));
 
 router.get(/[^/api]/, (req, res) => {
     res.render('error-page');

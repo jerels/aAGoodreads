@@ -40,7 +40,15 @@ table {
     border-spacing: 20px;
 }
 
-.defaults__item--list {
+.default__item--list {
+    list-style: none;
+}
+
+.content__added-bookshelves {
+    margin-top: 16px;
+}
+
+.content__added-bookshelves--list {
     list-style: none;
 }
 
