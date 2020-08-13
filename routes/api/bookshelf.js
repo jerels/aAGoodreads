@@ -3,8 +3,8 @@ const router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const { secret } = require('../../config').jwtConfig;
-const { Bookshelf, Book, Author, User, Review } = require('../../db/models');
-const { sequelize } = require('../../db/models');
+const { Bookshelf, Book, Author, User, Review, BookBookshelf } = require('../../db/models');
+const { Op } = require('sequelize');
 const { routeHandler } = require('../utils');
 
 router.get('/', routeHandler(async (req, res) => {
@@ -78,6 +78,38 @@ router.post('/', routeHandler(async (req, res) => {
 
 router.post('/:id(\\d+)/book', routeHandler(async (req, res) => {
 
+}));
+
+router.delete('/book/:id(\\d+)', routeHandler(async (req, res) => {
+    const { token } = req.cookies;
+    const { id } = jwt.verify(token, secret).data;
+
+    const bookId = req.params.id;
+
+    const bookshelves = await Bookshelf.findAll({
+        where: {
+            userId: id
+        }
+    });
+
+    const bookshelfIds = bookshelves.map((bookshelf) => bookshelf.id);
+
+    console.log(bookId, bookshelfIds);
+
+    await BookBookshelf.destroy({
+        where: {
+            [Op.and]: {
+                bookId,
+                bookshelfId: {
+                    [Op.or]: [...bookshelfIds]
+                }
+            }
+        }
+    });
+
+    res.json({
+        text: 'Operation complete!'
+    });
 }));
 
 module.exports = router;

@@ -28,7 +28,6 @@ const getAvgRating = async (book) => {
 
 const authors = (authors) => {
     let authorStr = '';
-    console.log(authors);
 
     for (author of authors) {
         authorStr += `<li>${author.lastName}, ${author.firstName}</li>`;
@@ -38,11 +37,26 @@ const authors = (authors) => {
 }
 
 const shelvesGen = (bookshelves) => {
-    let shelveArr = bookshelves.map((bookshelf) => bookshelf.name).sort();
+    let shelveArr = bookshelves.map((bookshelf) => {
+        return {id: bookshelf.id, name: bookshelf.name}
+    }).sort((a, b) => {
+        // Sorting shelf names alphabetically
+        let nameA = a.name.toUpperCase();
+        let nameB = b.name.toUpperCase();
+
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+
+        return 0;
+    });
     console.log(shelveArr);
     let shelveStr = '';
     for (shelf of shelveArr) {
-        shelveStr += `<li>${shelf}</li>`;
+        shelveStr += `<li><a href='my-books/bookshelves/${shelf.id}'>${shelf.name}</a></li>`;
     }
 
     return shelveStr;
@@ -68,7 +82,6 @@ const readDate = (book) => {
     });
 
     for (shelf of shelveArr) {
-        console.log(shelf);
         if (shelf.name === 'Read') {
             return new Date(shelf.readDate).toLocaleString('US-en', {year: 'numeric', month: 'long', day: 'numeric'});
         }
@@ -113,7 +126,6 @@ const populatePageContent = async () => {
         }
     }
 
-    bookshelfList.innerHTML = bookshelfStr;
 
     // Populate table
     const booksTable = document.querySelector('tbody');
@@ -121,7 +133,6 @@ const populatePageContent = async () => {
     let bookStr = '';
 
     for (book of myBooksData.books) {
-        console.log(book);
         const rating = book.Reviews[0].rating;
         bookStr += `<tr>
         <td class='cover-cell'><img class='cover' src='${book.cover}'></td>
@@ -133,9 +144,11 @@ const populatePageContent = async () => {
         <td>${editOrWriteReview(book)}</td>
         <td>${readDate(book)}</td>
         <td>${dateAdded(book)}</td>
+        <td><button id='delete-book-${book.id}' type='button'>Remove from My Books</button></td>
         </tr>`;
     }
 
+    bookshelfList.innerHTML = bookshelfStr;
     booksTable.innerHTML = bookStr;
 
 }
@@ -157,6 +170,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return;
     });
+
+    const table = document.querySelector('.book-table__item--table');
+    table.addEventListener('click', async event => {
+        event.preventDefault();
+        if (!/delete-book-\d+/.test(event.target.id)) {
+            return;
+        }
+        const [,, id]= event.target.id.split('-');
+
+        const res = await fetch(`/api/bookshelves/book/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (res.ok) {
+            location.reload();
+        }
+    })
 });
 
 
