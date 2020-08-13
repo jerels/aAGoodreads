@@ -2,12 +2,16 @@ const express =  require('express');
 const router = express.Router();
 
 const myBooksRouter = require('./my-books');
+const editBookshelvesRouter = require('./edit-bookshelves');
+const reviewRouter = require('./reviews');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config').jwtConfig;
 const { User } = require('../db/models');
 const { routeHandler } = require('./utils');
 
 router.use('/my-books', myBooksRouter);
+router.use('/reviews', reviewRouter);
+router.use('/edit-bookshelves', editBookshelvesRouter);
 
 router.get('/', routeHandler(async (req, res) => {
     if (req.cookies.token) {
