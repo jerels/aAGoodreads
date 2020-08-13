@@ -4,7 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { secret } = require('../../config').jwtConfig;
 const { Bookshelf, Book, Author, User, Review, BookBookshelf } = require('../../db/models');
-const { Op } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 const { routeHandler } = require('../utils');
 
 router.get('/', routeHandler(async (req, res) => {
@@ -112,6 +112,41 @@ router.get('/data/:id(\\d+)', routeHandler(async (req, res) => {
         books
     });
 }));
+
+router.get('/book-count', routeHandler(async (req, res) => {
+    const { token } = req.cookies;
+    const { id } = jwt.verify(token, secret).data;
+
+    const books = await Book.findAll({
+        attributes: ['id'],
+        include: [
+            {
+                model: Bookshelf,
+                attributes: ['id', 'name'],
+                where: {
+                    userId: id
+                },
+                through: {
+                    attributes: ['createdAt']
+                }
+            },
+            {
+                model: Author,
+                attributes: ['firstName', 'lastName']
+            }, {
+                model: Review,
+                attributes: ['rating'],
+                where: {
+                    userId: id
+                }
+            }
+        ]
+    });
+
+    res.json({
+       count: books.length
+    });
+}))
 
 router.post('/', routeHandler(async (req, res) => {
     const { token } = req.cookies;

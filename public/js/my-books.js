@@ -4,7 +4,12 @@ const getBookshelves = async () => {
 
     return data.bookshelves;
 }
-
+const getBooksCount = async () => {
+    const res = await fetch('/api/bookshelves/book-count');
+    const data = await res.json();
+    console.log(data);
+    return data.count;
+}
 const getMyBooksData = async () => {
     const shelfId = new URL(window.location).toString().split('/')[5];
     let res;
@@ -17,7 +22,6 @@ const getMyBooksData = async () => {
         res = await fetch(`/api/bookshelves/data/${shelfId}`);
         data = await res.json();
     }
-    console.log(data);
     return data;
 }
 
@@ -118,6 +122,10 @@ const dateAdded = (book) => {
 const populatePageContent = async () => {
     // Get bookshelves
     const bookshelves = await getBookshelves();
+
+    // Get all books count
+    const count = await getBooksCount();
+
     // Get related books
     const myBooksData = await getMyBooksData();
 
@@ -125,7 +133,7 @@ const populatePageContent = async () => {
     const bookshelfList = document.querySelector('.defaults__item--list');
 
     let bookshelfStr = `<li class='defaults__list-item defaults__list-item--0'>
-    <a class='defaults__list-item-link defaults__list-item-link--link-0' href='/my-books'>All (${myBooksData.books.length})</a>
+    <a class='defaults__list-item-link defaults__list-item-link--link-0' href='/my-books'>All (${count})</a>
     </li>`;
 
     for (bookshelf of bookshelves) {
@@ -165,6 +173,7 @@ const populatePageContent = async () => {
 }
 
 populatePageContent();
+getBooksCount();
 
 document.addEventListener('DOMContentLoaded', () => {
     const addBookshelfForm = document.querySelector('.add-bookshelf-form');
@@ -186,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const table = document.querySelector('.book-table__item--table');
     table.addEventListener('click', async event => {
-        event.preventDefault();
         if (!/delete-book-\d+/.test(event.target.id)) {
             return;
         }
