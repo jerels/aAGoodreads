@@ -5,7 +5,14 @@ const jwt = require('jsonwebtoken');
 const { secret } = require('../../config').jwtConfig;
 const { Bookshelf, Book, Author, User, Review, BookBookshelf } = require('../../db/models');
 const { Sequelize, Op } = require('sequelize');
-const { routeHandler } = require('../utils');
+const { routeHandler, handleValidationErrors } = require('../utils');
+const { check } = require('express-validator');
+
+const validateBookshelfName = [
+    check('name', 'Please provide a valid bookshelf name and try again')
+        .exists({checkFalsy: true})
+        .isLength({min: 1, max: 255})
+];
 
 router.get('/', routeHandler(async (req, res) => {
     const { token } = req.cookies;
@@ -148,7 +155,7 @@ router.get('/book-count', routeHandler(async (req, res) => {
     });
 }))
 
-router.post('/', routeHandler(async (req, res) => {
+router.post('/', validateBookshelfName, handleValidationErrors, routeHandler(async (req, res) => {
     const { token } = req.cookies;
     const { id } = jwt.verify(token, secret).data;
 

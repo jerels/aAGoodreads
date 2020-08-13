@@ -206,6 +206,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (res.ok) {
             location.reload();
+        } else {
+            const data = await res.json();
+            alert(data.errors[0]);
         }
 
         return;
