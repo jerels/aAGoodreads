@@ -1,9 +1,9 @@
 extends layout.pug
 
 append head
+    link(rel='stylesheet' type='text/css' href='footer.css')
     link(rel='stylesheet' type='text/css' href='my-books.css')
     link(rel='stylesheet' type='text/css' href='header.css')
-    link(rel='stylesheet' type='text/css' href='footer.css')
     script(src='js/my-books.js')
 
 block content
@@ -12,8 +12,13 @@ block content
         .content__left-bar
             .content__left-bar--bookshelves
                 .bookshelves__defaults
-                    h3(class='defaults__item defaults__item--header') Bookshelves <a>(Edit)</a>
+                    h3(class='defaults__item defaults__item--header') Bookshelves <a href='/bookshelves'>(Edit)</a>
                     ul(class='defaults__item defaults__item--list')
+                .content__added-bookshelves
+                    form.add-bookshelf-form
+                        input(type='text' name='bookshelfName' id='bookshelfName' placeholder='Bookshelf Name')
+                        button(type="submit") Add a shelf
+                    ul.content__added-bookshelves--list
         .content__book-table
             h3(class='book-table__item book-table__item--header') My Books
             table(class='book-table__item book-table__item--table')

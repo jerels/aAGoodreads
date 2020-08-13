@@ -5,7 +5,8 @@ module.exports = {
     return queryInterface.bulkInsert('Bookshelves', [
       { name: 'Currently Reading', userId: 1, defaultShelf: true },
       { name: 'Read', userId: 1, defaultShelf: true },
-      { name: 'Want to Read', userId: 1, defaultShelf: true }
+      { name: 'Want to Read', userId: 1, defaultShelf: true },
+      { name: 'Fantasy', userId: 1, defaultShelf: false}
     ], { fields: ['name', 'userId', 'defaultShelf']});
   },
 

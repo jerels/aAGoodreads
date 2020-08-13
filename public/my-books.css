@@ -3,6 +3,7 @@
 * {
     padding: 0;
     margin: 0;
+    font-family: Helvetica;
 }
 
 footer.footer {
@@ -19,9 +20,9 @@ body {
 }
 
 .content__left-bar {
-    height: 750px;
+    min-height: 750px;
     width: 210px;
-    margin-left: 140px;
+    margin-left: 160px;
     background-color: #789DC4;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
 }
@@ -40,5 +41,18 @@ table {
 }
 
 .defaults__item--list {
+    list-style: none;
+}
+
+.cover {
+    height: 120px;
+    width: 80px;
+}
+
+.title-cell {
+    width: 140px;
+}
+
+table li {
     list-style: none;
 }

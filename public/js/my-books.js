@@ -20,14 +20,26 @@ const getAvgRating = async (book) => {
     if (ratings.length > 0) {
         let avgRating = Number.parseFloat(ratings.reduce((accum, val) => {
             return accum += Number(val.rating)
-        }, 0)/ratings.length).toFixed(2);
+        }, 0)/ratings.length).toPrecision(2);
         return avgRating;
     }
     return 'N/A';
 }
 
-const shelveListGen = (bookshelves) => {
-    let shelveArr = bookshelves.map((bookshelf) => bookshelf.name);
+const authors = (authors) => {
+    let authorStr = '';
+    console.log(authors);
+
+    for (author of authors) {
+        authorStr += `<li>${author.lastName}, ${author.firstName}</li>`;
+    }
+
+    return authorStr;
+}
+
+const shelvesGen = (bookshelves) => {
+    let shelveArr = bookshelves.map((bookshelf) => bookshelf.name).sort();
+    console.log(shelveArr);
     let shelveStr = '';
     for (shelf of shelveArr) {
         shelveStr += `<li>${shelf}</li>`;
@@ -46,6 +58,39 @@ const editOrWriteReview = (book) => {
     return `<a href='/books/${book.id}/review'>Edit your review</a>`;
 }
 
+const readDate = (book) => {
+    let shelveArr = book.Bookshelves.map((bookshelf) => {
+        return {
+            bookId: book.id,
+            name: bookshelf.name,
+            readDate: bookshelf.BookBookshelf.createdAt
+        }
+    });
+
+    for (shelf of shelveArr) {
+        console.log(shelf);
+        if (shelf.name === 'Read') {
+            return new Date(shelf.readDate).toLocaleString('US-en', {year: 'numeric', month: 'long', day: 'numeric'});
+        }
+    }
+
+    return 'N/A';
+}
+
+const dateAdded = (book) => {
+    let shelveArr = book.Bookshelves.map((bookshelf) => {
+        return {
+            bookId: book.id,
+            name: bookshelf.name,
+            readDate: bookshelf.BookBookshelf.createdAt
+        }
+    });
+
+    for (shelf of shelveArr) {
+        return new Date(shelf.readDate).toLocaleString('US-en', {year: 'numeric', month: 'long', day: 'numeric'});
+    }
+}
+
 const populatePageContent = async () => {
     // Get bookshelves
     const bookshelves = await getBookshelves();
@@ -60,10 +105,12 @@ const populatePageContent = async () => {
     </li>`;
 
     for (bookshelf of bookshelves) {
-        bookshelfStr += `
-        <li class='defaults__list-item defaults__list-item--${bookshelf.id}'>
-        <a class='defaults__list-item-link defaults__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a>
-        </li>`;
+        if (bookshelf.defaultShelf) {
+            bookshelfStr += `
+            <li class='defaults__list-item defaults__list-item--${bookshelf.id}'>
+            <a class='defaults__list-item-link defaults__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a>
+            </li>`;
+        }
     }
 
     bookshelfList.innerHTML = bookshelfStr;
@@ -77,18 +124,40 @@ const populatePageContent = async () => {
         console.log(book);
         const rating = book.Reviews[0].rating;
         bookStr += `<tr>
-        <td><img src='${book.cover}'></td>
-        <td>${book.title}</td>
-        <td>${book.author}</td>
+        <td class='cover-cell'><img class='cover' src='${book.cover}'></td>
+        <td class='title-cell'><a href='/books/${book.id}'>${book.title}</a></td>
+        <td>${authors(book.Authors)}</td>
         <td>${await getAvgRating(book)}</td>
         <td>${rating ? rating : 'N/A'}</td>
-        <td>${shelveListGen(book.Bookshelves)}</td>
+        <td>${shelvesGen(book.Bookshelves)}</td>
         <td>${editOrWriteReview(book)}</td>
+        <td>${readDate(book)}</td>
+        <td>${dateAdded(book)}</td>
         </tr>`;
     }
 
     booksTable.innerHTML = bookStr;
 
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const addBookshelfForm = document.querySelector('.add-bookshelf-form');
+    addBookshelfForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        const formData = new FormData(addBookshelfForm);
+        const body = { name: formData.get('bookshelfName') };
+
+        const res = await fetch('/api/bookshelves', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return;
+    });
+});
+
 
 populatePageContent();

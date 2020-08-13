@@ -6,10 +6,10 @@
     border-bottom: 2px solid #A0A0A0;
 }
 
-.header__left {
-    margin: -12px 0 auto 120px;
+h1 {
+    margin: -14px 0 auto 136px;
     font-family: 'Manrope', sans-serif;
-    font-size: 28px;
+    font-size: 58px;
     color: #4C2F1C;
 }
 

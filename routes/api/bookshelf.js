@@ -62,7 +62,18 @@ router.get('/data', routeHandler(async (req, res) => {
 }))
 
 router.post('/', routeHandler(async (req, res) => {
+    const { token } = req.cookies;
+    const { id } = jwt.verify(token, secret).data;
 
+    const { name } = req.body;
+    const bookshelf = await Bookshelf.create({
+        userId: id,
+        name,
+        defaultShelf: false
+    });
+    res.json({
+        bookshelf
+    });
 }));
 
 router.post('/:id(\\d+)/book', routeHandler(async (req, res) => {
