@@ -20,7 +20,9 @@ block content
                         input(type='text' name='bookshelfName' id='bookshelfName' placeholder='Bookshelf Name')
                         button(type="submit") Add a shelf
         .content__book-table
-            h3(class='book-table__item book-table__item--header') My Books
+            .book-table__header-container
+                h3(class='book-table__item book-table__item--header') My Books
+                .book-table__shelf-name
             table(class='book-table__item book-table__item--table')
                 thead
                     tr.no-border

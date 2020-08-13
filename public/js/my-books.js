@@ -1,3 +1,5 @@
+const [,,,,, shelfId] = new URL(window.location).toString().split('/');
+
 const getBookshelves = async () => {
     const res = await fetch('/api/bookshelves');
     const data = await res.json();
@@ -7,11 +9,9 @@ const getBookshelves = async () => {
 const getBooksCount = async () => {
     const res = await fetch('/api/bookshelves/book-count');
     const data = await res.json();
-    console.log(data);
     return data.count;
 }
 const getMyBooksData = async () => {
-    const shelfId = new URL(window.location).toString().split('/')[5];
     let res;
     let data;
 
@@ -68,7 +68,6 @@ const shelvesGen = (bookshelves) => {
 
         return 0;
     });
-    console.log(shelveArr);
     let shelveStr = '';
     for (shelf of shelveArr) {
         shelveStr += `<li><a href='my-books/bookshelf/${shelf.id}'>${shelf.name}</a></li>`;
@@ -150,6 +149,14 @@ const populatePageContent = async () => {
             <a class='added__list-item-link added__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a>
             </li>`
         }
+    }
+
+    // Populate table filter header
+    const filterHeader = document.querySelector('.book-table__shelf-name');
+    if (shelfId) {
+        filterHeader.innerHTML = bookshelves.filter((shelf) => shelf.id === parseInt(shelfId))[0].name;
+    } else {
+        filterHeader.innerHTML = 'All';
     }
 
     // Populate table
