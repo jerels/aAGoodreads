@@ -9,8 +9,9 @@ const { routeHandler } = require('../utils');
 
 router.get('/', routeHandler(async (req, res) => {
     const books = await Book.findAll();
+
     res.json({ books });
-}))
+}));
 
 
 router.get('/:id(\\d+)', routeHandler(async (req, res) => {

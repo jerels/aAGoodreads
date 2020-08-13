@@ -4,7 +4,7 @@ const { routeHandler } = require('../utils');
 
 router.get('/', routeHandler(async (req, res) => {
     res.render('book-page');
-}))
+}));
 
 router.get('/:id(\\d+)', routeHandler(async (req, res) => {
     const id = req.params.id;
