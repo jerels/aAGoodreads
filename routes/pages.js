@@ -1,9 +1,13 @@
-const express =  require('express');
+const express = require('express');
 const router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config').jwtConfig;
-const { User } = require('../db/models');
+const { User, Book } = require('../db/models');
+const { routeHandler } = require('./utils');
+const bookRouter = require('./books');
+
+router.use('/books', bookRouter);
 
 router.get('/', async (req, res) => {
     if (req.cookies.token) {
@@ -20,12 +24,14 @@ router.get('/', async (req, res) => {
             return;
         }
     }
-        res.render('splash');
-})
+    res.render('splash');
+});
 
 router.get('/my-books', (req, res) => {
     res.render('my-books');
 });
+
+
 
 router.get(/[^/api]/, (req, res) => {
     res.render('error-page');

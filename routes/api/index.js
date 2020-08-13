@@ -4,11 +4,13 @@ const router = express.Router();
 const usersRouter = require('./users');
 const { environment } = require('../../config')
 const { ValidationError } = require("sequelize");
+const booksRouter = require('./books');
 
 router.use('/users', usersRouter);
+router.use('/books', booksRouter);
 
 router.use((err, req, res, next) => {
-  if(err instanceof ValidationError){
+  if (err instanceof ValidationError) {
     err.errors = err.errors.map(e => e.message);
   }
   next(err);
@@ -31,7 +33,7 @@ router.get("/", (req, res) => {
 });
 
 router.use('*', (req, res) => {
-  res.status(404).json({ message: 'route does not exist'});
+  res.status(404).json({ message: 'route does not exist' });
 })
 
 module.exports = router;
