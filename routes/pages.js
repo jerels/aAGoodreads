@@ -5,9 +5,11 @@ const jwt = require('jsonwebtoken');
 const { secret } = require('../config').jwtConfig;
 const { User, Book } = require('../db/models');
 const { routeHandler } = require('./utils');
-const bookRouter = require('./books');
+const booksRouter = require('./books');
+const shelfRouter = require('./books/my-books');
 
-router.use('/books', bookRouter);
+router.use('/books', booksRouter);
+router.use('/my-books', shelfRouter);
 
 router.get('/', async (req, res) => {
     if (req.cookies.token) {
@@ -25,10 +27,6 @@ router.get('/', async (req, res) => {
         }
     }
     res.render('splash');
-});
-
-router.get('/my-books', (req, res) => {
-    res.render('my-books');
 });
 
 

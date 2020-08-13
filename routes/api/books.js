@@ -3,7 +3,7 @@ const router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const { secret } = require('../../config').jwtConfig;
-const { Book, Bookshelf, Author, Review } = require('../../db/models');
+const { Book, Bookshelf, Author, Review, Series, Publisher, Genre } = require('../../db/models');
 
 const { routeHandler } = require('../utils');
 
@@ -15,7 +15,12 @@ router.get('/', routeHandler(async (req, res) => {
 
 
 router.get('/:id(\\d+)', routeHandler(async (req, res) => {
-    const book = await Book.findByPk(parseInt(req.params.id));
+    const id = parseInt(req.params.id);
+    const book = await Book.findByPk(id, {
+        include: [{
+            model: Author
+        }]
+    });
 
     res.json({ book });
 }));
