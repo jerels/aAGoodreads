@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/add-review', (req, res) => {
+router.get('/add-review/book/:id(\\d+)', (req, res) => {
     res.render('add-review');
 });
 

@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap');
 
+header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
 .header-container {
     display: flex;
     height: 70px;
@@ -38,12 +44,20 @@ h1 {
     height: 52px;
     width: 185px;
     font-size: 24px;
-    text-decoration: none;
     text-align: center;
     padding-top: 20px;
     color: #878787;
 }
 
+.header__right-item {
+    text-decoration: none;
+}
+
 .header__right-item:hover:not(.header__right-item--profile) {
+    background-color: #d3d3d3;
+}
+
+.selected {
+    text-decoration: underline;
     background-color: #d3d3d3;
 }
