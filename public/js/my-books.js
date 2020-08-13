@@ -1,12 +1,23 @@
 const getBookshelves = async () => {
     const res = await fetch('/api/bookshelves');
     const data = await res.json();
+
     return data.bookshelves;
 }
 
 const getMyBooksData = async () => {
-    const res = await fetch('/api/bookshelves/data');
-    const data = await res.json();
+    const shelfId = new URL(window.location).toString().split('/')[5];
+    let res;
+    let data;
+
+    if (!shelfId) {
+        res = await fetch('/api/bookshelves/data');
+        data = await res.json();
+    } else {
+        res = await fetch(`/api/bookshelves/data/${shelfId}`);
+        data = await res.json();
+    }
+    console.log(data);
     return data;
 }
 
@@ -20,7 +31,7 @@ const getAvgRating = async (book) => {
     if (ratings.length > 0) {
         let avgRating = Number.parseFloat(ratings.reduce((accum, val) => {
             return accum += Number(val.rating)
-        }, 0)/ratings.length).toPrecision(2);
+        }, 0) / ratings.length).toPrecision(2);
         return avgRating;
     }
     return 'N/A';
@@ -38,7 +49,7 @@ const authors = (authors) => {
 
 const shelvesGen = (bookshelves) => {
     let shelveArr = bookshelves.map((bookshelf) => {
-        return {id: bookshelf.id, name: bookshelf.name}
+        return { id: bookshelf.id, name: bookshelf.name }
     }).sort((a, b) => {
         // Sorting shelf names alphabetically
         let nameA = a.name.toUpperCase();
@@ -83,7 +94,7 @@ const readDate = (book) => {
 
     for (shelf of shelveArr) {
         if (shelf.name === 'Read') {
-            return new Date(shelf.readDate).toLocaleString('US-en', {year: 'numeric', month: 'long', day: 'numeric'});
+            return new Date(shelf.readDate).toLocaleString('US-en', { year: 'numeric', month: 'long', day: 'numeric' });
         }
     }
 
@@ -100,7 +111,7 @@ const dateAdded = (book) => {
     });
 
     for (shelf of shelveArr) {
-        return new Date(shelf.readDate).toLocaleString('US-en', {year: 'numeric', month: 'long', day: 'numeric'});
+        return new Date(shelf.readDate).toLocaleString('US-en', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 }
 
@@ -153,6 +164,8 @@ const populatePageContent = async () => {
 
 }
 
+populatePageContent();
+
 document.addEventListener('DOMContentLoaded', () => {
     const addBookshelfForm = document.querySelector('.add-bookshelf-form');
     addBookshelfForm.addEventListener('submit', async event => {
@@ -177,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!/delete-book-\d+/.test(event.target.id)) {
             return;
         }
-        const [,, id]= event.target.id.split('-');
+        const [, , id] = event.target.id.split('-');
 
         const res = await fetch(`/api/bookshelves/book/${id}`, {
             method: 'DELETE',
@@ -191,6 +204,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 });
-
-
-populatePageContent();

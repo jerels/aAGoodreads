@@ -26,6 +26,22 @@ router.get('/', routeHandler(async (req, res) => {
     });
 }));
 
+router.get('/:id(\\d+)', routeHandler(async (req, res) => {
+    const { token } = req.cookies;
+    const { id } = jwt.verify(token, secret).data;
+
+    const bookshelf = await Bookshelf.findOne({
+        where: {
+            userId: id,
+            id: parseInt(req.params.id)
+        }
+    });
+
+    res.json({
+        bookshelf
+    });
+}));
+
 router.get('/data', routeHandler(async (req, res) => {
     const { token } = req.cookies;
     const { id } = jwt.verify(token, secret).data;
@@ -59,7 +75,43 @@ router.get('/data', routeHandler(async (req, res) => {
     res.json({
         books
     });
-}))
+}));
+
+router.get('/data/:id(\\d+)', routeHandler(async (req, res) => {
+    const { token } = req.cookies;
+    const { id } = jwt.verify(token, secret).data;
+
+    const books = await Book.findAll({
+        attributes: ['id', 'title', 'cover'],
+        include: [
+            {
+                model: Bookshelf,
+                attributes: ['id', 'name'],
+                where: {
+                    id: parseInt(req.params.id),
+                    userId: id
+                },
+                through: {
+                    attributes: ['createdAt']
+                }
+            },
+            {
+                model: Author,
+                attributes: ['firstName', 'lastName']
+            }, {
+                model: Review,
+                attributes: ['rating'],
+                where: {
+                    userId: id
+                }
+            }
+        ]
+    });
+
+    res.json({
+        books
+    });
+}));
 
 router.post('/', routeHandler(async (req, res) => {
     const { token } = req.cookies;

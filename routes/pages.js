@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config').jwtConfig;
 const { User } = require('../db/models');
+const { routeHandler } = require('./utils');
 
 router.get('/', async (req, res) => {
     if (req.cookies.token) {
@@ -21,7 +22,11 @@ router.get('/', async (req, res) => {
         }
     }
         res.render('splash');
-})
+});
+
+router.get('/my-books/bookshelf/:id(\\d+)', routeHandler(async (req, res) => {
+    res.render('my-books');
+}))
 
 router.get('/my-books', (req, res) => {
     if (!req.cookies.token) {
