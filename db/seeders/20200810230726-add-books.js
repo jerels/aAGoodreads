@@ -15,7 +15,7 @@ module.exports = {
       {
         title: "Harry Potter and the Chamber of Secrets",
         summary: `Ever since Harry Potter had come home for the summer, the Dursleys had been so mean and hideous that all Harry wanted was to get back to the Hogwarts School for Witchcraft and Wizardry. But just as he’s packing his bags, Harry receives a warning from a strange impish creature who says that if Harry returns to Hogwarts, disaster will strike. And strike it does. For in Harry’s second year at Hogwarts, fresh torments and horrors arise, including an outrageously stuck-up new professor and a spirit who haunts the girls’ bathroom. But then the real trouble begins – someone is turning Hogwarts students to stone. Could it be Draco Malfoy, a more poisonous rival than ever? Could it possible be Hagrid, whose mysterious past is finally told? Or could it be the one everyone at Hogwarts most suspects… Harry Potter himself!`,
-        cover: 'https://www.goodreads.com/book/photo/15881.Harry_Potter_and_the_Chamber_of_Secrets',
+        cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1474169725l/15881._SY475_.jpg',
         ISBN: '0439064864',
         publishingDate: new Date('June 2 1999'),
         publisherId: 1,
@@ -24,7 +24,7 @@ module.exports = {
       {
         title: 'Harry Potter and the Prisoner of Azkaban',
         summary: `Harry Potter's third year at Hogwarts is full of new dangers. A convicted murderer, Sirius Black, has broken out of Azkaban prison, and it seems he's after Harry. Now Hogwarts is being patrolled by the dementors, the Azkaban guards who are hunting Sirius. But Harry can't imagine that Sirius or, for that matter, the evil Lord Voldemort could be more frightening than the dementors themselves, who have the terrible power to fill anyone they come across with aching loneliness and despair. Meanwhile, life continues as usual at Hogwarts. A top-of-the-line broom takes Harry's success at Quidditch, the sport of the Wizarding world, to new heights. A cute fourth-year student catches his eye. And he becomes close with the new Defense of the Dark Arts teacher, who was a childhood friend of his father. Yet despite the relative safety of life at Hogwarts and the best efforts of the dementors, the threat of Sirius Black grows ever closer. But if Harry has learned anything from his education in wizardry, it is that things are often not what they seem. Tragic revelations, heartwarming surprises, and high-stakes magical adventures await the boy wizard in this funny and poignant third installment of the beloved series.`,
-        cover: 'https://www.goodreads.com/book/photo/5.Harry_Potter_and_the_Prisoner_of_Azkaban',
+        cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1499277281l/5.jpg',
         ISBN: '043965548X',
         publishingDate: new Date('September 8 1999'),
         publisherId: 1,

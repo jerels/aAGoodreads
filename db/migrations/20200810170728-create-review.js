@@ -16,7 +16,11 @@ module.exports = {
         }
       },
       rating: {
-        type: Sequelize.NUMERIC(2, 1)
+        type: Sequelize.NUMERIC(2, 1),
+        validate: {
+          min: 0,
+          max: 5
+        }
       },
       bookId: {
         allowNull: false,

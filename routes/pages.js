@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
+const myBooksRouter = require('./my-books');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config').jwtConfig;
-const { User, Book } = require('../db/models');
+const { User } = require('../db/models');
 const { routeHandler } = require('./utils');
-const bookRouter = require('./books');
 
-router.use('/books', bookRouter);
+router.use('/my-books', myBooksRouter);
 
-router.get('/', async (req, res) => {
+router.get('/', routeHandler(async (req, res) => {
     if (req.cookies.token) {
         const { token } = req.cookies;
         const payload = jwt.verify(token, secret);
@@ -25,11 +25,7 @@ router.get('/', async (req, res) => {
         }
     }
     res.render('splash');
-});
-
-router.get('/my-books', (req, res) => {
-    res.render('my-books');
-});
+}));
 
 
 
