@@ -1,0 +1,28 @@
+extends layout.pug
+
+append head
+    link(rel='stylesheet' type='text/css' href='/public/css/books-browse.css')
+    link(rel='stylesheet' type='text/css' href='/public/css/header.css')
+    link(rel='stylesheet' type='text/css' href='/public/css/footer.css')
+
+block content
+    div
+      table
+        thead(class='thead-dark')
+            tr
+              th(scope='col') Cover
+              th(scope='col') Title
+              th(scope='col') Publisher
+              th(scope='col') Authors
+        tbody
+            each book in books
+              tr
+                td(class="cover")
+                  img(src=book.cover)
+                td
+                  a(href= `./books/${book.id}`)= book.title
+                td(class="publisher")
+                  div= book.Publisher.name
+                td
+                  each author in book.Authors
+                    div= author.firstName+' '+author.lastName

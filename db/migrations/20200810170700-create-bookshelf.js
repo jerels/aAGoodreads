@@ -20,6 +20,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {model: "Users"}
       },
+      defaultShelf: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

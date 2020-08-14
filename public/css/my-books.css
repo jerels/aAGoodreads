@@ -5,6 +5,61 @@
     margin: 0;
 }
 
+footer.footer {
+    margin: 0;
+}
+
 body {
     font-family: Helvetica;
+}
+
+.content-container {
+    min-height: 750px;
+    display: flex;
+}
+
+.content__left-bar {
+    min-height: 750px;
+    width: 210px;
+    margin-left: 160px;
+    background-color: #789DC4;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.content__book-table {
+    margin: 0;
+}
+
+.book-table__item--header {
+    margin-left: 20px;
+}
+
+table {
+    margin-top: -20px;
+    border-spacing: 20px;
+}
+
+.default__item--list {
+    list-style: none;
+}
+
+.content__added-bookshelves {
+    margin-top: 16px;
+}
+
+.content__added-bookshelves--list {
+    list-style: none;
+}
+
+.cover {
+    height: 120px;
+    width: 80px;
+}
+
+.title-cell {
+    width: 140px;
+}
+
+table li {
+    list-style: none;
 }
