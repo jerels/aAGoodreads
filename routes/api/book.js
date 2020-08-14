@@ -3,7 +3,7 @@ const router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const { secret } = require('../../config').jwtConfig;
-const { Book, Bookshelf, Author, Review } = require('../../db/models');
+const { Book, Bookshelf, Author, Review, Publisher, Genre, Series } = require('../../db/models');
 
 const { routeHandler } = require('../utils');
 
@@ -17,9 +17,6 @@ router.get('/', routeHandler(async (req, res) => {
     res.json({
         books
     });
-
-    res.render('books-browse', { title: "Browse Books", books });
-
 
 }));
 

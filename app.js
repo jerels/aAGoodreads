@@ -9,8 +9,6 @@ const pagesRouter = require('./routes/pages');
 const app = express();
 app.set('view engine', 'pug');
 
-
-
 app.use(morgan('dev'));
 // Adds cookies to req.cookies
 app.use(cookieParser());
@@ -18,7 +16,10 @@ app.use(cookieParser());
 app.use(express.json());
 // Converts url encoded data to body object
 app.use(express.urlencoded({ extended: false }));
+
+// Serve static files from public folder
 app.use('/public', express.static('public'));
+
 app.use('/api', apiRouter);
 app.use('/', pagesRouter);
 
