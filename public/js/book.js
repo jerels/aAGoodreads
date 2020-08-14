@@ -32,7 +32,9 @@ async function getReviews() {
 
 readButton.addEventListener('submit', async e => {
     e.preventDefault();
-    const res = await fetch(`/api/books/${id}/read`);
+    const res = await fetch(`/api/books/${id}/read`, {
+        method: 'PATCH'
+    });
 })
 
 getBook();
