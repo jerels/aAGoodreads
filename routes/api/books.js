@@ -3,7 +3,7 @@ const router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const { secret } = require('../../config').jwtConfig;
-const { Book, Bookshelf, Author, Review, Series, Publisher, Genre, Bookbookshelf } = require('../../db/models');
+const { Book, Bookshelf, Author, Review, Series, Publisher, Genre, BookBookshelf } = require('../../db/models');
 
 const { routeHandler } = require('../utils');
 
@@ -40,23 +40,24 @@ router.get('/:id(\\d+)/read', routeHandler(async (req, res) => {
     const userId = data.data.id;
     const shelf = await Bookshelf.findOne({
         where: {
-            name: Read,
+            name: "Read",
             userId: userId
         }
     });
 
     if (!shelf) {
         const readShelf = await Bookshelf.create({
-            name: Read,
-            userId: userId
+            name: "Read",
+            userId: userId,
+            defaultShelf: true
         });
 
-        await Bookbookshelf.create({
+        await BookBookshelf.create({
             bookId: bookId,
             bookshelfId: readShelf.id
         });
     } else {
-        const readBook = await Bookbookshelf.findOne({
+        const readBook = await BookBookshelf.findOne({
             where: {
                 bookId: bookId,
                 bookshelfId: shelf.id
@@ -64,7 +65,7 @@ router.get('/:id(\\d+)/read', routeHandler(async (req, res) => {
         });
 
         if (!readBook) {
-            await Bookbookshelf.create({
+            await BookBookshelf.create({
                 bookId: bookId,
                 bookshelfId: shelf.id
             });

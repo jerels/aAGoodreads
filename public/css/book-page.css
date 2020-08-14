@@ -5,6 +5,7 @@
 }
 
 .page-container {
+    font-family: 'Merriweather', serif;
     display: grid;
     justify-content: center;
     text-align: left;
@@ -30,29 +31,43 @@
     font-family: 'Merriweather', serif;
 }
 
-.title-container {
-    grid-area: title;
+#title {
     font-family: 'Merriweather', serif;
-    font-size: 15px;
-    width: 100%;
+    font-size: 24px;
     font-weight: bold;
     color: #333333;
     line-height: 1.2;
+    display: grid;
+    justify-self: left;
+
+}
+
+#series {
+    font-family: 'Merriweather', serif;
+    color: #999999;
+    font-size: 18px;
+}
+
+#author {
+    font-family: 'Merriweather', serif;
+    font-weight: lighter;
+    font-size: 16px;
+}
+
+.title-container {
+    grid-area: title;
+    width: 100%;
     margin-top: 10px;
 }
 
 .series-container {
     grid-area: info;
-    font-family: 'Merriweather', serif;
-    color: #999999;
     margin-top: 0px;
     padding-top: 0px;
 }
 
 .author-container {
     grid-area: author;
-    font-family: 'Merriweather', serif;
-    font-weight: lighter;
 }
 
 .read-button {

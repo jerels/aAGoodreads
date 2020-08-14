@@ -32,7 +32,12 @@ async function getReviews() {
 
 readButton.addEventListener('click', async e => {
     e.preventDefault();
-    const res = await fetch(`/api/books/${id}/read`);
+    await fetch(`/api/books/${id}/read`);
+    if (res.ok) {
+        readButton.innerHTML = "";
+        readButton.innerHTML = "Read";
+    }
+
 })
 
 getBook();
