@@ -2,10 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const usersRouter = require('./users');
+const bookshelfRouter = require('./bookshelf');
+const bookRouter = require('./book');
 const { environment } = require('../../config')
 const { ValidationError } = require("sequelize");
 
 router.use('/users', usersRouter);
+router.use('/bookshelves', bookshelfRouter);
+router.use('/books', bookRouter);
 
 router.use((err, req, res, next) => {
   if(err instanceof ValidationError){

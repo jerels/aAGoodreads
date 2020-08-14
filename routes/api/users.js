@@ -10,6 +10,7 @@ const { secret, expiresIn } = require('../../config').jwtConfig;
 const db = require('../../db/models');
 const { Op } = require("sequelize");
 const { User } = db;
+const { createDefaultBookshelves } = require('../utils/defaultBookshelf');
 
 
 const { check, validationResult } = require('express-validator');
@@ -45,6 +46,10 @@ router.post("/", validateName, validateAuth, handleValidationErrors, routeHandle
     firstName,
     lastName,
   });
+
+  console.log(user);
+  // Create default user bookshelves All, Read, Currently Reading, Want to Read
+  await createDefaultBookshelves(user);
 
   const token = await getUserToken(user);
   res.cookie('token', token, {maxAge: expiresIn * 1000});
