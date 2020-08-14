@@ -9,11 +9,18 @@ const { routeHandler } = require('../utils');
 
 router.get('/', routeHandler(async (req, res) => {
 
+
     const books = await Book.findAll({
+        include: [{ model: Publisher }, { model: Author }, { model: Genre }, { model: Review }, { model: Series }],
     });
+
     res.json({
         books
     });
+
+    res.render('books-browse', { title: "Browse Books", books });
+
+
 }));
 
 router.get('/:id(\\d+)', routeHandler(async (req, res) => {
