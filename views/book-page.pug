@@ -7,11 +7,17 @@ append head
 	link(rel='stylesheet' href='/public/css/footer.css')
 block content
 	include include/header.pug
-	.hidden #{bookId}
-	.title-container
-		h1#title
-	.cover-container
-		img#cover
-	.sum-container
-		#summary
+	.page-container
+		.hidden #{bookId}
+		.title-container
+			h1#title
+			.series-container
+				h2#series
+			.author-container
+				h3#author
+		.cover-container
+			img#cover
+			button(type="submit" action='PUT').read-button Already Read?
+		.sum-container
+			#summary
 	include include/footer.pug
