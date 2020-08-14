@@ -1,9 +1,23 @@
 extends layout.pug
 
 append head
-    link(rel='stylesheet' type='text/css' href='/public/css/header.css')
-    link(rel='stylesheet' type='text/css' href='/public/css/footer.css')
-
+	script(src='/public/js/book.js' type='module' defer)
+	link(rel='stylesheet' href='/public/css/book-page.css')
+	link(rel="stylesheet" href="/public/css/header.css")
+	link(rel='stylesheet' href='/public/css/footer.css')
 block content
-  .hidden(display='none') #{bookId}
-  .cover-container
+	include include/header.pug
+	.page-container
+		.hidden #{bookId}
+		.title-container
+			h1#title
+			.series-container
+				h2#series
+			.author-container
+				h3#author
+		.cover-container
+			img#cover
+			button(type="submit" action='PUT').read-button Already Read?
+		.sum-container
+			#summary
+	include include/footer.pug
