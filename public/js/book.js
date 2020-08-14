@@ -30,11 +30,9 @@ async function getReviews() {
     const reviews = await res.json();
 };
 
-readButton.addEventListener('submit', async e => {
+readButton.addEventListener('click', async e => {
     e.preventDefault();
-    const res = await fetch(`/api/books/${id}/read`, {
-        method: 'PATCH'
-    });
+    const res = await fetch(`/api/books/${id}/read`);
 })
 
 getBook();

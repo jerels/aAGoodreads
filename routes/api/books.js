@@ -3,7 +3,7 @@ const router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const { secret } = require('../../config').jwtConfig;
-const { Book, Bookshelf, Author, Review, Series, Publisher, Genre } = require('../../db/models');
+const { Book, Bookshelf, Author, Review, Series, Publisher, Genre, Bookbookshelf } = require('../../db/models');
 
 const { routeHandler } = require('../utils');
 
@@ -33,8 +33,44 @@ router.get('/:id(\\d+)/reviews', routeHandler(async (req, res) => {
     res.json({ reviews });
 }));
 
-router.patch('/:id(\\d+)/read', routeHandler(async (req, res) => {
-    console.log(req.cookie);
-}))
+router.get('/:id(\\d+)/read', routeHandler(async (req, res) => {
+    const bookId = parseInt(req.params.id);
+    const { token } = req.cookies;
+    const data = await jwt.verify(token, secret);
+    const userId = data.data.id;
+    const shelf = await Bookshelf.findOne({
+        where: {
+            name: Read,
+            userId: userId
+        }
+    });
+
+    if (!shelf) {
+        const readShelf = await Bookshelf.create({
+            name: Read,
+            userId: userId
+        });
+
+        await Bookbookshelf.create({
+            bookId: bookId,
+            bookshelfId: readShelf.id
+        });
+    } else {
+        const readBook = await Bookbookshelf.findOne({
+            where: {
+                bookId: bookId,
+                bookshelfId: shelf.id
+            }
+        });
+
+        if (!readBook) {
+            await Bookbookshelf.create({
+                bookId: bookId,
+                bookshelfId: shelf.id
+            });
+        }
+    }
+
+}));
 
 module.exports = router;
