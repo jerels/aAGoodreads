@@ -11,7 +11,7 @@ const booksRouter = require('./books');
 
 router.use('/books', booksRouter);
 router.use('/my-books', myBooksRouter);
-router.use('/books', browseRouter);
+router.use('/browse', browseRouter);
 
 router.get('/', routeHandler(async (req, res) => {
     if (req.cookies.token) {
@@ -28,10 +28,6 @@ router.get('/', routeHandler(async (req, res) => {
             return;
         }
     }
-<<<<<<< HEAD
-    res.render('splash');
-=======
->>>>>>> 75a3b95d57022c3562f5ffe6c2255f9617d7341e
 }));
 
 
