@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap');
 
+
 header {
     position: sticky;
-    top: 0;
+    top: auto;
     background-color: white;
 }
 
 .header-container {
     display: flex;
-    height: 70px;
+    height: auto;
     border-bottom: 2px solid #A0A0A0;
 }
 
 .header__left {
-    margin: -12px 0 auto 120px;
     font-family: 'Manrope', sans-serif;
     font-size: 28px;
 }
@@ -35,24 +35,21 @@ h1 {
 
 .header__right {
     display: flex;
-    margin-left: 38%;
-    margin-top: -2px;
+    margin-left: 30%;
 }
 
 .header__right-item--profile-pic {
     border-radius: 50%;
     margin-top: 6px;
-    margin-left: 60px;
+    margin-left: 10%;
+    padding: 10%;
 }
 
 .header__right-item:not(.header__right-item--profile) {
-    display: block;
-    height: 52px;
-    width: 185px;
-    font-size: 24px;
+    margin-top: 10%;
+    font-size: 100%;
     text-decoration: none;
     text-align: center;
-    padding-top: 20px;
     color: #878787;
 }
 
@@ -89,3 +86,29 @@ h1 {
   .dropDown:hover .dropContent {
     display: block;
   }
+
+  #myInput {
+      display: flex;
+      padding: 1%;
+      margin-left: 5%;
+      margin-right: 5%;
+      margin-top: 10%;
+  }
+
+  .header__right-item--home{
+      display: flex;
+      margin-left: 5%;
+      margin-right: 5%;
+  }
+
+  .header__right-item--my-books{
+    display: flex;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+  .header__right-item--browse{
+    display: flex;
+    margin-left: 5%;
+    margin-right: 5%;
+}

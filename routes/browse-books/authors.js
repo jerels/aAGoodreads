@@ -15,13 +15,26 @@ router.get('/:id', routeHandler(async (req, res) => {
     const id = req.params.id;
     const authors = await Author.findAll({
         where: {
-            name: {
-                [Op.substring]: id,
-            },
+            [Op.or]: [
+                {
+                    lastName: {
+                        [Op.substring]: id,
+                    }
+                },
+                {
+                    firstName: {
+                        [Op.substring]: id,
+                    }
+                },
+            ]
         },
         include: [{ model: Book }, { model: Series }],
     });
-    res.render('authors-browse', { title: "Browse Authors", authors })
+    if (authors.length === 0) {
+        res.render('nothing-is-here', { title: "Nothing to Find" })
+    } else {
+        res.render('authors-browse', { title: "Browse Authors", authors })
+    }
 }));
 
 module.exports = router;

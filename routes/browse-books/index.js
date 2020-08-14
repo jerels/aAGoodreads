@@ -13,12 +13,7 @@ router.use('/Authors', authorRouter);
 router.use('/Genres', genreRouter);
 
 router.get('/', routeHandler(async (req, res) => {
-    const books = await Book.findAll({
-        include: [{ model: Publisher }, { model: Author }, { model: Genre }, { model: Review }, { model: Series }],
-    });
-
-    res.render('books-browse', { title: "Browse Books", books })
-
+    res.redirect('/browse/Titles');
 }));
 
 module.exports = router;

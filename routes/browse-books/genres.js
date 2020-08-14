@@ -10,6 +10,7 @@ router.get('/', routeHandler(async (req, res) => {
     });
 
     res.render('genre-browse', { title: "Browse Books", genres })
+
 }));
 
 router.get('/:id', routeHandler(async (req, res) => {
@@ -22,8 +23,11 @@ router.get('/:id', routeHandler(async (req, res) => {
         },
         include: [{ model: Book }, { model: Series }],
     });
-
-    res.render('genre-browse', { title: "Browse Books", genres })
+    if (genres.length === 0) {
+        res.render('nothing-is-here', { title: "Nothing to Find" })
+    } else {
+        res.render('genre-browse', { title: "Browse Books", genres })
+    }
 }));
 
 module.exports = router;

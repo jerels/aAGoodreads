@@ -2,7 +2,6 @@
 
 * {
     padding: 0;
-    margin: 0;
 }
 
 body {
@@ -16,21 +15,18 @@ img {
 
 table {
     display: inline-block;
-    margin: 20px;
+    margin: 5%;
     background-color: grey;
+    margin-left: 50%;
+    margin-right: 5%;
 }
 
 
-td.cover {
-    display: flex;
-    justify-content: center;
-}
-
-td.publisher {
+.cover {
     display: flex;
     justify-content: center;
 }
 
 table, th, td {
     border: 1px solid black;
-  }
+}

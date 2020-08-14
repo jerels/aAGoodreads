@@ -22,7 +22,12 @@ router.get('/:id', routeHandler(async (req, res) => {
         },
         include: [{ model: Publisher }, { model: Author }, { model: Genre }, { model: Review }, { model: Series }],
     });
-    res.render('books-browse', { title: "Browse Books", books })
+    if (books.length === 0) {
+        res.render('nothing-is-here', { title: "Nothing to Find" })
+    } else {
+        res.render('books-browse', { title: "Browse Books", books });
+    }
+
 }));
 
 module.exports = router;
