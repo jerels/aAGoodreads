@@ -13,11 +13,14 @@ header {
     border-bottom: 2px solid #A0A0A0;
 }
 
+<<<<<<< HEAD
 .header__left {
     font-family: 'Manrope', sans-serif;
     font-size: 28px;
 }
 
+=======
+>>>>>>> 16420e9ed12ffbb208af54dd75621af3a5e7d2e9
 h1 {
     margin: -14px 0 auto 136px;
     font-family: 'Manrope', sans-serif;

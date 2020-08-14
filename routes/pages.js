@@ -28,7 +28,10 @@ router.get('/', routeHandler(async (req, res) => {
             return;
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16420e9ed12ffbb208af54dd75621af3a5e7d2e9
     res.render('splash');
 }));
 

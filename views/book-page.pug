@@ -6,7 +6,6 @@ append head
 	link(rel="stylesheet" href="/public/css/header.css")
 	link(rel='stylesheet' href='/public/css/footer.css')
 block content
-	include include/header.pug
 	.page-container
 		.hidden #{bookId}
 		.title-container
@@ -20,4 +19,3 @@ block content
 			button(type="submit" action='PUT').read-button Already Read?
 		.sum-container
 			#summary
-	include include/footer.pug
