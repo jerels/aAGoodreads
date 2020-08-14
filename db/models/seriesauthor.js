@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   SeriesAuthor.init({
-    genreId: DataTypes.INTEGER,
-    author: DataTypes.INTEGER
+    seriesId: DataTypes.INTEGER,
+    authorId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'SeriesAuthor',

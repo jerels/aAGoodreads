@@ -37,6 +37,7 @@ h1 {
     display: flex;
     margin-left: 38%;
     margin-top: -2px;
+    overflow: hidden;
 }
 
 .header__right-item--profile-pic {
@@ -59,3 +60,33 @@ h1 {
 .header__right-item:hover:not(.header__right-item--profile) {
     background-color: #d3d3d3;
 }
+
+.dropDown {
+    float: left;
+}
+
+.dropContent {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropContent a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .dropContent a:hover {
+    background-color: grey;
+  }
+
+  .dropDown:hover .dropContent {
+    display: block;
+  }
