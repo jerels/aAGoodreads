@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Red+Rose:wght@300;400;700&display=swap');
 
+* {
+    padding: 0;
+    margin: 0;
+}
+
 .hidden {
     display: none;
 }
 
 .page-container {
+    font-family: 'Merriweather', serif;
     display: grid;
     justify-content: center;
     text-align: left;
@@ -15,6 +21,7 @@
         'button info .'
         '. author .'
         '. summary .'
+        '. reviews .'
     ;
 }
 
@@ -30,32 +37,70 @@
     font-family: 'Merriweather', serif;
 }
 
-.title-container {
-    grid-area: title;
+.review-container {
+    grid-area: reviews;
+    margin-top: 20px;
+}
+
+#review-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#review {
+    border: 1px solid black
+}
+
+#user-info {
+    font-size: 10px;
+    color: #999999;
+}
+
+#title {
     font-family: 'Merriweather', serif;
-    font-size: 15px;
-    width: 100%;
+    font-size: 24px;
     font-weight: bold;
     color: #333333;
     line-height: 1.2;
+    display: grid;
+    justify-self: left;
+
+}
+
+#series {
+    font-family: 'Merriweather', serif;
+    color: #999999;
+    font-size: 18px;
+}
+
+#author {
+    font-family: 'Merriweather', serif;
+    font-weight: lighter;
+    font-size: 16px;
+}
+
+.title-container {
+    grid-area: title;
+    width: 100%;
     margin-top: 10px;
 }
 
 .series-container {
     grid-area: info;
-    font-family: 'Merriweather', serif;
-    color: #999999;
     margin-top: 0px;
     padding-top: 0px;
 }
 
 .author-container {
     grid-area: author;
-    font-family: 'Merriweather', serif;
-    font-weight: lighter;
 }
 
 .read-button {
     grid-area: button;
     justify-self: center;
+}
+
+.green-button {
+    background-color: green;
+    color: yellow;
 }
