@@ -9,16 +9,16 @@ body {
 }
 
 img {
-    max-width: 50%;
+    max-width: 100%;
     height: auto;
 }
 
 table {
     display: inline-block;
-    margin: 5%;
+    margin: 1%;
     background-color: grey;
-    margin-left: 50%;
-    margin-right: 5%;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 

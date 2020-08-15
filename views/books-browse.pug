@@ -1,6 +1,7 @@
 extends layout.pug
 
 append head
+    script(src='/public/js/book.js' type='module' defer)
     link(rel='stylesheet' type='text/css' href='/public/css/books-browse.css')
     link(rel='stylesheet' type='text/css' href='/public/css/header.css')
     link(rel='stylesheet' type='text/css' href='/public/css/footer.css')
@@ -22,7 +23,7 @@ block content
                 td(class="cover")
                   img(src=book.cover)
                 td
-                  a(href= `./books/${book.id}`)= book.title
+                  a(href= `../books/${book.id}`)= book.title
                 td
                   each author in book.Authors
                     div= author.firstName+' '+author.lastName
