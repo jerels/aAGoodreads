@@ -16,7 +16,7 @@ module.exports = {
         }
       },
       rating: {
-        type: Sequelize.NUMERIC(2, 1),
+        type: Sequelize.INTEGER,
         validate: {
           min: 0,
           max: 5

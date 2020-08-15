@@ -80,10 +80,10 @@ const editOrWriteReview = (book) => {
     let linkStr = '';
 
     if (!book.Reviews.length) {
-        return `<a href='/books/${book.id}/review'>Write a review</a>`
+        return `<a href='/reviews/add/book/${book.id}'>Write a review</a>`
     }
 
-    return `<a href='/books/${book.id}/review'>Edit your review</a>`;
+    return `<a href='/reviews/edit/book/${book.id}'>Edit your review</a>`;
 }
 
 const readDate = (book) => {
@@ -127,6 +127,9 @@ const populatePageContent = async () => {
 
     // Get related books
     const myBooksData = await getMyBooksData();
+
+    // Add selected class to My Books button
+    const myBooksButton = document.querySelector('.header__right-item--my-books').classList.add('selected');
 
     // Populate the Bookshelf list
     const defaultShelfList = document.querySelector('.default__item--list');
