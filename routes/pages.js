@@ -28,6 +28,7 @@ router.get('/', routeHandler(async (req, res) => {
             return;
         }
     }
+
     res.render('splash');
 }));
 

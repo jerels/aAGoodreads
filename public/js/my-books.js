@@ -1,4 +1,4 @@
-const [,,,,, shelfId] = new URL(window.location).toString().split('/');
+const [, , , , , shelfId] = new URL(window.location).toString().split('/');
 
 const getBookshelves = async () => {
     const res = await fetch('/api/bookshelves');

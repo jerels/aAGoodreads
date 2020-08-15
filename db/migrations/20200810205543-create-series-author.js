@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      genreId: {
+      seriesId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Genres'
+          model: 'Series'
         }
       },
       authorId: {

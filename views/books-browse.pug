@@ -12,8 +12,10 @@ block content
             tr
               th(scope='col') Cover
               th(scope='col') Title
-              th(scope='col') Publisher
               th(scope='col') Authors
+              th(scope='col') Series
+              th(scope='col') Genres
+              th(scope='col') Publisher
         tbody
             each book in books
               tr
@@ -21,8 +23,12 @@ block content
                   img(src=book.cover)
                 td
                   a(href= `./books/${book.id}`)= book.title
-                td(class="publisher")
-                  div= book.Publisher.name
                 td
                   each author in book.Authors
                     div= author.firstName+' '+author.lastName
+                td= book.Series.name
+                td
+                  each genre in book.Genres
+                    div= genre.name
+                td(class="publisher")
+                  div= book.Publisher.name
