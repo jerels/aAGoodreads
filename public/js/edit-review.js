@@ -1,24 +1,37 @@
 const bookId = new URL(window.location).toString().split('/')[6];
+let rating;
 
 const getBook = async () => {
     const res = await fetch(`/api/books/${bookId}`);
     const data = await res.json();
     return data.book;
+};
+
+const getReview = async () => {
+    const res = await fetch(`/api/reviews/${bookId}`);
+    const data = await res.json();
+    return data.review;
 }
 
 const populateBookContent = async () => {
     const book = await getBook();
 
     const header = document.querySelector('.body-header-container__item');
-    header.innerHTML = `<a href='/books/${bookId}'>${book.title}</a> &gt; Add Review`;
+    header.innerHTML = `<a href='/books/${bookId}'>${book.title}</a> &gt; Edit Review`;
 
     const cover = document.querySelector('.book-container__item--cover').src = book.cover;
+};
+
+const populateReviewContent = async () => {
+    const review = await getReview();
+    document.querySelector('.review-container__item--content').value = review.content;
+    rating = review.rating;
 }
 
-populateBookContent();
 
 document.addEventListener('DOMContentLoaded', event => {
-    let rating;
+    populateBookContent();
+    populateReviewContent();
 
     document.querySelector('.stars').addEventListener('click', event => {
         event.stopPropagation();
@@ -38,19 +51,17 @@ document.addEventListener('DOMContentLoaded', event => {
             bookId,
             content: formData.get('content'),
             rating
-        };
-
+        }
         const res = await fetch('/api/reviews', {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
 
-        if (res.ok)
-        {
-            window.location.href = '/my-books';
+        if (res.ok) {
+            window.location.href = '/my-books'
         }
     });
 });
