@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap');
 
-
 header {
     position: sticky;
     top: 0;
@@ -51,6 +50,10 @@ h1 {
     text-decoration: none;
     text-align: center;
     color: #878787;
+}
+
+.header__right-item {
+    text-decoration: none;
 }
 
 .header__right-item:hover:not(.header__right-item--profile) {
@@ -111,4 +114,9 @@ h1 {
     display: flex;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+.selected {
+    text-decoration: underline;
+    background-color: #d3d3d3;
 }
