@@ -4,10 +4,9 @@ append head
     link(rel='stylesheet' type='text/css' href='/public/css/footer.css')
     link(rel='stylesheet' type='text/css' href='/public/css/add-review.css')
     link(rel='stylesheet' type='text/css' href='/public/css/header.css')
-    script(src='/public/js/add-review.js')
+    script(src='/public/js/add-review.js' type='module' defer)
 
 block content
-    include include/header.pug
     .body-content-container
         .body-header-container
             h3(class='body-header-container__item body-header-container__item--text')
@@ -42,7 +41,6 @@ block content
                         select(class='shelves-container__select' id='bookshelves')
                 .review-content-container
                     label(for='content') What did you think?
-                    textarea(class='review-container__item review-container__item--content' id='content' placeholder='Enter your review')
+                    textarea(class='review-container__item review-container__item--content' name='content' id='content' placeholder='Enter your review')
                 .submit-container
                     button(type="submit") Post
-    include include/footer.pug
