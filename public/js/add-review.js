@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', event => {
             rating
         }
         const res = await fetch('/api/reviews', {
-            method: 'PUT',
+            method: 'POST',
             body: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json'
