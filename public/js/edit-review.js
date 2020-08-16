@@ -42,6 +42,12 @@ const populateReviewContent = async () => {
     const review = await getReview();
     document.querySelector('.review-container__item--content').value = review.content;
     rating = review.rating;
+
+    if (/[0-5]/.test(rating)) {
+        for(let i = 1; i <= Number(rating); i++) {
+            document.querySelector(`#star-path-${i}`).classList.add('star-on-permanent');
+        }
+    }
 };
 
 const populateCreatedShelves = async () => {
@@ -78,7 +84,7 @@ document.addEventListener('DOMContentLoaded', event => {
     populateBookContent();
 
     const stars = document.querySelector('.stars');
-    let clickListener = true;
+    let clickListener = false;
 
     const handleStarMouseover = (event) => {
         event.stopPropagation();
@@ -110,7 +116,6 @@ document.addEventListener('DOMContentLoaded', event => {
         }
     }
 
-    stars.addEventListener('mouseover', handleStarMouseover);
     stars.addEventListener('mouseout', handleStarMouseout);
 
     const handleStarClick = (event) => {
@@ -144,7 +149,7 @@ document.addEventListener('DOMContentLoaded', event => {
         stars.addEventListener('mouseover', handleStarMouseover);
     });
 
-    document.querySelector('.shelf-arrow-placeholder').addEventListener('click', event => {
+    document.querySelector('.select-shelves-placeholder').addEventListener('click', event => {
         document.querySelector('.shelve-list-container').classList.toggle('hidden');
     });
 
