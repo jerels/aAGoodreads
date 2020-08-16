@@ -131,6 +131,9 @@ svg {
     display: inline-block;
     margin-left: 1vw;
     margin-top: 0.4vh;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .shelve-list-container {

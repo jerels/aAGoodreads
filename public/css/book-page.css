@@ -5,6 +5,10 @@
     margin: 0;
 }
 
+body:not(header, footer) {
+    font-family: Helvetica;
+}
+
 .hidden {
     display: none;
 }
@@ -14,15 +18,17 @@
     display: grid;
     justify-content: center;
     text-align: left;
-    grid-template-columns: 150px 452px 300px;
+    grid-template-columns: 180px 452px 300px;
     grid-template-rows: auto;
     grid-template-areas:
         'cover title .'
-        'button info .'
+        'shelves info .'
         '. author .'
         '. summary .'
         '. reviews .'
     ;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
 }
 
 #cover {
@@ -40,6 +46,7 @@
 .review-container {
     grid-area: reviews;
     margin-top: 20px;
+    margin-left: 2vw;
 }
 
 #review-title {
@@ -79,10 +86,15 @@
     font-size: 16px;
 }
 
+#summary {
+    margin-left: 2vw;
+}
+
 .title-container {
     grid-area: title;
     width: 100%;
     margin-top: 10px;
+    margin-left: 2vw;
 }
 
 .series-container {
@@ -95,12 +107,48 @@
     grid-area: author;
 }
 
-.read-button {
-    grid-area: button;
-    justify-self: center;
-}
-
 .green-button {
     background-color: green;
     color: yellow;
+}
+
+.select-shelves-placeholder {
+    position: relative;
+    grid-area: shelves;
+    font-size: 1.42vh;
+    height: 3vh;
+    background-color: #DFDFDF;
+    border-radius: 4px;
+    margin-left: -1.3vw;
+    padding-left: 1.6vw;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
+
+.shelf-arrow-placeholder {
+    display: inline-block;
+    margin-left: 0.4vw;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.select-shelves-placeholder > span {
+    display: inline-block;
+    padding: 0.7vh 0 0 0;
+}
+
+.shelve-list-container {
+    position: absolute;
+    background-color: rgb(233, 233, 233);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    width: 10.5vw;
+    top: 3.2vh;
+    border-radius: 4px;
+    left: 0vw;
+}
+
+ul {
+    list-style: none;
+    padding-left: 1.4vw;
 }

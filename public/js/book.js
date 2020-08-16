@@ -1,3 +1,4 @@
+let sent;
 const idContainer = document.querySelector('.hidden');
 const id = idContainer.innerHTML;
 const cover = document.getElementById('cover');
@@ -5,8 +6,8 @@ const title = document.getElementById('title');
 const summary = document.getElementById('summary');
 const authors = document.getElementById('author');
 const series = document.getElementById('series');
-const readButton = document.querySelector('.read-button');
 const reviewContainer = document.querySelector('.review-container');
+const manageShelves = document.querySelector('.select-shelves-placeholder');
 
 async function getBook() {
     const res = await fetch(`/api/books/${id}`);
@@ -23,15 +24,6 @@ async function getBook() {
     summary.innerHTML = book.summary;
     authors.innerHTML = `By ${author.firstName} ${author.lastName}`;
     series.innerHTML = `(${seriesData.name} Series #${book.id})`;
-    shelves.forEach(shelf => {
-        if (shelf.name === 'Read' && shelf.userId === userId) {
-            readButton.innerHTML = 'Read';
-            readButton.classList.add('green-button');
-            readButton.disabled = true;
-        } else {
-            readButton.innerHTML = 'Already Read?';
-        }
-    })
 };
 
 async function getReviews() {
@@ -52,20 +44,29 @@ async function getReviews() {
 
 };
 
-readButton.addEventListener('click', async e => {
-    e.preventDefault();
-    await fetch(`/api/books/${id}/read`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+manageShelves.addEventListener('click', event => {
+    document.querySelector('.shelve-list-container').classList.toggle('hidden');
+    if (sent) {
+        sent = false;
+    } else {
+        sent = true;
+    }
+})
 
-    readButton.innerHTML = 'Read';
-    readButton.classList.add('green-button');
-    readButton.disabled = true;
+// readButton.addEventListener('click', async e => {
+//     e.preventDefault();
+//     await fetch(`/api/books/${id}/read`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     });
 
-});
+//     readButton.innerHTML = 'Read';
+//     readButton.classList.add('green-button');
+//     readButton.disabled = true;
+
+// });
 
 getBook();
 getReviews();
