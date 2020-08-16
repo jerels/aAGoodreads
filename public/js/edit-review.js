@@ -23,9 +23,20 @@ const populateBookContent = async () => {
     const book = await getBook();
 
     const header = document.querySelector('.body-header-container__item');
-    header.innerHTML = `<a href='/books/${bookId}'>${book.title}</a> &gt; Edit Review`;
+    header.innerHTML = `<a class='book-link-header' href='/books/${bookId}'>${book.title}</a> &gt; Review &gt; Edit`;
 
     const cover = document.querySelector('.book-container__item--cover').src = book.cover;
+    console.log(book);
+
+    const bookTitle = document.querySelector('.book-title__link');
+    bookTitle.innerHTML = book.title;
+    bookTitle.setAttribute('href', `/books/${book.id}`);
+
+    const authorInfo = document.querySelector('.book-container__text-item--authors');
+
+    let authorStr = book.Authors.map((author) => `${author.firstName} ${author.lastName}`).join(', ');
+    authorInfo.innerHTML = `by ${authorStr}`;
+
 };
 
 const populateReviewContent = async () => {
@@ -63,9 +74,11 @@ document.addEventListener('DOMContentLoaded', event => {
         }
     });
 
-    document.querySelector('.shelf-arrow-placeholder').addEventListener('mouseenter', event => {
-        document.querySelector('.shelve-list-container').classList.remove('hidden');
-    })
+    document.querySelector('.shelf-arrow-placeholder').addEventListener('click', event => {
+        document.querySelector('.shelve-list-container').classList.toggle('hidden');
+    });
+
+
 
     const form = document.querySelector('form');
     form.addEventListener('submit', async event => {

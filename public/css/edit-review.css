@@ -7,6 +7,69 @@ body:not(.header__left) {
     font-family: Helvetica;
 }
 
+.body-content-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(12, 6vh);
+}
+
+.body-content-container {
+    grid-column: 2/4;
+}
+
+.body-header-container {
+    margin-top: 1.5vh;
+    grid-row: 1/2;
+}
+
+.body-header-container__item--text {
+    font-size: 2.7vh;
+    font-weight: 550;
+}
+
+.book-link-header {
+    text-decoration: none;
+    color: #00635D;
+}
+
+.body-book-container {
+    display: flex;
+    margin-top: 2vh;
+    grid-row: 2/5;
+}
+
+.book-container__item--cover {
+    height: 16vh;
+}
+
+.book-container__text-container {
+    margin-left: 1vw;
+    margin-top: 2vh;
+    /* margin-top: auto;
+    margin-bottom: auto; */
+}
+
+.book-container__text-item--title {
+    font-size: 2.2vh;
+    color: black;
+}
+
+.book-title__link {
+    text-decoration: none;
+    color: black;
+}
+
+.book-container__text-item--authors {
+    color: black;
+    font-weight: 540;
+    font-size: 1.8vh;
+    margin-top: 1.2vh;
+}
+
+.body-rating-container {
+    display: flex;
+}
+
 .body-shelves-container {
     position: relative;
 }
