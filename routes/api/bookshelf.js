@@ -153,7 +153,23 @@ router.get('/book-count', routeHandler(async (req, res) => {
     res.json({
        count: books.length
     });
-}))
+}));
+
+router.get('/createdShelves', routeHandler(async(req, res) => {
+    const { token } = req.cookies;
+    const data = jwt.verify(token, secret);
+    const { id: userId } = data.data;
+    const bookshelves = await Bookshelf.findAll({
+        where: {
+            userId,
+            defaultShelf: false
+        }
+    });
+
+    res.json({
+        bookshelves
+    });
+}));
 
 router.post('/', validateBookshelfName, handleValidationErrors, routeHandler(async (req, res) => {
     const { token } = req.cookies;

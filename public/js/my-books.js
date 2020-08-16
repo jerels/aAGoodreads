@@ -44,7 +44,7 @@ const getAvgRating = async (book) => {
 const authors = (authors) => {
     let authorStr = '';
 
-    for (author of authors) {
+    for (const author of authors) {
         authorStr += `<li>${author.lastName}, ${author.firstName}</li>`;
     }
 
@@ -69,7 +69,7 @@ const shelvesGen = (bookshelves) => {
         return 0;
     });
     let shelveStr = '';
-    for (shelf of shelveArr) {
+    for (const shelf of shelveArr) {
         shelveStr += `<li><a href='my-books/bookshelf/${shelf.id}'>${shelf.name}</a></li>`;
     }
 
@@ -95,7 +95,7 @@ const readDate = (book) => {
         }
     });
 
-    for (shelf of shelveArr) {
+    for (const shelf of shelveArr) {
         if (shelf.name === 'Read') {
             return new Date(shelf.readDate).toLocaleString('US-en', { year: 'numeric', month: 'long', day: 'numeric' });
         }
@@ -113,7 +113,7 @@ const dateAdded = (book) => {
         }
     });
 
-    for (shelf of shelveArr) {
+    for (const shelf of shelveArr) {
         return new Date(shelf.readDate).toLocaleString('US-en', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 }
@@ -140,7 +140,7 @@ const populatePageContent = async () => {
     </li>`;
     let addedShelfStr = '';
 
-    for (bookshelf of bookshelves) {
+    for (const bookshelf of bookshelves) {
         if (bookshelf.defaultShelf) {
             defaultShelfStr += `
             <li class='defaults__list-item defaults__list-item--${bookshelf.id}'>
@@ -167,7 +167,7 @@ const populatePageContent = async () => {
 
     let bookStr = '';
 
-    for (book of myBooksData.books) {
+    for (const book of myBooksData.books) {
         const rating = book.Reviews[0].rating;
         bookStr += `<tr>
         <td class='cover-cell'><img class='cover' src='${book.cover}'></td>
