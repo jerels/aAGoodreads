@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body:not(.header__left) {
+    font-family: Helvetica;
+}
+
+.body-shelves-container {
+    position: relative;
+}
+
+.shelf-arrow-placeholder {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.shelve-list-container {
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+}
+
+.hidden {
+    display: none;
+}

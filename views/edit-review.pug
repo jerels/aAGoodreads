@@ -2,7 +2,7 @@ extends layout.pug
 
 append head
     link(rel='stylesheet' type='text/css' href='/public/css/footer.css')
-    link(rel='stylesheet' type='text/css' href='/public/css/add-review.css')
+    link(rel='stylesheet' type='text/css' href='/public/css/edit-review.css')
     link(rel='stylesheet' type='text/css' href='/public/css/header.css')
     script(src='/public/js/edit-review.js' type='module' defer)
 
@@ -36,9 +36,20 @@ block content
                         <path id='star-5' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
                         </svg>
                 .body-shelves-container
-                    label(for='bookshelves') Bookshelves:
-                    .shelves-container__select-container
-                        select(class='shelves-container__select' id='bookshelves')
+                   div(class='select-shelves-placeholder') Bookshelves
+                        span(class='shelf-arrow-placeholder') ▾
+                   .shelve-list-container.hidden
+                        ul.shelves__dropdown--default-checks
+                            li.currently-reading
+                                label(for='currently-reading') Currently Reading
+                                input(type='radio' id='currently-reading' name='defaultShelf')
+                            li.read
+                                label(for='read') Read
+                                input(type='radio' id='read' name='defaultShelf')
+                            li.want-to-read
+                                label(for='want-to-read') Want to Read
+                                input(type='radio' id='want-to-read' name='defaultShelf')
+                        ul.shelves__dropdown--created-shelves
                 .review-content-container
                     label(for='content') What did you think?
                     textarea(class='review-container__item review-container__item--content' name='content' id='content' placeholder='Enter your review')

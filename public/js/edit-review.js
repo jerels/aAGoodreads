@@ -13,6 +13,12 @@ const getReview = async () => {
     return data.review;
 }
 
+const getCreatedShelves = async () => {
+    const res = await fetch('/api/bookshelves/createdShelves');
+    const data = await res.json();
+    return data.bookshelves;
+}
+
 const populateBookContent = async () => {
     const book = await getBook();
 
@@ -26,12 +32,26 @@ const populateReviewContent = async () => {
     const review = await getReview();
     document.querySelector('.review-container__item--content').value = review.content;
     rating = review.rating;
+};
+
+const populateCreatedShelves = async () => {
+    const bookshelves = await getCreatedShelves();
+    let shelfStr = '';
+    for (const shelf of bookshelves) {
+        shelfStr += `<li class='created-shelves__list-item created-shelves__list-item--${shelf.name.toLowerCase()}'>
+        <label for='${shelf.name.toLowerCase()}'>${shelf.name}</label>
+        <input type='checkbox' id='${shelf.name.toLowerCase()}' name='${shelf.name.toLowerCase()}'>
+        </li>`
+    }
+
+    document.querySelector('.shelves__dropdown--created-shelves').innerHTML = shelfStr;
 }
 
 
 document.addEventListener('DOMContentLoaded', event => {
     populateBookContent();
     populateReviewContent();
+    populateCreatedShelves();
 
     document.querySelector('.stars').addEventListener('click', event => {
         event.stopPropagation();
@@ -42,6 +62,10 @@ document.addEventListener('DOMContentLoaded', event => {
             console.log(rating);
         }
     });
+
+    document.querySelector('.shelf-arrow-placeholder').addEventListener('mouseenter', event => {
+        document.querySelector('.shelve-list-container').classList.remove('hidden');
+    })
 
     const form = document.querySelector('form');
     form.addEventListener('submit', async event => {
