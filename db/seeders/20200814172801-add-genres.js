@@ -3,8 +3,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Genres', [
-      { name: 'Discovering yourself' },
-      { name: 'Discovering yourself while high' },
+      { name: 'Wizards' },
+      { name: 'Sci-fi' },
+      { name: 'Muggles' },
     ]);
   },
 

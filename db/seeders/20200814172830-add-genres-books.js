@@ -5,7 +5,10 @@ module.exports = {
     return queryInterface.bulkInsert('BookGenres', [
       { bookId: 1, genreId: 1 },
       { bookId: 2, genreId: 2 },
+      { bookId: 2, genreId: 3 },
       { bookId: 3, genreId: 1 },
+      { bookId: 3, genreId: 2 },
+      { bookId: 3, genreId: 3 },
       { bookId: 4, genreId: 2 },
       { bookId: 5, genreId: 1 },
       { bookId: 6, genreId: 2 },
