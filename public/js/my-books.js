@@ -51,10 +51,16 @@ const authors = (authors) => {
     return authorStr;
 }
 
-const shelvesGen = (bookshelves) => {
-    let shelveArr = bookshelves.map((bookshelf) => {
-        return { id: bookshelf.id, name: bookshelf.name }
-    }).sort((a, b) => {
+const shelvesGen = (book, bookshelves) => {
+    console.log(book, bookshelves);
+    const shelveArr = [];
+    for (const bookshelf of bookshelves) {
+        const booksInShelf = bookshelf.Books.map((book) => book.id);
+        if (booksInShelf.includes(book.id)) {
+            shelveArr.push({ id: bookshelf.id, name: bookshelf.name});
+        }
+    }
+    shelveArr.sort((a, b) => {
         // Sorting shelf names alphabetically
         let nameA = a.name.toUpperCase();
         let nameB = b.name.toUpperCase();
@@ -70,7 +76,7 @@ const shelvesGen = (bookshelves) => {
     });
     let shelveStr = '';
     for (const shelf of shelveArr) {
-        shelveStr += `<li><a href='my-books/bookshelf/${shelf.id}'>${shelf.name}</a></li>`;
+        shelveStr += `<li><a href='/my-books/bookshelf/${shelf.id}'>${shelf.name}</a></li>`;
     }
 
     return shelveStr;
@@ -146,7 +152,7 @@ const populatePageContent = async () => {
         } else {
             addedShelfStr += `
             <li class='added__list-item added__list-item--${bookshelf.id}'>
-            <a class='added__list-item-link added__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a>
+            <a class='added__list-item-link added__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a><button type='button' id='delete-shelf-${bookshelf.id}'>Delete Shelf</button>
             </li>`
         }
     }
@@ -172,7 +178,7 @@ const populatePageContent = async () => {
         <td>${authors(book.Authors)}</td>
         <td>${await getAvgRating(book)}</td>
         <td>${rating ? rating : 'N/A'}</td>
-        <td>${shelvesGen(book.Bookshelves)}</td>
+        <td>${shelvesGen(book, bookshelves)}</td>
         <td>${editOrWriteReview(book)}</td>
         <td>${readDate(book)}</td>
         <td>${dateAdded(book)}</td>
@@ -231,5 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (res.ok) {
             location.reload();
         }
-    })
+    });
+
+    // const createdShelves = document.querySelector('.content__added-bookshelves-list');
+    // createdShelves.addEventListener('click', async event => {
+    //     if ()
+    // })
 });
