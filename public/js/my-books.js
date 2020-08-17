@@ -239,8 +239,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // const createdShelves = document.querySelector('.content__added-bookshelves-list');
-    // createdShelves.addEventListener('click', async event => {
-    //     if ()
-    // })
+    const createdShelves = document.querySelector('.content__added-bookshelves--list');
+    createdShelves.addEventListener('click', async event => {
+        console.log(event.target.id);
+        if (!/delete-shelf-\d+/.test(event.target.id)) {
+            return;
+        }
+        const [,, id] = event.target.id.split('-');
+
+        const res = await fetch(`/api/bookshelves/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (res.ok) {
+            window.location = 'http://localhost:8080/my-books';
+        }
+    })
 });
