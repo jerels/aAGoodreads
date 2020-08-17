@@ -161,4 +161,17 @@ th {
     padding-right: 1vw;
     padding-top: 0.8vh;
     padding-bottom: 0.8vh;
+    color: #919191;
+}
+
+.delete-from-my-books {
+    background-color: #787878;
+    border: none;
+    height: 3.8vh;
+    width: 4.8vw;
+    border-radius: 4px;
+    font-size: 1.4vh;
+    font-weight: bold;
+    color: white;
+    font-family: Helvetica;
 }

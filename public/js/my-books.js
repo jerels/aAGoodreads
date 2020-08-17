@@ -182,7 +182,7 @@ const populatePageContent = async () => {
         <td class='review-cell'>${editOrWriteReview(book)}</td>
         <td class='read-date'>${readDate(book)}</td>
         <td class='date-added'>${dateAdded(book)}</td>
-        <td class='delete-button'><button id='delete-book-${book.id}' type='button'>Remove from My Books</button></td>
+        <td class='delete-button-cell'><button class='delete-from-my-books' id='delete-book-${book.id}' type='button'>Remove from My Books</button></td>
         </tr>`;
     }
 
