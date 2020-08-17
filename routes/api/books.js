@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { secret } = require('../../config').jwtConfig;
 const { Book, Bookshelf, Author, Review, Series, Publisher, Genre, BookBookshelf, User } = require('../../db/models');
+const { Op } = require('sequelize');
 
 const { routeHandler } = require('../utils');
 
@@ -40,35 +41,66 @@ router.get('/:id(\\d+)/reviews', routeHandler(async (req, res) => {
     res.json({ reviews, userId });
 }));
 
-router.post('/:id(\\d+)/read', routeHandler(async (req, res) => {
+router.post('/:id(\\d+)', routeHandler(async (req, res) => {
     const bookId = parseInt(req.params.id);
     const { token } = req.cookies;
     const data = await jwt.verify(token, secret);
     const userId = data.data.id;
-    console.log(data);
-    const shelf = await Bookshelf.findOne({
+
+    const defaultShelfId = Number(req.body.defaultShelf);
+    const createdShelfNames = Object.keys(req.body).filter((key) => key !== 'defaultShelf');
+    console.log(createdShelfNames);
+
+    const destroyShelves = await Bookshelf.findAll({
         where: {
-            name: "Read",
-            userId: userId
-        }
+            userId
+        },
+        include: [
+            {
+                model: Book,
+                where: {
+                    id: bookId
+                }
+            }
+        ]
     });
-    let bookBook = await BookBookshelf.findOne({
+
+    await BookBookshelf.destroy({
         where: {
-            bookId: bookId,
-            bookshelfId: shelf.id
+            bookId,
+            bookshelfId: {
+                [Op.or]: [...destroyShelves.map((shelf) => shelf.id)]
+            }
         }
     });
 
-    if (!bookBook) {
-        bookBook = await BookBookshelf.create({
-            bookId: bookId,
-            bookshelfId: shelf.id
+    await BookBookshelf.create({
+        bookId,
+        bookshelfId: defaultShelfId
+    });
+
+    if (createdShelfNames.length) {
+        const createdShelves = await Bookshelf.findAll({
+            attributes: ['id'],
+            where: {
+                userId,
+                name: {
+                    [Op.or]: [...createdShelfNames]
+                }
+            }
         });
+
+        for (const shelf of createdShelves) {
+            console.log(shelf);
+            await BookBookshelf.create({
+                bookId,
+                bookshelfId: shelf.dataValues.id
+            });
+        }
+
     }
 
-    res.json({ shelf, bookBook });
-
-
+    res.json({ message: 'Success!' });
 }));
 
 module.exports = router;

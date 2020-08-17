@@ -18,18 +18,19 @@ block content
 			img#cover
 		div(class='select-shelves-placeholder') <span class='bookshelves-text'>Manage Bookshelves</span>
 			span(class='shelf-arrow-placeholder') ▾
-			.shelve-list-container.hidden
-				ul.shelves__dropdown--default-checks
-					li.currently-reading
-						label(for='currently-reading') Currently Reading
-						input(type='radio' id='currently-reading' name='defaultShelf')
-					li.read
-						label(for='read') Read
-						input(type='radio' id='read' name='defaultShelf')
-					li.want-to-read
-						label(for='want-to-read') Want to Read
-						input(type='radio' id='want-to-read' name='defaultShelf')
-				ul.shelves__dropdown--created-shelves
+			form
+				.shelve-list-container.hidden
+					ul.shelves__dropdown--default-checks
+						li.currently-reading
+							label(for='currently-reading') Currently Reading
+							input(type='radio' id='currently-reading' name='defaultShelf')
+						li.read
+							label(for='read') Read
+							input(type='radio' id='read' name='defaultShelf')
+						li.want-to-read
+							label(for='want-to-read') Want to Read
+							input(type='radio' id='want-to-read' name='defaultShelf')
+					ul.shelves__dropdown--created-shelves
 		.sum-container
 			#summary
 		.review-container

@@ -127,7 +127,7 @@ body:not(header, footer) {
 
 .shelf-arrow-placeholder {
     display: inline-block;
-    margin-left: 0.4vw;
+    margin-left: 0.3vw;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -135,7 +135,7 @@ body:not(header, footer) {
 
 .select-shelves-placeholder > span {
     display: inline-block;
-    padding: 0.7vh 0 0 0;
+    padding: 0.6vh 0 0 0;
 }
 
 .shelve-list-container {
@@ -146,9 +146,14 @@ body:not(header, footer) {
     top: 3.2vh;
     border-radius: 4px;
     left: 0vw;
+    z-index: 1;
 }
 
 ul {
     list-style: none;
     padding-left: 1.4vw;
+}
+
+span.saving {
+    padding-left: 2.4vw;
 }

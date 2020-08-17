@@ -1,6 +1,6 @@
-let sent;
+let sent = true;
 const idContainer = document.querySelector('.hidden');
-const id = idContainer.innerHTML;
+const id = Number(idContainer.innerHTML);
 const cover = document.getElementById('cover');
 const title = document.getElementById('title');
 const summary = document.getElementById('summary');
@@ -44,29 +44,71 @@ async function getReviews() {
 
 };
 
-manageShelves.addEventListener('click', event => {
+const populateShelves = async () => {
+    const res = await fetch('/api/bookshelves');
+    const data = await res.json();
+    const bookshelves = data.bookshelves;
+    let shelfStr = '';
+    for (const shelf of bookshelves) {
+        const bookIds = shelf.Books.map((book) => Number(book.id));
+        if (shelf.defaultShelf) {
+            const shelfItem = document.getElementById(shelf.name.toLowerCase().split(' ').join('-'));
+            shelfItem.value = shelf.id;
+            if (bookIds.includes(id)) {
+                shelfItem.setAttribute('checked', true);
+            }
+        } else {
+            shelfStr += `<li class='created-shelves__list-item created-shelves__list-item--${shelf.name.toLowerCase()}'>
+            <label for='${shelf.name.toLowerCase()}'>${shelf.name}</label>`
+
+            if (!bookIds.includes(id)) {
+                shelfStr += `<input type='checkbox' id='${shelf.name}' name='${shelf.name}'>
+                </li>`;
+            } else {
+                shelfStr += `<input type='checkbox' id='${shelf.name}' name='${shelf.name}' checked>
+                </li>`;
+            }
+        }
+    }
+    document.querySelector('.shelves__dropdown--created-shelves').innerHTML = shelfStr;
+}
+
+manageShelves.addEventListener('click', async event => {
+    const target = event.target;
+    console.log(target.classList.contains('bookshelves-text'));
+    if (!target.classList.contains('select-shelves-placeholder') && !target.classList.contains('bookshelves-text') && !target.classList.contains('shelf-arrow-placeholder')) {
+        return;
+    }
     document.querySelector('.shelve-list-container').classList.toggle('hidden');
+    const formData = new FormData(document.querySelector('form'));
     if (sent) {
         sent = false;
     } else {
         sent = true;
+        const text = document.querySelector('.bookshelves-text');
+        text.innerHTML = 'Saving...';
+        text.classList.add('saving');
+        document.querySelector('.shelf-arrow-placeholder').innerHTML = '';
+        const body = {
+        };
+        for (let key of formData.keys()) {
+            body[key] = formData.get(key);
+        }
+
+        const res = await fetch(`/api/books/${id}`, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (res.ok) {
+            window.location = 'http://localhost:8080/my-books';
+        }
     }
 })
 
-// readButton.addEventListener('click', async e => {
-//     e.preventDefault();
-//     await fetch(`/api/books/${id}/read`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     });
-
-//     readButton.innerHTML = 'Read';
-//     readButton.classList.add('green-button');
-//     readButton.disabled = true;
-
-// });
-
 getBook();
 getReviews();
+populateShelves();

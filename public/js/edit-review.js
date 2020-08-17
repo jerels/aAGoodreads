@@ -66,10 +66,10 @@ const populateCreatedShelves = async () => {
             <label for='${shelf.name.toLowerCase()}'>${shelf.name}</label>`
 
             if (!bookIds.includes(bookId)) {
-                shelfStr += `<input type='checkbox' id='${shelf.name.toLowerCase()}' name='${shelf.name.toLowerCase()}'>
+                shelfStr += `<input type='checkbox' id='${shelf.name}' name='${shelf.name}'>
                 </li>`;
             } else {
-                shelfStr += `<input type='checkbox' id='${shelf.name.toLowerCase()}' name='${shelf.name.toLowerCase()}' checked>
+                shelfStr += `<input type='checkbox' id='${shelf.name}' name='${shelf.name}' checked>
                 </li>`;
             }
         }
