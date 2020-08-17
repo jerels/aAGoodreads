@@ -6,10 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Number 13 is the "Enter" key on the keyboard
         if (event.keyCode === 13) {
             event.preventDefault();
-            const res = await fetch(`/browse/${sub}/${search.value}`);
+            const res = await fetch(`/browse/Titles/${search.value}`);
             if (res.ok) {
-                window.location.href = `/browse/${sub}/${search.value}`;
+                window.location.href = `/browse/Titles/${search.value}`;
             }
         }
     });
-})
+
+    const dropContainer = document.querySelector('.dropContainer');
+
+    dropContainer.addEventListener('click', event => {
+        document.querySelector('.dropContent').classList.toggle('hidden');
+        dropContainer.classList.toggle('selected');
+    });
+});

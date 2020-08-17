@@ -128,9 +128,6 @@ const populatePageContent = async () => {
     // Get related books
     const myBooksData = await getMyBooksData();
 
-    // Add selected class to My Books button
-    const myBooksButton = document.querySelector('.header__right-item--my-books').classList.add('selected');
-
     // Populate the Bookshelf list
     const defaultShelfList = document.querySelector('.default__item--list');
     const addedShelfList = document.querySelector('.content__added-bookshelves--list');

@@ -1,6 +1,5 @@
+const id = Number(new URL (window.location).toString().split('/')[4]);
 let sent = true;
-const idContainer = document.querySelector('.hidden');
-const id = Number(idContainer.innerHTML);
 const cover = document.getElementById('cover');
 const title = document.getElementById('title');
 const summary = document.getElementById('summary');
