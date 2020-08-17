@@ -10,7 +10,7 @@ const getBook = async () => {
 const getReviewAndRedirect = async () => {
     const res = await fetch(`/api/reviews/${bookId}`);
     const data = await res.json();
-    if (data) {
+    if (data.review.length) {
         window.location.replace(`http://localhost:8080/reviews/edit/book/${bookId}`);
     }
     return data.review;
