@@ -18,7 +18,7 @@ body {
     display: grid;
     justify-content: center;
     text-align: left;
-    grid-template-columns: auto-fit 180px 452px 300px;
+    grid-template-columns: auto;
     grid-template-rows: auto;
     grid-template-areas:
         'cover title .'
