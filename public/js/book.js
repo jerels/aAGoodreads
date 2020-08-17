@@ -5,7 +5,7 @@ const title = document.getElementById('title');
 const summary = document.getElementById('summary');
 const authors = document.getElementById('author');
 const series = document.getElementById('series');
-const reviewContainer = document.querySelector('.review-container');
+const reviewContent = document.getElementById('reviews')
 const manageShelves = document.querySelector('.select-shelves-placeholder');
 
 async function getBook() {
@@ -30,15 +30,18 @@ async function getReviews() {
     const data = await res.json();
     const reviews = data.reviews;
     reviews.forEach(review => {
-        const rev = document.createElement('div');
-        const userInfo = document.createElement('div');
+        const revContainer = document.createElement('tr');
+        const rev = document.createElement('td');
+        const userInfo = document.createElement('td');
         const user = review.User;
+        revContainer.setAttribute('id', 'review-row');
         rev.setAttribute('id', 'review');
         userInfo.setAttribute('id', 'user-info');
         userInfo.innerHTML = `- ${user.firstName} ${user.lastName}`;
         rev.innerHTML = review.content;
-        rev.appendChild(userInfo);
-        reviewContainer.appendChild(rev);
+        reviewContent.appendChild(revContainer);
+        revContainer.appendChild(rev);
+        revContainer.appendChild(userInfo);
     });
 
 };
