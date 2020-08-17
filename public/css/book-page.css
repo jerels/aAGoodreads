@@ -5,7 +5,7 @@
     margin: 0;
 }
 
-body:not(header, footer) {
+body {
     font-family: Helvetica;
 }
 
@@ -149,7 +149,7 @@ body:not(header, footer) {
     z-index: 1;
 }
 
-ul {
+.shelves__dropdown--default-checks, .shelves__dropdown--created-shelves {
     list-style: none;
     padding-left: 1.4vw;
 }

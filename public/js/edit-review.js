@@ -1,5 +1,6 @@
 const bookId = Number(new URL(window.location).toString().split('/')[6]);
 let rating;
+let clickListener = false;
 
 const getBook = async () => {
     const res = await fetch(`/api/books/${bookId}`);
@@ -42,6 +43,7 @@ const populateReviewContent = async () => {
     const review = await getReview();
     document.querySelector('.review-container__item--content').value = review.content;
     rating = review.rating;
+    console.log(rating);
 
     if (/[0-5]/.test(rating)) {
         for(let i = 1; i <= Number(rating); i++) {
@@ -84,7 +86,6 @@ document.addEventListener('DOMContentLoaded', event => {
     populateBookContent();
 
     const stars = document.querySelector('.stars');
-    let clickListener = false;
 
     const handleStarMouseover = (event) => {
         event.stopPropagation();
@@ -101,7 +102,6 @@ document.addEventListener('DOMContentLoaded', event => {
 
     const handleStarMouseout = (event) => {
         event.preventDefault();
-        console.log(event.target.id);
         const idNum = event.target.id.split('-')[2];
         if (event.target.id === 'star-container') {
             setTimeout(() => {
@@ -116,6 +116,10 @@ document.addEventListener('DOMContentLoaded', event => {
         }
     }
 
+    if (!rating) {
+        stars.addEventListener('mouseover', handleStarMouseover);
+        clickListener = true;
+    }
     stars.addEventListener('mouseout', handleStarMouseout);
 
     const handleStarClick = (event) => {

@@ -1,10 +1,10 @@
 extends layout.pug
 
 append head
-	script(src='/public/js/book.js' type='module' defer)
 	link(rel='stylesheet' href='/public/css/book-page.css')
 	link(rel="stylesheet" href="/public/css/header.css")
 	link(rel='stylesheet' href='/public/css/footer.css')
+	script(src='/public/js/book.js' type='module' defer)
 block content
 	.page-container
 		.hidden #{bookId}
