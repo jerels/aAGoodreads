@@ -52,6 +52,7 @@ router.get('/:id(\\d+)', routeHandler(async (req, res) => {
 router.get('/data', routeHandler(async (req, res) => {
     const { token } = req.cookies;
     const { id } = jwt.verify(token, secret).data;
+    console.log(id);
 
     const books = await Book.findAll({
         attributes: ['id', 'title', 'cover'],
@@ -65,16 +66,19 @@ router.get('/data', routeHandler(async (req, res) => {
                 through: {
                     attributes: ['createdAt']
                 }
-            },
+            }
+            ,
             {
                 model: Author,
                 attributes: ['firstName', 'lastName']
-            }, {
+            }
+            , {
                 model: Review,
                 attributes: ['rating'],
                 where: {
-                    userId: id
-                }
+                    userId: id,
+                },
+                required: false
             }
         ]
     });
@@ -123,6 +127,7 @@ router.get('/data/:id(\\d+)', routeHandler(async (req, res) => {
 router.get('/book-count', routeHandler(async (req, res) => {
     const { token } = req.cookies;
     const { id } = jwt.verify(token, secret).data;
+    console.log(id);
 
     const books = await Book.findAll({
         attributes: ['id'],
@@ -136,17 +141,18 @@ router.get('/book-count', routeHandler(async (req, res) => {
                 through: {
                     attributes: ['createdAt']
                 }
-            },
-            {
-                model: Author,
-                attributes: ['firstName', 'lastName']
-            }, {
-                model: Review,
-                attributes: ['rating'],
-                where: {
-                    userId: id
-                }
             }
+            // ,
+            // {
+            //     model: Author,
+            //     attributes: ['firstName', 'lastName']
+            // }, {
+            //     model: Review,
+            //     attributes: ['rating'],
+            //     where: {
+            //         userId: id
+            //     }
+            // }
         ]
     });
 
