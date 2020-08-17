@@ -23,7 +23,7 @@ block content
                 td(class="cover")
                   img(src=book.cover)
                 td
-                  a(href= `../books/${book.id}`)= book.title
+                  a(href= `/books/${book.id}`)= book.title
                 td
                   each author in book.Authors
                     div= author.firstName+' '+author.lastName

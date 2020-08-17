@@ -127,12 +127,14 @@ const dateAdded = (book) => {
 const populatePageContent = async () => {
     // Get bookshelves
     const bookshelves = await getBookshelves();
+    console.log(bookshelves);
 
     // Get all books count
     const count = await getBooksCount();
 
     // Get related books
     const myBooksData = await getMyBooksData();
+    console.log(myBooksData);
 
     // Populate the Bookshelf list
     const defaultShelfList = document.querySelector('.default__item--list');
@@ -171,7 +173,12 @@ const populatePageContent = async () => {
     let bookStr = '';
 
     for (const book of myBooksData.books) {
-        const rating = book.Reviews[0].rating;
+        let rating;
+        if (book.Reviews.length) {
+            rating = book.Reviews[0].rating;
+        } else {
+            rating = undefined;
+        }
         bookStr += `<tr>
         <td class='cover-cell'><img class='cover' src='${book.cover}'></td>
         <td class='title-cell'><a href='/books/${book.id}'>${book.title}</a></td>
