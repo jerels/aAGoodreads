@@ -63,10 +63,10 @@ const populateCreatedShelves = async () => {
             <label for='${shelf.name.toLowerCase()}'>${shelf.name}</label>`
 
             if (!bookIds.includes(bookId)) {
-                shelfStr += `<input type='checkbox' id='${shelf.name.toLowerCase()}' name='${shelf.name.toLowerCase()}'>
+                shelfStr += `<input type='checkbox' id='${shelf.name}' name='${shelf.name}'>
                 </li>`;
             } else {
-                shelfStr += `<input type='checkbox' id='${shelf.name.toLowerCase()}' name='${shelf.name.toLowerCase()}' checked>
+                shelfStr += `<input type='checkbox' id='${shelf.name}' name='${shelf.name}' checked>
                 </li>`;
             }
         }
@@ -168,7 +168,22 @@ document.addEventListener('DOMContentLoaded', event => {
             }
         });
 
-        if (res.ok) {
+        const body2 = {};
+        for (const key of formData.keys()) {
+            if (key !== 'content') {
+                body2[key] = formData.get(key);
+            }
+        }
+
+        const res2 = await fetch(`/api/books/${bookId}`, {
+            method: 'POST',
+            body: JSON.stringify(body2),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (res.ok && res2.ok) {
             window.location.href = '/my-books'
         }
     });

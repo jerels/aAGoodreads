@@ -131,6 +131,9 @@ svg {
     display: inline-block;
     margin-left: 1vw;
     margin-top: 0.4vh;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .shelve-list-container {
@@ -163,7 +166,7 @@ ul {
     list-style: none;
 }
 
-li {
+li:not(ul.footer-list > li) {
     padding-left: 1vw;
     padding-top: 0.5vh;
     padding-bottom: 0.5vh;
