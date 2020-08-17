@@ -186,8 +186,23 @@ router.post('/', validateBookshelfName, handleValidationErrors, routeHandler(asy
     });
 }));
 
-router.post('/:id(\\d+)/book', routeHandler(async (req, res) => {
+router.delete('/:id(\\d+)', routeHandler(async (req, res) => {
+    const { token } = req.cookies;
+    const { id: userId } = jwt.verify(token, secret).data;
 
+    await BookBookshelf.destroy({
+        where: {
+            bookshelfId: parseInt(req.params.id)
+        }
+    });
+
+    await Bookshelf.destroy({
+        where: {
+            id: parseInt(req.params.id)
+        }
+    });
+
+    res.json({message: 'Success'});
 }));
 
 router.delete('/book/:id(\\d+)', routeHandler(async (req, res) => {

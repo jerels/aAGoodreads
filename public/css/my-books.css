@@ -20,13 +20,13 @@ body {
 .content__left-bar {
     min-height: 750px;
     width: 210px;
-    margin-left: 160px;
+    margin-left: 144px;
     background-color: #789DC4;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .content__book-table {
-    margin: 0;
+    margin-top: 1.6vh;
 }
 
 .book-table__item--header {
@@ -35,7 +35,6 @@ body {
 
 table {
     margin-top: -20px;
-    border-spacing: 20px;
 }
 
 .default__item--list {
@@ -61,4 +60,118 @@ table {
 
 table li {
     list-style: none;
+}
+
+.content__left-bar--bookshelves {
+    margin-left: 1.4vw;
+    margin-top: 7vh;
+}
+
+.default__item--header {
+    color: white;
+}
+
+.content__left-bar--bookshelves a {
+    color: white;
+    text-decoration: none;
+}
+
+.content__left-bar--bookshelves li {
+    display: inline-block;
+    margin-top: 1vh;
+}
+
+.content__left-bar button {
+    background-color: #787878;
+    border: none;
+    height: 3vh;
+    width: 3.8vw;
+    border-radius: 4px;
+    font-size: 1.2vh;
+    font-weight: bold;
+    color: white;
+    font-family: Helvetica;
+}
+
+.content__left-bar input {
+    border-radius: 4px;
+    border: 1px gray solid;
+    height: 2.5vh;
+}
+
+.delete-shelf {
+    margin-left: 0.3vw;
+}
+
+.add-bookshelf-form {
+    margin-top: 2vh;
+}
+
+.add-shelf {
+    margin-top: 1vh;
+}
+
+.book-table__header-container {
+    display: flex;
+}
+
+.book-table__item--header {
+    color: grey;
+    font-size: 3vh;
+    margin-left: 3vw;
+}
+
+.book-table__shelf-name {
+    font-size: 2.6vh;
+    margin: auto 0 auto 0.6vw;
+    color: #787878;
+    margin-top: 0.3vh;
+}
+
+table {
+    margin-top: 0.6vh;
+    margin-left: 2vw;
+    border-collapse: collapse;
+}
+
+.title-cell {
+    width: 8vw;
+}
+
+.title-cell > a, .shelve-cell a, .review-cell > a {
+    text-decoration: none;
+    color: #707070;
+}
+
+tbody td:not(.title-cell):not(.shelve-cell) {
+    color: #707070;
+    text-align: center;
+}
+
+tbody td {
+    border-top: 1px solid black;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.8vh;
+    padding-bottom: 0.8vh;
+}
+
+th {
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.8vh;
+    padding-bottom: 0.8vh;
+    color: #919191;
+}
+
+.delete-from-my-books {
+    background-color: #787878;
+    border: none;
+    height: 3.8vh;
+    width: 4.8vw;
+    border-radius: 4px;
+    font-size: 1.4vh;
+    font-weight: bold;
+    color: white;
+    font-family: Helvetica;
 }

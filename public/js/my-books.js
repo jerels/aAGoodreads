@@ -51,10 +51,16 @@ const authors = (authors) => {
     return authorStr;
 }
 
-const shelvesGen = (bookshelves) => {
-    let shelveArr = bookshelves.map((bookshelf) => {
-        return { id: bookshelf.id, name: bookshelf.name }
-    }).sort((a, b) => {
+const shelvesGen = (book, bookshelves) => {
+    console.log(book, bookshelves);
+    const shelveArr = [];
+    for (const bookshelf of bookshelves) {
+        const booksInShelf = bookshelf.Books.map((book) => book.id);
+        if (booksInShelf.includes(book.id)) {
+            shelveArr.push({ id: bookshelf.id, name: bookshelf.name});
+        }
+    }
+    shelveArr.sort((a, b) => {
         // Sorting shelf names alphabetically
         let nameA = a.name.toUpperCase();
         let nameB = b.name.toUpperCase();
@@ -70,7 +76,7 @@ const shelvesGen = (bookshelves) => {
     });
     let shelveStr = '';
     for (const shelf of shelveArr) {
-        shelveStr += `<li><a href='my-books/bookshelf/${shelf.id}'>${shelf.name}</a></li>`;
+        shelveStr += `<li><a href='/my-books/bookshelf/${shelf.id}'>${shelf.name}</a></li>`;
     }
 
     return shelveStr;
@@ -146,7 +152,7 @@ const populatePageContent = async () => {
         } else {
             addedShelfStr += `
             <li class='added__list-item added__list-item--${bookshelf.id}'>
-            <a class='added__list-item-link added__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a>
+            <a class='added__list-item-link added__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a><button type='button' class='delete-shelf' id='delete-shelf-${bookshelf.id}'>Delete Shelf</button>
             </li>`
         }
     }
@@ -169,14 +175,14 @@ const populatePageContent = async () => {
         bookStr += `<tr>
         <td class='cover-cell'><img class='cover' src='${book.cover}'></td>
         <td class='title-cell'><a href='/books/${book.id}'>${book.title}</a></td>
-        <td>${authors(book.Authors)}</td>
-        <td>${await getAvgRating(book)}</td>
-        <td>${rating ? rating : 'N/A'}</td>
-        <td>${shelvesGen(book.Bookshelves)}</td>
-        <td>${editOrWriteReview(book)}</td>
-        <td>${readDate(book)}</td>
-        <td>${dateAdded(book)}</td>
-        <td><button id='delete-book-${book.id}' type='button'>Remove from My Books</button></td>
+        <td class='author-cell'>${authors(book.Authors)}</td>
+        <td class='avg-rating'>${await getAvgRating(book)}</td>
+        <td class='your-rating'>${rating ? rating : 'N/A'}</td>
+        <td class='shelve-cell'>${shelvesGen(book, bookshelves)}</td>
+        <td class='review-cell'>${editOrWriteReview(book)}</td>
+        <td class='read-date'>${readDate(book)}</td>
+        <td class='date-added'>${dateAdded(book)}</td>
+        <td class='delete-button-cell'><button class='delete-from-my-books' id='delete-book-${book.id}' type='button'>Remove from My Books</button></td>
         </tr>`;
     }
 
@@ -230,6 +236,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (res.ok) {
             location.reload();
+        }
+    });
+
+    const createdShelves = document.querySelector('.content__added-bookshelves--list');
+    createdShelves.addEventListener('click', async event => {
+        console.log(event.target.id);
+        if (!/delete-shelf-\d+/.test(event.target.id)) {
+            return;
+        }
+        const [,, id] = event.target.id.split('-');
+
+        const res = await fetch(`/api/bookshelves/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (res.ok) {
+            window.location = 'http://localhost:8080/my-books';
         }
     })
 });
