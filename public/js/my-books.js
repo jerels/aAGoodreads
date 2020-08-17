@@ -175,14 +175,14 @@ const populatePageContent = async () => {
         bookStr += `<tr>
         <td class='cover-cell'><img class='cover' src='${book.cover}'></td>
         <td class='title-cell'><a href='/books/${book.id}'>${book.title}</a></td>
-        <td>${authors(book.Authors)}</td>
-        <td>${await getAvgRating(book)}</td>
-        <td>${rating ? rating : 'N/A'}</td>
-        <td>${shelvesGen(book, bookshelves)}</td>
-        <td>${editOrWriteReview(book)}</td>
-        <td>${readDate(book)}</td>
-        <td>${dateAdded(book)}</td>
-        <td><button id='delete-book-${book.id}' type='button'>Remove from My Books</button></td>
+        <td class='author-cell'>${authors(book.Authors)}</td>
+        <td class='avg-rating'>${await getAvgRating(book)}</td>
+        <td class='your-rating'>${rating ? rating : 'N/A'}</td>
+        <td class='shelve-cell'>${shelvesGen(book, bookshelves)}</td>
+        <td class='review-cell'>${editOrWriteReview(book)}</td>
+        <td class='read-date'>${readDate(book)}</td>
+        <td class='date-added'>${dateAdded(book)}</td>
+        <td class='delete-button'><button id='delete-book-${book.id}' type='button'>Remove from My Books</button></td>
         </tr>`;
     }
 
