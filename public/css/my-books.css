@@ -77,7 +77,6 @@ table li {
 }
 
 .content__left-bar--bookshelves li {
-    display: inline-block;
     margin-top: 1vh;
 }
 
