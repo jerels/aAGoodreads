@@ -9,11 +9,11 @@ block content
 	.page-container
 		.hidden #{bookId}
 		.title-container
-			h1#title
+			#title
 			.series-container
 				h2#series
 			.author-container
-				h3#author
+				#author
 		.cover-container
 			img#cover
 		div(class='select-shelves-placeholder') <span class='bookshelves-text'>Manage Bookshelves</span>
@@ -34,4 +34,6 @@ block content
 		.sum-container
 			#summary
 		.review-container
-			#review-title Reviews
+			table#reviews
+				tr#review-title
+					th Reviews
