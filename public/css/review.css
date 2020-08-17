@@ -166,7 +166,7 @@ ul {
     list-style: none;
 }
 
-li {
+li:not(ul.footer-list > li) {
     padding-left: 1vw;
     padding-top: 0.5vh;
     padding-bottom: 0.5vh;

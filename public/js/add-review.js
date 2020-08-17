@@ -168,7 +168,22 @@ document.addEventListener('DOMContentLoaded', event => {
             }
         });
 
-        if (res.ok) {
+        const body2 = {};
+        for (const key of formData.keys()) {
+            if (key !== 'content') {
+                body2[key] = formData.get(key);
+            }
+        }
+
+        const res2 = await fetch(`/api/books/${bookId}`, {
+            method: 'POST',
+            body: JSON.stringify(body2),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (res.ok && res2.ok) {
             window.location.href = '/my-books'
         }
     });
