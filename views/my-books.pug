@@ -11,13 +11,13 @@ block content
         .content__left-bar
             .content__left-bar--bookshelves
                 .content__bookshelves-default
-                    h3(class='default__item default__item--header') Bookshelves <a href='/bookshelves'>(Edit)</a>
+                    h3(class='default__item default__item--header') Bookshelves
                     ul(class='default__item default__item--list')
                 .content__added-bookshelves
                     ul.content__added-bookshelves--list
                     form.add-bookshelf-form
                         input(type='text' name='bookshelfName' id='bookshelfName' placeholder='Bookshelf Name')
-                        button(type="submit") Add a shelf
+                        button.add-shelf(type="submit") Add a shelf
         .content__book-table
             .book-table__header-container
                 h3(class='book-table__item book-table__item--header') My Books

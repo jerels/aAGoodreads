@@ -26,7 +26,7 @@ body {
 }
 
 .content__book-table {
-    margin: 0;
+    margin-top: 3vh;
 }
 
 .book-table__item--header {
@@ -61,4 +61,53 @@ table {
 
 table li {
     list-style: none;
+}
+
+.content__left-bar--bookshelves {
+    margin-left: 1.4vw;
+    margin-top: 7vh;
+}
+
+.default__item--header {
+    color: white;
+}
+
+.content__left-bar--bookshelves a {
+    color: white;
+    text-decoration: none;
+}
+
+.content__left-bar--bookshelves li {
+    display: inline-block;
+    margin-top: 1vh;
+}
+
+.content__left-bar button {
+    background-color: #787878;
+    border: none;
+    height: 3vh;
+    width: 3.8vw;
+    border-radius: 4px;
+    font-size: 1.2vh;
+    font-weight: bold;
+    color: white;
+    font-family: Helvetica;
+}
+
+.content__left-bar input {
+    border-radius: 4px;
+    border: 1px gray solid;
+    height: 2.5vh;
+}
+
+.delete-shelf {
+    margin-left: 0.8vw;
+}
+
+.add-bookshelf-form {
+    margin-top: 2vh;
+}
+
+.add-shelf {
+    margin-top: 1vh;
 }

@@ -152,7 +152,7 @@ const populatePageContent = async () => {
         } else {
             addedShelfStr += `
             <li class='added__list-item added__list-item--${bookshelf.id}'>
-            <a class='added__list-item-link added__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a><button type='button' id='delete-shelf-${bookshelf.id}'>Delete Shelf</button>
+            <a class='added__list-item-link added__list-item-link--link-${bookshelf.id}' href='/my-books/bookshelf/${bookshelf.id}'>${bookshelf.name} (${bookshelf.Books.length})</a><button type='button' class='delete-shelf' id='delete-shelf-${bookshelf.id}'>Delete Shelf</button>
             </li>`
         }
     }
