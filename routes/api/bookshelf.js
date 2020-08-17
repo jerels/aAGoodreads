@@ -114,7 +114,8 @@ router.get('/data/:id(\\d+)', routeHandler(async (req, res) => {
                 attributes: ['rating'],
                 where: {
                     userId: id
-                }
+                },
+                required: false
             }
         ]
     });
