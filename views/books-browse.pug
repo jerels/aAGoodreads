@@ -7,29 +7,6 @@ append head
     link(rel='stylesheet' type='text/css' href='/public/css/footer.css')
 
 block content
-    div
-      table
-        thead(class='thead-dark')
-            tr
-              th(scope='col') Cover
-              th(scope='col') Title
-              th(scope='col') Authors
-              th(scope='col') Series
-              th(scope='col') Genres
-              th(scope='col') Publisher
-        tbody
-            each book in books
-              tr
-                td(class="cover")
-                  img(src=book.cover)
-                td
-                  a(href= `/books/${book.id}`)= book.title
-                td
-                  each author in book.Authors
-                    div= author.firstName+' '+author.lastName
-                td= book.Series.name
-                td
-                  each genre in book.Genres
-                    div= genre.name
-                td(class="publisher")
-                  div= book.Publisher.name
+    div.content-container
+      h1.browse-header
+      div.book-list

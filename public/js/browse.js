@@ -7,6 +7,7 @@ const getBooks = async () => {
 }
 
 const genRows = (books) => {
+    console.log(books);
     let bodyStr = '';
     books.map((book) => {
         let rowArr = ['<tr>'];
@@ -18,7 +19,7 @@ const genRows = (books) => {
 
         // Generate book title cell
         rowArr.push(
-            `<a href='/books/${book.id}'>${book.title}</a>`
+            `<td><a href='/books/${book.id}'>${book.title}</a></td>`
         );
 
         // Generate authors for each book
@@ -42,6 +43,22 @@ const genRows = (books) => {
             `<td>${book.Series.name}</td>`
         );
 
+        // Add genre for book
+        if (book.Genres.length == 2) {
+            rowArr.push(
+                '<td>' + book.Genres.map((genre) => genre.name).join(" and ") + '</td>'
+            );
+        } else if (book.Genres.length > 2) {
+            let lastGenre = book.Genres[book.Genres.length - 1];
+            rowArr.push(
+               '<td>' + book.Genres.map((genre) => genre.name).slice(0, book.Genres.length - 1).join(', ') + ", and " + lastGenre.name + '</td>'
+            );
+        } else {
+            rowArr.push(
+                '<td>' + book.Genres[0].name + '</td>'
+            );
+        }
+
         // Add publisher for book
         rowArr.push(
             `<td>${book.Publisher.name}</td>`
@@ -54,7 +71,6 @@ const genRows = (books) => {
     return bodyStr;
 }
 
-getBooks().then(books => {
-    const { books: bookData } = books;
-    genRows(bookData);
+getBooks().then(data => {
+    document.querySelector('tbody').innerHTML = genRows(data.books);
 });
