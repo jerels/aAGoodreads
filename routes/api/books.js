@@ -10,7 +10,7 @@ const { routeHandler } = require('../utils');
 
 router.get('/', routeHandler(async (req, res) => {
     const books = await Book.findAll({
-        include: [Author, Series, Genre, Publisher],
+        include: [Author, Publisher, Review],
         order: [['title', 'ASC']]
     });
 
