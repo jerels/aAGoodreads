@@ -9,7 +9,10 @@ const { Op } = require('sequelize');
 const { routeHandler } = require('../utils');
 
 router.get('/', routeHandler(async (req, res) => {
-    const books = await Book.findAll();
+    const books = await Book.findAll({
+        include: [Author, Series, Genre, Publisher],
+        order: [['title', 'ASC']]
+    });
 
     res.json({ books });
 }));

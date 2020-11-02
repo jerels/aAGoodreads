@@ -106,7 +106,7 @@ manageShelves.addEventListener('click', async event => {
         });
 
         if (res.ok) {
-            window.location = 'http://localhost:8080/my-books';
+            window.location.pathname = '/my-books';
         }
     }
 })

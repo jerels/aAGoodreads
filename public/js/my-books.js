@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (res.ok) {
-            window.location = 'http://localhost:8080/my-books';
+            window.location.href = '/my-books';
         }
     })
 });
