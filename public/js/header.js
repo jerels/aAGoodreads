@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Number 13 is the "Enter" key on the keyboard
         if (event.keyCode === 13) {
             event.preventDefault();
-            const res = await fetch(`/browse/Titles/${search.value}`);
+            const res = await fetch(`/browse/titles/${search.value}`);
             if (res.ok) {
-                window.location.href = `/browse/Titles/${search.value}`;
+                window.location.href = `/browse/titles/${search.value}`;
             }
         }
     });

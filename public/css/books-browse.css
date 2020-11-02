@@ -7,3 +7,16 @@
 body {
     font-family: Helvetica;
 }
+
+.content-container {
+    min-height: 750px;
+}
+
+.book-list-item__cover {
+    width: 100px;
+    height: 150px;
+}
+
+.book-list-item {
+    display: flex;
+}

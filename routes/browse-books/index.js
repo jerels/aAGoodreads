@@ -8,12 +8,12 @@ const { ValidationError } = require("sequelize");
 const { routeHandler } = require('../utils');
 const { Book, Bookshelf, Author, Review, Publisher, Genre, Series } = require('../../db/models');
 
-router.use("/Titles", titleRouter);
-router.use('/Authors', authorRouter);
-router.use('/Genres', genreRouter);
+router.use("/titles", titleRouter);
+router.use('/authors', authorRouter);
+router.use('/genres', genreRouter);
 
 router.get('/', routeHandler(async (req, res) => {
-    res.redirect('/browse/Titles');
+    res.redirect('/browse/title');
 }));
 
 module.exports = router;
