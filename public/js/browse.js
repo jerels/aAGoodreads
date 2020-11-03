@@ -56,10 +56,13 @@ function genList(books, bookshelves) {
             `<div class='body-shelves-container' id='select-shelves-placeholder-${book.id}'>
                 <span id='bookshelves-text-${book.id}' class='bookshelves-text'>Manage Bookshelves<span class='self-arrow-placeholder'>▾</span></span>
                 <form id='book-${book.id}-shelves'>
+                <div class='shelve-and-review-container'>
                     <div id='shelve-list-container-${book.id}' class='shelve-list-container hidden'>
                         ${genDefaultShelves(book, bookshelves)}
                         ${genCreatedShelves(book, bookshelves)}
                     </div>
+                    ${editOrWriteReview(book)}
+                </div>
                 </form>
             </div>`
         );
@@ -123,8 +126,15 @@ function genCreatedShelves(book, bookshelves) {
     return resultArr.join("");
 }
 
+const editOrWriteReview = (book) => {
+    if (!book.Reviews.length) {
+        return `<a href='/reviews/add/book/${book.id}'>Write a review</a>`
+    }
+
+    return `<a href='/reviews/edit/book/${book.id}'>Edit your review</a>`;
+}
+
 function compareState(state1, state2) {
-    console.log(state1, state2);
     if (typeof state1 === 'string' && typeof state2 === 'string') {
         return state1 !== state2;
     }
@@ -171,11 +181,11 @@ document.addEventListener('DOMContentLoaded', async event => {
 
             else {
 
-                const body = {};
-                for (let key of formData.keys()) {
-                    body[key] = formData.getAll(key);
-                }
-
+                const body = {
+                    defaultShelf: formData.getAll('defaultShelf'),
+                    createdShelf: formData.getAll('createdShelf')
+                };
+                console.log(compareState(prevState['defaultShelf'], body['defaultShelf']), compareState(prevState['createdShelf'], body['createdShelf']))
                 if (compareState(prevState['defaultShelf'], body['defaultShelf']) || compareState(prevState['createdShelf'], body['createdShelf'])) {
                     event.target.innerHTML = 'Saving...';
                     event.target.classList.add('no-pointer-events');
@@ -194,7 +204,8 @@ document.addEventListener('DOMContentLoaded', async event => {
                     if (res.ok) {
 
                         const shelfRes = await fetch('/api/bookshelves');
-                        const { bookshelves } = await shelfRes.json();
+                        const shelfData = await shelfRes.json();
+                        bookshelves = shelfData.bookshelves;
 
                         setTimeout(() => {
                             shelveListContainer.innerHTML = genDefaultShelves(book, bookshelves) + genCreatedShelves(book, bookshelves);

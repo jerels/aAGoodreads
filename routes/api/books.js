@@ -52,7 +52,7 @@ router.post('/:id(\\d+)', routeHandler(async (req, res) => {
     const userId = data.data.id;
 
     const defaultShelfId = Number(...req.body.defaultShelf);
-    const createdShelveIds = req.body.createdShelf;
+    const createdShelveIds = req.body.createdShelf || [];
 
     const destroyShelves = await Bookshelf.findAll({
         where: {
