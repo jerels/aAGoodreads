@@ -1,6 +1,6 @@
 const [, , browseType] = window.location.pathname.toString().split('/');
 
-const shelveText = document.getElementsByClassName('bookshelves-text');
+const shelveText = document.getElementsByClassName('body-shelves-container');
 
 function getAvgRating(reviews) {
     // Filter out reviews with no rating
@@ -15,8 +15,8 @@ function getAvgRating(reviews) {
 
 function genList(books, bookshelves) {
     let bodyStr = '';
-    books.map((book) => {
-        let rowArr = ['<div class="book-list-item">'];
+    books.map((book, i) => {
+        let rowArr = [`<div class="${i === books.length - 1 ? "book-list-item last" : "book-list-item"}">`];
 
         rowArr.push(
             `<img class="book-list-item__cover" src='${book.cover}' />`
@@ -41,29 +41,31 @@ function genList(books, bookshelves) {
 
         rowArr.push(
             `<div class='book-list-item__text-container'>
-                <h3><a href='/books/${book.id}'>${book.title}</a></h3>
-                <div>
-                    <span>by </span>${authorList}
+                <div class='book-list-item__book-and-author'>
+                    <h3 class='book-list-item__title'><a href='/books/${book.id}'>${book.title}</a></h3>
+                    <span class='book-list-item__authors'>by ${authorList}</span>
                 </div>
                 <div>
-                    <span>${getAvgRating(book.Reviews)} - published by ${book.Publisher.name}</span>
+                    <span class='book-list-item__avg-rating-and-pub'>${getAvgRating(book.Reviews)} - published by ${book.Publisher.name}</span>
                 </div>
             </div>`
         )
 
 
         rowArr.push(
-            `<div class='body-shelves-container' id='select-shelves-placeholder-${book.id}'>
-                <span id='bookshelves-text-${book.id}' class='bookshelves-text'>Manage Bookshelves<span class='self-arrow-placeholder'>▾</span></span>
+            `<div class='shelve-and-review-container'>
+            <div class='body-shelves-container' id='select-shelves-placeholder-${book.id}'>
+                <div id='bookshelves-text-${book.id}' class='bookshelves-text'>Manage Bookshelves<span class='self-arrow-placeholder'>▾</span></div>
                 <form id='book-${book.id}-shelves'>
-                <div class='shelve-and-review-container'>
                     <div id='shelve-list-container-${book.id}' class='shelve-list-container hidden'>
                         ${genDefaultShelves(book, bookshelves)}
                         ${genCreatedShelves(book, bookshelves)}
                     </div>
-                    ${editOrWriteReview(book)}
-                </div>
                 </form>
+            </div>
+            <div>
+            ${editOrWriteReview(book)}
+            </div>
             </div>`
         );
 
@@ -75,7 +77,7 @@ function genList(books, bookshelves) {
 }
 
 function genDefaultShelves(book, bookshelves) {
-    const resultArr = ['<ul>'];
+    const resultArr = ['<ul class="default-shelves">'];
 
     for (const shelf of bookshelves) {
         if (shelf.defaultShelf) {
@@ -103,7 +105,7 @@ function genDefaultShelves(book, bookshelves) {
 }
 
 function genCreatedShelves(book, bookshelves) {
-    const resultArr = ['<ul>'];
+    const resultArr = ['<ul class="created-shelves">'];
 
     for (const shelf of bookshelves) {
         if (!shelf.defaultShelf) {
@@ -128,10 +130,10 @@ function genCreatedShelves(book, bookshelves) {
 
 const editOrWriteReview = (book) => {
     if (!book.Reviews.length) {
-        return `<a href='/reviews/add/book/${book.id}'>Write a review</a>`
+        return `<a class='review-link' href='/reviews/add/book/${book.id}'>Write a review</a>`
     }
 
-    return `<a href='/reviews/edit/book/${book.id}'>Edit your review</a>`;
+    return `<a class='review-link' href='/reviews/edit/book/${book.id}'>Edit your review</a>`;
 }
 
 function compareState(state1, state2) {
@@ -156,18 +158,21 @@ document.addEventListener('DOMContentLoaded', async event => {
     let prevState;
 
 
-    document.querySelector('.browse-header').innerText = `Browse by ${browseType.slice(0, browseType.length - 1)}`;
+    document.querySelector('.browse-header').innerHTML = `Browse &gt; By ${browseType.slice(0, browseType.length - 1)}`;
     document.querySelector('.book-list').innerHTML = genList(books, bookshelves);
+    document.querySelector('.showing').innerHTML = `Showing 1-${books.length} of ${books.length}`;
 
     for (const shelf of shelveText) {
-
-
         shelf.addEventListener('click', async event => {
             const [, , bookId] = event.target.id.split('-');
+
+            if (event.target.id === `currently-reading-${bookId}`) {
+                return;
+            }
+
             const originalInnerHTML = `Manage Bookshelves<span class='self-arrow-placeholder'>▾</span>`;
 
             const formData = new FormData(document.getElementById(`book-${bookId}-shelves`));
-            console.log(prevState);
 
             const shelveListContainer = document.getElementById(`shelve-list-container-${bookId}`);
             shelveListContainer.classList.toggle('hidden');
