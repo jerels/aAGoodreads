@@ -1,18 +1,6 @@
-const browseType = window.location.pathname.toString().split('/')[2];
-let bookshelves;
-let books;
+const [, , browseType] = window.location.pathname.toString().split('/');
 
-async function getBooks() {
-    const res = await fetch('/api/books/');
-    const data = await res.json()
-    return data;
-}
-
-async function getShelves() {
-    const res = await fetch('/api/bookshelves');
-    const data = await res.json();
-    return data;
-}
+const shelveText = document.getElementsByClassName('bookshelves-text');
 
 function getAvgRating(reviews) {
     // Filter out reviews with no rating
@@ -25,7 +13,7 @@ function getAvgRating(reviews) {
     }
 }
 
-function genList(books) {
+function genList(books, bookshelves) {
     let bodyStr = '';
     books.map((book) => {
         let rowArr = ['<div class="book-list-item">'];
@@ -66,17 +54,15 @@ function genList(books) {
 
         rowArr.push(
             `<div class='body-shelves-container' id='select-shelves-placeholder-${book.id}'>
-                <span class='bookshelves-text'>Manage Bookshelves</span><span class='self-arrow-placeholder'>▾</span>
+                <span id='bookshelves-text-${book.id}' class='bookshelves-text'>Manage Bookshelves<span class='self-arrow-placeholder'>▾</span></span>
                 <form id='book-${book.id}-shelves'>
-                    <div class='shelve-list-container-hidden'>
+                    <div id='shelve-list-container-${book.id}' class='shelve-list-container hidden'>
                         ${genDefaultShelves(book, bookshelves)}
                         ${genCreatedShelves(book, bookshelves)}
                     </div>
                 </form>
             </div>`
         );
-
-        console.log(rowArr);
 
         rowArr.push('</div>');
 
@@ -108,6 +94,8 @@ function genDefaultShelves(book, bookshelves) {
             resultArr.push(shelfStr);
         }
     }
+    resultArr.push('</ul>')
+
     return resultArr.join("");
 }
 
@@ -118,14 +106,13 @@ function genCreatedShelves(book, bookshelves) {
         if (!shelf.defaultShelf) {
             const bookIds = shelf.Books.map((book) => book.id);
             let shelfStr = '<li>';
-            let forAndId = shelf.name.split(" ").join('-').toLowerCase();
 
             shelfStr += `<label>${shelf.name}</label>`;
 
             if (bookIds.includes(book.id)) {
-                shelfStr += `<input type='checkbox' id='${forAndId}-${book.id}' name='${forAndId}-${book.id}' value='${shelf.id}' checked/></li>`;
+                shelfStr += `<input type='checkbox' id='${shelf.name}-${book.id}' name='createdShelf' value='${shelf.id}' checked/></li>`;
             } else {
-                shelfStr += `<input type='checkbox' id='${forAndId}-${book.id}' name='${forAndId}-${book.id}' value='${shelf.id}' /></li>`;
+                shelfStr += `<input type='checkbox' id='${shelf.name}-${book.id}' name='createdShelf' value='${shelf.id}' /></li>`;
             }
 
             resultArr.push(shelfStr);
@@ -136,12 +123,88 @@ function genCreatedShelves(book, bookshelves) {
     return resultArr.join("");
 }
 
-getShelves().then(shelveData => bookshelves = shelveData.bookshelves);
+function compareState(state1, state2) {
+    console.log(state1, state2);
+    if (typeof state1 === 'string' && typeof state2 === 'string') {
+        return state1 !== state2;
+    }
 
-getBooks().then(data => {
-    document.querySelector('.book-list').innerHTML = genList(data.books);
-});
+    if (state1.length !== state2.length) {
+        return true
+    }
 
-document.addEventListener('DOMContentLoaded', event => {
+    return !state1.every((val) => state2.includes(val));
+}
+
+document.addEventListener('DOMContentLoaded', async event => {
+    const bookRes = await fetch('/api/books/');
+    let { books } = await bookRes.json();
+
+    const shelfRes = await fetch('/api/bookshelves/');
+    let { bookshelves } = await shelfRes.json();
+
+    let prevState;
+
+
     document.querySelector('.browse-header').innerText = `Browse by ${browseType.slice(0, browseType.length - 1)}`;
-})
+    document.querySelector('.book-list').innerHTML = genList(books, bookshelves);
+
+    for (const shelf of shelveText) {
+
+
+        shelf.addEventListener('click', async event => {
+            const [, , bookId] = event.target.id.split('-');
+            const originalInnerHTML = `Manage Bookshelves<span class='self-arrow-placeholder'>▾</span>`;
+
+            const formData = new FormData(document.getElementById(`book-${bookId}-shelves`));
+            console.log(prevState);
+
+            const shelveListContainer = document.getElementById(`shelve-list-container-${bookId}`);
+            shelveListContainer.classList.toggle('hidden');
+
+            if (!shelveListContainer.classList.contains('hidden')) {
+                prevState = {
+                    defaultShelf: formData.getAll('defaultShelf'),
+                    createdShelf: formData.getAll('createdShelf')
+                }
+            }
+
+            else {
+
+                const body = {};
+                for (let key of formData.keys()) {
+                    body[key] = formData.getAll(key);
+                }
+
+                if (compareState(prevState['defaultShelf'], body['defaultShelf']) || compareState(prevState['createdShelf'], body['createdShelf'])) {
+                    event.target.innerHTML = 'Saving...';
+                    event.target.classList.add('no-pointer-events');
+
+                    const res = await fetch(`/api/books/${bookId}`, {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(body)
+                    });
+
+
+                    const { book } = await res.json();
+
+                    if (res.ok) {
+
+                        const shelfRes = await fetch('/api/bookshelves');
+                        const { bookshelves } = await shelfRes.json();
+
+                        setTimeout(() => {
+                            shelveListContainer.innerHTML = genDefaultShelves(book, bookshelves) + genCreatedShelves(book, bookshelves);
+                            event.target.innerHTML = originalInnerHTML;
+                            event.target.classList.remove('no-pointer-events');
+                        }, 250);
+                    }
+                }
+            }
+        });
+    }
+
+});

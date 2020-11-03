@@ -45,14 +45,14 @@ router.get('/:id(\\d+)/reviews', routeHandler(async (req, res) => {
 }));
 
 router.post('/:id(\\d+)', routeHandler(async (req, res) => {
+    console.log(req.body);
     const bookId = parseInt(req.params.id);
     const { token } = req.cookies;
     const data = await jwt.verify(token, secret);
     const userId = data.data.id;
 
-    const defaultShelfId = Number(req.body.defaultShelf);
-    const createdShelfNames = Object.keys(req.body).filter((key) => key !== 'defaultShelf');
-    console.log(createdShelfNames);
+    const defaultShelfId = Number(...req.body.defaultShelf);
+    const createdShelveIds = req.body.createdShelf;
 
     const destroyShelves = await Bookshelf.findAll({
         where: {
@@ -82,19 +82,18 @@ router.post('/:id(\\d+)', routeHandler(async (req, res) => {
         bookshelfId: defaultShelfId
     });
 
-    if (createdShelfNames.length) {
+    if (createdShelveIds.length) {
         const createdShelves = await Bookshelf.findAll({
             attributes: ['id'],
             where: {
-                userId,
-                name: {
-                    [Op.or]: [...createdShelfNames]
-                }
+                id: {
+                    [Op.or]: [...createdShelveIds]
+                },
+                userId
             }
         });
 
         for (const shelf of createdShelves) {
-            console.log(shelf);
             await BookBookshelf.create({
                 bookId,
                 bookshelfId: shelf.dataValues.id
@@ -103,7 +102,11 @@ router.post('/:id(\\d+)', routeHandler(async (req, res) => {
 
     }
 
-    res.json({ message: 'Success!' });
+    const book = await Book.findByPk(bookId, {
+        include: [Bookshelf]
+    });
+
+    res.json({ book });
 }));
 
 module.exports = router;

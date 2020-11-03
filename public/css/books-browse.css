@@ -1,7 +1,6 @@
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -34,4 +33,17 @@ body {
 
 .body-shelves-container {
     position: relative;
+    height: 40%;
+}
+
+.shelve-list-container {
+    position: absolute;
+}
+
+.hidden {
+    display: none;
+}
+
+.no-pointer-events {
+    pointer-events: none;
 }
