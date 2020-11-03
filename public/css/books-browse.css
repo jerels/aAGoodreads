@@ -10,13 +10,28 @@ body {
 
 .content-container {
     min-height: 750px;
-}
-
-.book-list-item__cover {
-    width: 100px;
-    height: 150px;
+    width: 50%;
+    margin: 0 auto;
 }
 
 .book-list-item {
     display: flex;
+    justify-content: space-between;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.book-list-item__cover {
+    width: 150px;
+    height: 225px;
+}
+
+.book-list-item__text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.body-shelves-container {
+    position: relative;
 }

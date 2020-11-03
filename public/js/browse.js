@@ -1,5 +1,4 @@
 const browseType = window.location.pathname.toString().split('/')[2];
-console.log(browseType);
 let bookshelves;
 let books;
 
@@ -53,7 +52,7 @@ function genList(books) {
         authorList += '</span>';
 
         rowArr.push(
-            `<div>
+            `<div class='book-list-item__text-container'>
                 <h3><a href='/books/${book.id}'>${book.title}</a></h3>
                 <div>
                     <span>by </span>${authorList}
@@ -66,7 +65,7 @@ function genList(books) {
 
 
         rowArr.push(
-            `<div id='select-shelves-placeholder-${book.id}'>
+            `<div class='body-shelves-container' id='select-shelves-placeholder-${book.id}'>
                 <span class='bookshelves-text'>Manage Bookshelves</span><span class='self-arrow-placeholder'>▾</span>
                 <form id='book-${book.id}-shelves'>
                     <div class='shelve-list-container-hidden'>
@@ -142,3 +141,7 @@ getShelves().then(shelveData => bookshelves = shelveData.bookshelves);
 getBooks().then(data => {
     document.querySelector('.book-list').innerHTML = genList(data.books);
 });
+
+document.addEventListener('DOMContentLoaded', event => {
+    document.querySelector('.browse-header').innerText = `Browse by ${browseType.slice(0, browseType.length - 1)}`;
+})
