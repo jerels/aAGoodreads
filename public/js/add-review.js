@@ -11,7 +11,7 @@ const getReviewAndRedirect = async () => {
     const res = await fetch(`/api/reviews/${bookId}`);
     const data = await res.json();
     if (data.review.length) {
-        window.location.replace(`http://localhost:8080/reviews/edit/book/${bookId}`);
+        window.location.replace(process.env.NODE_ENV === 'production' ? `https://aagoodreads.herokuapp.com/reviews/edit/book/${bookId}` : `http://localhost:3000/reviews/edit/book/${bookId}`);
     }
     return data.review;
 }
@@ -63,10 +63,10 @@ const populateCreatedShelves = async () => {
             <label for='${shelf.name.toLowerCase()}'>${shelf.name}</label>`
 
             if (!bookIds.includes(bookId)) {
-                shelfStr += `<input type='checkbox' id='${shelf.name}' name='${shelf.name}'>
+                shelfStr += `<input type='checkbox' id='${shelf.name}' name='createdShelf' value='${shelf.id}'>
                 </li>`;
             } else {
-                shelfStr += `<input type='checkbox' id='${shelf.name}' name='${shelf.name}' checked>
+                shelfStr += `<input type='checkbox' id='${shelf.name}' name='createdShelf' value='${shelf.id}' checked>
                 </li>`;
             }
         }
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', event => {
         const body2 = {};
         for (const key of formData.keys()) {
             if (key !== 'content') {
-                body2[key] = formData.get(key);
+                body2[key] = formData.getAll(key);
             }
         }
 

@@ -9,7 +9,7 @@ header {
 
 .header-container {
     display: flex;
-    height: auto;
+    height: 71px;
     border-bottom: 2px solid #A0A0A0;
 }
 
@@ -18,7 +18,7 @@ header {
     font-size: 28px;
 }
 
-h1 {
+.goodreads-header {
     margin: -14px 0 auto 136px;
     font-family: 'Manrope', sans-serif;
     font-size: 58px;

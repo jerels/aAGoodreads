@@ -259,7 +259,7 @@ h1 {
 
 .book-content-container {
     display: flex;
-    margin: 50px 0 0 130px;
+    margin: 50px 0 60px 130px;
 }
 
 .book-content__left--text-container, .book-content__right--text-container {

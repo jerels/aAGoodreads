@@ -57,7 +57,7 @@ router.put('/', routeHandler(async (req, res) => {
     });
 
     review.content = content;
-    review.rating = rating;
+    review.rating = rating || null;
 
     await review.save();
 

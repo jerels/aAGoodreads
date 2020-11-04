@@ -9,7 +9,10 @@ const { Op } = require('sequelize');
 const { routeHandler } = require('../utils');
 
 router.get('/', routeHandler(async (req, res) => {
-    const books = await Book.findAll();
+    const books = await Book.findAll({
+        include: [Author, Publisher, Review],
+        order: [['title', 'ASC']]
+    });
 
     res.json({ books });
 }));
@@ -47,9 +50,8 @@ router.post('/:id(\\d+)', routeHandler(async (req, res) => {
     const data = await jwt.verify(token, secret);
     const userId = data.data.id;
 
-    const defaultShelfId = Number(req.body.defaultShelf);
-    const createdShelfNames = Object.keys(req.body).filter((key) => key !== 'defaultShelf');
-    console.log(createdShelfNames);
+    const defaultShelfId = Number(...req.body.defaultShelf);
+    const createdShelveIds = req.body.createdShelf || [];
 
     const destroyShelves = await Bookshelf.findAll({
         where: {
@@ -79,19 +81,18 @@ router.post('/:id(\\d+)', routeHandler(async (req, res) => {
         bookshelfId: defaultShelfId
     });
 
-    if (createdShelfNames.length) {
+    if (createdShelveIds.length) {
         const createdShelves = await Bookshelf.findAll({
             attributes: ['id'],
             where: {
-                userId,
-                name: {
-                    [Op.or]: [...createdShelfNames]
-                }
+                id: {
+                    [Op.or]: [...createdShelveIds]
+                },
+                userId
             }
         });
 
         for (const shelf of createdShelves) {
-            console.log(shelf);
             await BookBookshelf.create({
                 bookId,
                 bookshelfId: shelf.dataValues.id
@@ -100,7 +101,11 @@ router.post('/:id(\\d+)', routeHandler(async (req, res) => {
 
     }
 
-    res.json({ message: 'Success!' });
+    const book = await Book.findByPk(bookId, {
+        include: [Bookshelf]
+    });
+
+    res.json({ book });
 }));
 
 module.exports = router;
