@@ -79,15 +79,21 @@ body {
     margin: 0 auto;
 }
 
-.bookshelves-text--saving {
-    width: auto;
+.bookshelves-text:hover, .saving:hover {
+    cursor: pointer;
+}
+
+.saving {
+    display: block;
+    width: 92px;
+    margin: 0 auto;
 }
 
 .shelve-list-container {
     position: absolute;
-    left: 0;
+    left: -2px;
     top: 3.4vh;
-    padding: 1vh;
+    padding: 1.4vh 0 1.4vh 2.2vh;
     background-color: rgb(233, 233, 233);
     z-index: 0;
     border-radius: 4px;
@@ -133,4 +139,19 @@ body {
     flex-direction: column;
     justify-content: space-between;
     margin: auto 0;
+}
+
+.review-link-container {
+    display: flex;
+    justify-content: center;
+}
+
+.review-link {
+    margin: 0 auto;
+    text-decoration: none;
+    padding: 0.6vh;
+    background-color: #DFDFDF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    color: black;
 }

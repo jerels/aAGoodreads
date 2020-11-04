@@ -63,7 +63,7 @@ function genList(books, bookshelves) {
                     </div>
                 </form>
             </div>
-            <div>
+            <div class='review-link-container'>
             ${editOrWriteReview(book)}
             </div>
             </div>`
@@ -193,6 +193,8 @@ document.addEventListener('DOMContentLoaded', async event => {
                 console.log(compareState(prevState['defaultShelf'], body['defaultShelf']), compareState(prevState['createdShelf'], body['createdShelf']))
                 if (compareState(prevState['defaultShelf'], body['defaultShelf']) || compareState(prevState['createdShelf'], body['createdShelf'])) {
                     event.target.innerHTML = 'Saving...';
+                    event.target.classList.add('saving');
+                    event.target.classList.remove('bookshelves-text');
                     event.target.classList.add('no-pointer-events');
 
                     const res = await fetch(`/api/books/${bookId}`, {
@@ -215,7 +217,9 @@ document.addEventListener('DOMContentLoaded', async event => {
                         setTimeout(() => {
                             shelveListContainer.innerHTML = genDefaultShelves(book, bookshelves) + genCreatedShelves(book, bookshelves);
                             event.target.innerHTML = originalInnerHTML;
+                            event.target.classList.add('bookshelves-text');
                             event.target.classList.remove('no-pointer-events');
+                            event.target.classList.remove('saving');
                         }, 250);
                     }
                 }
