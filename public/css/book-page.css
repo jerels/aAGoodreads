@@ -30,7 +30,7 @@ body {
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 3vh;
-    margin-left: 20px;
+    margin-left: 430px;
 }
 
 #cover {
@@ -44,6 +44,7 @@ body {
     grid-area: summary;
     font-family: 'Merriweather', serif;
     width: 60%;
+    margin-top: -121px;
 }
 
 .review-container {
@@ -91,10 +92,10 @@ body {
 
 .title-container {
     grid-area: title;
-    width: 100%;
+    width: 69%;
+    height: 90px;
     margin-top: 10px;
     margin-left: 2vw;
-    margin-right: 20px;
 }
 
 .series-container {
