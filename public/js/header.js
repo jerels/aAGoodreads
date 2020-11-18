@@ -13,10 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const dropContainer = document.querySelector('.dropContainer');
+    const dropContainers = document.getElementsByClassName('dropContainer');
+    console.log(dropContainers);
 
-    dropContainer.addEventListener('click', event => {
+    dropContainers[0].addEventListener('click', event => {
         document.querySelector('.dropContent').classList.toggle('hidden');
+        dropContainer.classList.toggle('selected');
+    });
+
+    dropContainers[1].addEventListener('click', event => {
+        document.querySelector('.dropProfileContent').classList.toggle('hidden');
         dropContainer.classList.toggle('selected');
     });
 });
