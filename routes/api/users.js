@@ -76,6 +76,7 @@ router.post("/token", validateAuth, handleValidationErrors, routeHandler(async (
 //logout
 router.delete('/logout', routeHandler(async (req, res) => {
   res.clearCookie('token');
+  res.json({ message: 'logged out' })
 }))
 
 
