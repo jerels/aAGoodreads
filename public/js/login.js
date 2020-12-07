@@ -37,6 +37,6 @@ demoButton.addEventListener('click', async e => {
     });
 
     if (res.ok) {
-        window.location.href('/my-books');
+        window.location.href = '/my-books';
     }
 });
