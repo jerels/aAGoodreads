@@ -10,7 +10,7 @@ const { routeHandler } = require('../utils');
 router.get('/', routeHandler(async (req, res) => {
     const { token } = req.cookies;
     const data = await jwt.verify(token, secret);
-    console.log('DATA!!', data)
+    console.log('DATA!!', data);
 }));
 
 module.exports = router;
