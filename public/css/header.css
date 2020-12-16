@@ -65,6 +65,7 @@ header {
 .header__right-item--profile-pic {
     border-radius: 50%;
     margin-top: 0.6vh;
+    cursor: pointer;
 }
 
 .header__right-item--browse {
