@@ -9,15 +9,16 @@ append head
 block content
     .content-container
         .profile-image
-            img(src="/public/images/profile-pic.png", alt="")
+            img(src="/public/images/profile-pic.png", alt="").profile-img
             br
             .user-stats
                 p 18 ratings (4.72 avg)
                 p 5 reviews
         .user-details
             h1 Jerel Smith
-            div Activity
-            div Joined in February 2016, last active this month
+            .activity-container
+                .activity-title Activity
+                .activity-content Joined in February 2016, last active this month
             .user-bookshelves
                 h2 JEREL'S BOOKSHELVES
                 p read (20)

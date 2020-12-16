@@ -1,4 +1,28 @@
 .content-container {
     min-height: 750px;
     display: flex;
+    font-family: Helvetica;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.profile-image {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-img {
+    width: 20vw;
+    height: 37vh;
+    border-radius: 50%;
+}
+
+.activity-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.activity-title {
+    font-weight: bold;
 }
