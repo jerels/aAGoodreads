@@ -40,4 +40,14 @@
 
 .bookshelves-header {
     border-bottom: .5px solid;
+    font-size: smaller;
+}
+
+.bookshelves-container {
+    display: flex;
+    margin-top: 11px;
+}
+
+.bookshelf {
+    margin-right: 50px;
 }
