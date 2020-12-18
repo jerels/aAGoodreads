@@ -5,6 +5,7 @@ header {
     top: 0;
     background-color: white;
     z-index: 1;
+    font-family: Helvetica;
 }
 
 .header-container {
@@ -20,7 +21,7 @@ header {
 
 .goodreads-header {
     margin: -14px 0 auto 136px;
-    font-family: 'Manrope', sans-serif;
+    font-family: Helvetica;
     font-size: 58px;
     color: #4C2F1C;
 }
