@@ -21,7 +21,7 @@
 }
 
 .username {
-    border-bottom: .5px solid;
+    border-bottom: .5px solid #D8D8D8;
     margin-bottom: 11px;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .bookshelves-header {
-    border-bottom: .5px solid;
+    border-bottom: .5px solid #D8D8D8;
     font-size: smaller;
 }
 
