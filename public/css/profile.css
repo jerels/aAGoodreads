@@ -21,6 +21,7 @@
 
 .username {
     border-bottom: .5px solid;
+    margin-bottom: 11px;
 }
 
 .activity-container {
@@ -30,4 +31,9 @@
 
 .activity-title {
     font-weight: bold;
+    margin-right: 202px;
+}
+
+.user-bookshelves {
+    margin-top: 213px;
 }
