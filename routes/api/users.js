@@ -63,7 +63,6 @@ router.post("/token", validateAuth, handleValidationErrors, routeHandler(async (
   const user = await User.findOne({
     where: { email }
   });
-  console.log('USER!!!', moment(user.createdAt).format('LL'));
   if (!user || !user.validatePassword(password)) {
     const err = new Error('Invalid email/password combination');
     err.status = 401;
@@ -79,6 +78,19 @@ router.post("/token", validateAuth, handleValidationErrors, routeHandler(async (
 router.delete('/logout', routeHandler(async (req, res) => {
   res.clearCookie('token');
   res.json({ message: 'logged out' })
+}));
+
+router.get('/profile', routeHandler(async (req, res) => {
+  const { token } = req.cookies;
+  const data = await jwt.verify(token, secret);
+  const email = data.data.email;
+  const user = await User.findOne({
+    where: { email }
+  });
+  const month = moment(user.createdAt).format('MMMM');
+  const year = moment(user.createdAt).format('YYYY');
+  const date = `${month} ${year}`;
+  console.log('DATE', date);
 }))
 
 

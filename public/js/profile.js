@@ -1,5 +1,5 @@
 async function getUser() {
-    const res = await fetch('/api/profile/');
+    const res = await fetch('/api/users/profile');
 
 };
 
