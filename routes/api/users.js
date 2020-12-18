@@ -1,4 +1,5 @@
 const express = require("express");
+const moment = require('moment');
 const router = express.Router();
 const { routeHandler, handleValidationErrors } = require('../utils');
 const { getUserToken } = require('../utils/auth');
@@ -62,6 +63,7 @@ router.post("/token", validateAuth, handleValidationErrors, routeHandler(async (
   const user = await User.findOne({
     where: { email }
   });
+  console.log('USER!!!', moment(user.createdAt).format('LL'));
   if (!user || !user.validatePassword(password)) {
     const err = new Error('Invalid email/password combination');
     err.status = 401;
