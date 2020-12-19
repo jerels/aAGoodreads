@@ -10,7 +10,7 @@ const bcrypt = require('bcryptjs');
 const { secret, expiresIn } = require('../../config').jwtConfig;
 const db = require('../../db/models');
 const { Op } = require("sequelize");
-const { User, Review, Bookshelf } = db;
+const { User, Review, Bookshelf, Book } = db;
 const { createDefaultBookshelves } = require('../utils/defaultBookshelf');
 
 
@@ -82,11 +82,16 @@ router.delete('/logout', routeHandler(async (req, res) => {
 
 router.get('/profile', routeHandler(async (req, res) => {
   const { token } = req.cookies;
-  const data = await jwt.verify(token, secret);
-  const email = data.data.email;
+  const { id, email } = await jwt.verify(token, secret).data;
   const user = await User.findOne({
     where: { email },
-    include: [Review, Bookshelf]
+    include: [{
+      model: Review,
+      attributes: ['rating']
+    }, {
+      model: Bookshelf,
+      attributes: ['id', 'name']
+    }]
   });
   const month = moment(user.createdAt).format('MMMM');
   const year = moment(user.createdAt).format('YYYY');
@@ -102,8 +107,9 @@ router.get('/profile', routeHandler(async (req, res) => {
     }
   });
   let reviewAvg = reviewTotal / ratingTotal;
+  const bookshelves = user.Bookshelves;
 
-  console.log('USER', user.Bookshelves);
+  console.log('USER', bookshelves);
 }))
 
 
