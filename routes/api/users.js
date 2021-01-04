@@ -107,10 +107,35 @@ router.get('/profile', routeHandler(async (req, res) => {
     }
   });
   let reviewAvg = reviewTotal / ratingTotal;
+  let bookshelfObj = {};
   const bookshelves = user.Bookshelves;
+  bookshelves.forEach(bookshelf => {
+    bookshelfObj[bookshelf.name] = 0;
+  })
+  const books = await Book.findAll({
+    attributes: ['id'],
+    include: [
+      {
+        model: Bookshelf,
+        attributes: ['id', 'name'],
+        where: {
+          userId: id
+        },
+        through: {
+          attributes: ['createdAt']
+        }
+      }
+    ]
+  });
+  books.forEach(book => {
+    book.Bookshelves.forEach(bookshelf => {
+      console.log(bookshelf.name);
+      bookshelfObj[bookshelf.name] = bookshelfObj[bookshelf.name] + 1;
+    });
+  })
 
-  console.log('USER', bookshelves);
-}))
+  res.json({ date, numOfReviews, ratingTotal, reviewAvg, bookshelfObj });
+}));
 
 
 module.exports = router;
