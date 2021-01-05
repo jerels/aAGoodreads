@@ -1,0 +1,24 @@
+extends layout.pug
+
+append head
+    link(rel='stylesheet' type='text/css' href='/public/css/footer.css')
+    link(rel='stylesheet' type='text/css' href='/public/css/header.css')
+    link(rel="stylesheet", type='text/css' href="/public/css/profile.css")
+    script(src='/public/js/profile.js' type='module' defer)
+
+block content
+    .content-container
+        .profile-image
+            img(src="/public/images/profile-pic.png", alt="").profile-img
+            br
+            .user-stats
+                p#ratings
+                p#reviews
+        .user-details
+            h1.username
+            .activity-container
+                .activity-title Activity
+                .activity-content
+            .user-bookshelves
+                h2.bookshelves-header
+                .bookshelves-container

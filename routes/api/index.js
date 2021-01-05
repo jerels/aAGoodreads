@@ -5,6 +5,7 @@ const usersRouter = require('./users');
 const bookshelfRouter = require('./bookshelf');
 const booksRouter = require('./books');
 const reviewsRouter = require('./reviews');
+const profileRouter = require('./profile');
 const { environment } = require('../../config')
 const { ValidationError } = require("sequelize");
 
@@ -12,6 +13,7 @@ router.use('/users', usersRouter);
 router.use('/books', booksRouter);
 router.use('/bookshelves', bookshelfRouter);
 router.use('/reviews', reviewsRouter);
+router.use('/profile', profileRouter);
 
 router.use((err, req, res, next) => {
   if (err instanceof ValidationError) {

@@ -1,4 +1,5 @@
 const express = require("express");
+const moment = require('moment');
 const router = express.Router();
 const { routeHandler, handleValidationErrors } = require('../utils');
 const { getUserToken } = require('../utils/auth');
@@ -9,7 +10,7 @@ const bcrypt = require('bcryptjs');
 const { secret, expiresIn } = require('../../config').jwtConfig;
 const db = require('../../db/models');
 const { Op } = require("sequelize");
-const { User } = db;
+const { User, Review, Bookshelf, Book } = db;
 const { createDefaultBookshelves } = require('../utils/defaultBookshelf');
 
 
@@ -77,7 +78,64 @@ router.post("/token", validateAuth, handleValidationErrors, routeHandler(async (
 router.delete('/logout', routeHandler(async (req, res) => {
   res.clearCookie('token');
   res.json({ message: 'logged out' })
-}))
+}));
+
+router.get('/profile', routeHandler(async (req, res) => {
+  const { token } = req.cookies;
+  const { id, email } = await jwt.verify(token, secret).data;
+  const user = await User.findOne({
+    where: { email },
+    include: [{
+      model: Review,
+      attributes: ['rating']
+    }, {
+      model: Bookshelf,
+      attributes: ['id', 'name']
+    }]
+  });
+  const month = moment(user.createdAt).format('MMMM');
+  const year = moment(user.createdAt).format('YYYY');
+  const date = `${month} ${year}`;
+  const name = `${user.firstName} ${user.lastName}`
+  const reviews = user.Reviews
+  const numOfReviews = reviews.length;
+  let reviewTotal = 0;
+  let ratingTotal = 0;
+  reviews.forEach(review => {
+    if (review.rating) {
+      ratingTotal++;
+      reviewTotal = reviewTotal + parseFloat(review.rating);
+    }
+  });
+  let reviewAvg = reviewTotal / ratingTotal;
+  let bookshelfObj = {};
+  const bookshelves = user.Bookshelves;
+  bookshelves.forEach(bookshelf => {
+    bookshelfObj[bookshelf.name] = 0;
+  })
+  const books = await Book.findAll({
+    attributes: ['id'],
+    include: [
+      {
+        model: Bookshelf,
+        attributes: ['id', 'name'],
+        where: {
+          userId: id
+        },
+        through: {
+          attributes: ['createdAt']
+        }
+      }
+    ]
+  });
+  books.forEach(book => {
+    book.Bookshelves.forEach(bookshelf => {
+      console.log(bookshelf.name);
+      bookshelfObj[bookshelf.name] = bookshelfObj[bookshelf.name] + 1;
+    });
+  })
+  res.json({ name, date, numOfReviews, ratingTotal, reviewAvg, bookshelfObj });
+}));
 
 
 module.exports = router;

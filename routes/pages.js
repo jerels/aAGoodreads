@@ -4,6 +4,7 @@ const browseRouter = require('./browse-books');
 const myBooksRouter = require('./my-books');
 const editBookshelvesRouter = require('./edit-bookshelves');
 const reviewRouter = require('./reviews');
+const profileRouter = require('./profile');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config').jwtConfig;
 
@@ -16,6 +17,7 @@ router.use('/my-books', myBooksRouter);
 router.use('/browse', browseRouter);
 router.use('/reviews', reviewRouter);
 router.use('/edit-bookshelves', editBookshelvesRouter);
+router.use('/profile', profileRouter);
 
 router.get('/', routeHandler(async (req, res) => {
     if (req.cookies.token) {
@@ -28,7 +30,7 @@ router.get('/', routeHandler(async (req, res) => {
         });
 
         if (user) {
-            res.redirect('my-books');
+            res.redirect('profile');
             return;
         }
     }

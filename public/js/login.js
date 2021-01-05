@@ -22,7 +22,7 @@ form.addEventListener('submit', async (e) => {
         return;
     }
 
-    window.location.href = '/my-books';
+    window.location.href = '/profile';
 });
 
 demoButton.addEventListener('click', async e => {
@@ -37,6 +37,6 @@ demoButton.addEventListener('click', async e => {
     });
 
     if (res.ok) {
-        window.location.href = '/my-books';
+        window.location.href = '/profile';
     }
 });

@@ -1,0 +1,55 @@
+.content-container {
+    min-height: 460px;
+    display: flex;
+    font-family: Helvetica;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.profile-image {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-right: 63px;
+    margin-top: 20px;
+}
+
+.profile-img {
+    width: 19vw;
+    height: 40vh;
+    border-radius: 50%;
+}
+
+.username {
+    border-bottom: .5px solid #D8D8D8;
+    margin-bottom: 11px;
+}
+
+.activity-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.activity-title {
+    font-weight: bold;
+    margin-right: 202px;
+}
+
+.user-bookshelves {
+    margin-top: 213px;
+}
+
+.bookshelves-header {
+    border-bottom: .5px solid #D8D8D8;
+    font-size: smaller;
+}
+
+.bookshelves-container {
+    display: flex;
+    margin-top: 11px;
+}
+
+.bookshelf {
+    margin-right: 50px;
+}
