@@ -21,7 +21,7 @@ form.addEventListener('submit', async (e) => {
     if (!res.ok) {
         const { message, errors } = data;
         let errorStr = '';
-        for(let error of errors) {
+        for (let error of errors) {
             if (errorStr.length === 0) {
                 errorStr += `• ${error}`;
             } else {
@@ -32,5 +32,5 @@ form.addEventListener('submit', async (e) => {
         return;
     }
 
-    window.location.href = '/my-books';
+    window.location.href = '/profile';
 });
