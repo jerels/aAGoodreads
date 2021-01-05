@@ -96,6 +96,7 @@ router.get('/profile', routeHandler(async (req, res) => {
   const month = moment(user.createdAt).format('MMMM');
   const year = moment(user.createdAt).format('YYYY');
   const date = `${month} ${year}`;
+  const name = `${user.firstName} ${user.lastName}`
   const reviews = user.Reviews
   const numOfReviews = reviews.length;
   let reviewTotal = 0;
@@ -133,8 +134,7 @@ router.get('/profile', routeHandler(async (req, res) => {
       bookshelfObj[bookshelf.name] = bookshelfObj[bookshelf.name] + 1;
     });
   })
-
-  res.json({ date, numOfReviews, ratingTotal, reviewAvg, bookshelfObj });
+  res.json({ name, date, numOfReviews, ratingTotal, reviewAvg, bookshelfObj });
 }));
 
 
