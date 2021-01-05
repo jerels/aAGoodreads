@@ -30,7 +30,7 @@ router.get('/', routeHandler(async (req, res) => {
         });
 
         if (user) {
-            res.redirect('my-books');
+            res.redirect('profile');
             return;
         }
     }
