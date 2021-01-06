@@ -53,6 +53,11 @@ block content
 						<path id='star-path-5' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
 						</svg>
 						span.clear-rating Clear
+				.review-content-container
+					p(class='what-did-you-think') What did you think?
+					textarea(class='review-container__item review-container__item--content' name='content' id='content' placeholder='Enter your review')
+				.submit-container
+					button.submit-button(type="submit") Post
 			table#reviews
 				tr#review-title
 					th Reviews
