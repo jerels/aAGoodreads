@@ -35,7 +35,8 @@ block content
 			#summary
 		.review-container
 			.review-field
-				span(class='rating-container__text rating-container__text--my-rating') My rating:
+				#rating-container
+					span My rating:
 					.stars#star-container
 						<svg id='star-view-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio>
 						<path id='star-path-1' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
@@ -52,7 +53,7 @@ block content
 						<svg id='star-view-5' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio>
 						<path id='star-path-5' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
 						</svg>
-						span.clear-rating Clear
+					span.clear-rating Clear
 				.review-content-container
 					p(class='what-did-you-think') What did you think?
 					textarea(class='review-container__item review-container__item--content' name='content' id='content' placeholder='Enter your review')
