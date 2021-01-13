@@ -34,7 +34,7 @@ block content
 		.sum-container
 			#summary
 		.review-container
-			.review-field
+			#review-field
 				#rating-container
 					span#rating-title My rating:
 					.stars#star-container
@@ -57,8 +57,8 @@ block content
 				.review-content-container
 					p#what-did-you-think What did you think?
 					textarea(class='review-container__item review-container__item--content' name='content' id='content' placeholder='Enter your review')
-				.submit-container
-					button.submit-button(type="submit") Post
+				#submit-container
+					button#submit-button(type="submit") Post
 			table#reviews
 				tr#review-title
 					th Reviews

@@ -190,4 +190,18 @@ span.saving {
 #content {
     width: 23vw;
     height: 15vh;
+    font-family: inherit;
+}
+
+#review-field {
+    padding-bottom: 3vh;
+}
+
+#submit-container {
+    padding-top: 0.3vh;
+}
+
+#submit-button {
+    width: 4vw;
+    font-family: inherit;
 }
