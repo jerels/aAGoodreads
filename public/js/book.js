@@ -1,5 +1,8 @@
-const id = Number(new URL (window.location).toString().split('/')[4]);
+const id = Number(new URL(window.location).toString().split('/')[4]);
 let sent = true;
+let rating;
+let clickListener = false;
+
 const cover = document.getElementById('cover');
 const title = document.getElementById('title');
 const summary = document.getElementById('summary');
@@ -111,6 +114,44 @@ manageShelves.addEventListener('click', async event => {
     }
 })
 
-getBook();
-getReviews();
-populateShelves();
+document.addEventListener('DOMContentLoaded', e => {
+    getBook();
+    getReviews();
+    populateShelves();
+    const stars = document.querySelector('.stars');
+
+    const handleStarMouseover = e => {
+        e.stopPropagation();
+        const id = e.target.id.split('-')[2];
+        if (!/[0-5]$/.test(id)) {
+            return;
+        } else {
+            for (let i = 1; i <= id; i++) {
+                document.querySelector(`#star-path-${i}`).classList.add('star-on');
+            };
+        };
+    };
+
+    if (!rating) {
+        stars.addEventListener('mouseover', handleStarMouseover);
+        clickListener = true;
+    }
+
+    const handleStarMouseout = e => {
+        e.preventDefault();
+        const id = e.target.id.split('-')[2];
+        if (e.target.id === 'star-container') {
+            setTimeout(() => {
+                for (let i = 1; i <= 5; i++) {
+                    document.querySelector(`#star-path-${i}`).classList.remove('star-on');
+                }
+            }, 200);
+        } else {
+            for (let i = 5; i >= id; i--) {
+                document.querySelector(`#star-path-${i}`).classList.remove('star-on');
+            };
+        };
+    };
+
+    stars.addEventListener('mouseout', handleStarMouseout);
+})
