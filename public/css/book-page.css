@@ -160,3 +160,7 @@ body {
 span.saving {
     padding-left: 2.4vw;
 }
+
+#star-container {
+    width: 2vw
+}
