@@ -163,7 +163,9 @@ span.saving {
 
 #star-container {
     display: flex;
-    width: 7vw
+    width: 7vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
 }
 
 #rating-container {
@@ -172,4 +174,9 @@ span.saving {
 
 .star {
     width: fit-content;
+}
+
+#rating-title {
+    font-size: small;
+    padding-top: 0.6vh;
 }
