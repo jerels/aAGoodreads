@@ -162,9 +162,14 @@ span.saving {
 }
 
 #star-container {
-    width: 2vw
+    display: flex;
+    width: 7vw
 }
 
 #rating-container {
     display: flex;
+}
+
+.star {
+    width: fit-content;
 }
