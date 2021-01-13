@@ -181,3 +181,13 @@ span.saving {
     font-size: small;
     padding-top: 0.6vh;
 }
+
+#what-did-you-think {
+    font-size: x-large;
+    padding-bottom: 2vh;
+}
+
+#content {
+    width: 23vw;
+    height: 15vh;
+}
