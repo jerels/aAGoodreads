@@ -154,4 +154,23 @@ document.addEventListener('DOMContentLoaded', e => {
     };
 
     stars.addEventListener('mouseout', handleStarMouseout);
+
+    const handleStarClick = e => {
+        e.stopPropagation();
+        const id = Number(e.target.id.split('-')[2]);
+        if (!/[0-5]/.test(id) || !clickListener) {
+            return;
+        } else {
+            if (clickListener) {
+                rating = id;
+                for (let i = 1; i <= id; i++) {
+                    document.querySelector(`star-patch-${i}`).classList.add('star-on-permanent');
+                }
+                stars.removeEventListener('mouseover', handleStarMouseover);
+                clickListener = false;
+            }
+        }
+    };
+
+    stars.addEventListener('click', handleStarClick);
 })
