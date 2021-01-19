@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', e => {
             if (clickListener) {
                 rating = id;
                 for (let i = 1; i <= id; i++) {
-                    document.querySelector(`star-patch-${i}`).classList.add('star-on-permanent');
+                    document.querySelector(`#star-path-${i}`).classList.add('star-on-permanent');
                 }
                 stars.removeEventListener('mouseover', handleStarMouseover);
                 clickListener = false;
