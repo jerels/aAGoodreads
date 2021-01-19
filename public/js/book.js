@@ -11,6 +11,9 @@ const series = document.getElementById('series');
 const reviewContent = document.getElementById('reviews')
 const manageShelves = document.querySelector('.select-shelves-placeholder');
 const clearButton = document.getElementById('clear-rating');
+const form = document.querySelector('form');
+const postButton = document.getElementById('submit-button');
+const review = document.getElementById('content');
 
 async function getBook() {
     const res = await fetch(`/api/books/${id}`);
@@ -182,5 +185,27 @@ document.addEventListener('DOMContentLoaded', e => {
         }
         clickListener = true;
         stars.addEventListener('mouseover', handleStarMouseover);
-    })
+
+    });
+
+    postButton.addEventListener('click', async e => {
+        debugger;
+        e.preventDefault();
+        const body = {
+            bookId: id,
+            content: review.value,
+            rating
+        };
+        const res = await fetch('/api/reviews/', {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (res.ok) {
+            window.location.href = `/books/${id}`;
+        }
+    });
 })
