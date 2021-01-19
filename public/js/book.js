@@ -10,6 +10,7 @@ const authors = document.getElementById('author');
 const series = document.getElementById('series');
 const reviewContent = document.getElementById('reviews')
 const manageShelves = document.querySelector('.select-shelves-placeholder');
+const clearButton = document.getElementById('clear-rating');
 
 async function getBook() {
     const res = await fetch(`/api/books/${id}`);
@@ -173,4 +174,13 @@ document.addEventListener('DOMContentLoaded', e => {
     };
 
     stars.addEventListener('click', handleStarClick);
+
+    clearButton.addEventListener('click', e => {
+        rating = undefined;
+        for (let i = 1; i <= 5; i++) {
+            document.querySelector(`#star-path-${i}`).classList.remove('star-on-permanent');
+        }
+        clickListener = true;
+        stars.addEventListener('mouseover', handleStarMouseover);
+    })
 })
