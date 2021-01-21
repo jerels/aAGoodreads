@@ -38,8 +38,9 @@ async function getReviews() {
     const reviews = data.reviews;
     reviews.forEach(review => {
         const revContainer = document.createElement('tr');
-        const rev = document.createElement('td');
-        const userInfo = document.createElement('td');
+        const revContainer2 = document.createElement('td');
+        const rev = document.createElement('p');
+        const userInfo = document.createElement('p');
         const user = review.User;
         revContainer.setAttribute('id', 'review-row');
         rev.setAttribute('id', 'review');

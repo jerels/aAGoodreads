@@ -216,6 +216,7 @@ span.saving {
 
 #review-header-container {
     display: flex;
+    padding-bottom: 1vh;
 }
 
 #review-header {
