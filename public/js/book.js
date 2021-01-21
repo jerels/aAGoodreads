@@ -1,5 +1,8 @@
-const id = Number(new URL (window.location).toString().split('/')[4]);
+const id = Number(new URL(window.location).toString().split('/')[4]);
 let sent = true;
+let rating;
+let clickListener = false;
+
 const cover = document.getElementById('cover');
 const title = document.getElementById('title');
 const summary = document.getElementById('summary');
@@ -7,6 +10,11 @@ const authors = document.getElementById('author');
 const series = document.getElementById('series');
 const reviewContent = document.getElementById('reviews')
 const manageShelves = document.querySelector('.select-shelves-placeholder');
+const clearButton = document.getElementById('clear-rating');
+const form = document.getElementById('form');
+const postButton = document.getElementById('submit-button');
+const review = document.getElementById('content');
+const reviewButton = document.getElementById('review-button');
 
 async function getBook() {
     const res = await fetch(`/api/books/${id}`);
@@ -31,8 +39,9 @@ async function getReviews() {
     const reviews = data.reviews;
     reviews.forEach(review => {
         const revContainer = document.createElement('tr');
-        const rev = document.createElement('td');
-        const userInfo = document.createElement('td');
+        const revContainer2 = document.createElement('td');
+        const rev = document.createElement('p');
+        const userInfo = document.createElement('p');
         const user = review.User;
         revContainer.setAttribute('id', 'review-row');
         rev.setAttribute('id', 'review');
@@ -111,6 +120,103 @@ manageShelves.addEventListener('click', async event => {
     }
 })
 
-getBook();
-getReviews();
-populateShelves();
+document.addEventListener('DOMContentLoaded', e => {
+    getBook();
+    getReviews();
+    populateShelves();
+    const stars = document.querySelector('.stars');
+
+    const handleReviewButton = e => {
+        e.preventDefault();
+        form.removeAttribute('hidden');
+        reviewButton.setAttribute('disabled', 'true');
+    };
+
+    reviewButton.addEventListener('click', handleReviewButton);
+
+    const handleStarMouseover = e => {
+        e.stopPropagation();
+        const id = e.target.id.split('-')[2];
+        if (!/[0-5]$/.test(id)) {
+            return;
+        } else {
+            for (let i = 1; i <= id; i++) {
+                document.querySelector(`#star-path-${i}`).classList.add('star-on');
+            };
+        };
+    };
+
+    if (!rating) {
+        stars.addEventListener('mouseover', handleStarMouseover);
+        clickListener = true;
+    }
+
+    const handleStarMouseout = e => {
+        e.preventDefault();
+        const id = e.target.id.split('-')[2];
+        if (e.target.id === 'star-container') {
+            setTimeout(() => {
+                for (let i = 1; i <= 5; i++) {
+                    document.querySelector(`#star-path-${i}`).classList.remove('star-on');
+                }
+            }, 200);
+        } else {
+            for (let i = 5; i >= id; i--) {
+                document.querySelector(`#star-path-${i}`).classList.remove('star-on');
+            };
+        };
+    };
+
+    stars.addEventListener('mouseout', handleStarMouseout);
+
+    const handleStarClick = e => {
+        e.stopPropagation();
+        const id = Number(e.target.id.split('-')[2]);
+        if (!/[0-5]/.test(id) || !clickListener) {
+            return;
+        } else {
+            if (clickListener) {
+                rating = id;
+                for (let i = 1; i <= id; i++) {
+                    document.querySelector(`#star-path-${i}`).classList.add('star-on-permanent');
+                }
+                stars.removeEventListener('mouseover', handleStarMouseover);
+                clickListener = false;
+            }
+        }
+    };
+
+    stars.addEventListener('click', handleStarClick);
+
+    clearButton.addEventListener('click', e => {
+        rating = undefined;
+        for (let i = 1; i <= 5; i++) {
+            document.querySelector(`#star-path-${i}`).classList.remove('star-on-permanent');
+        }
+        clickListener = true;
+        stars.addEventListener('mouseover', handleStarMouseover);
+
+    });
+
+    postButton.addEventListener('click', async e => {
+        debugger;
+        e.preventDefault();
+        const body = {
+            bookId: id,
+            content: review.value,
+            rating
+        };
+        const res = await fetch('/api/reviews/', {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (res.ok) {
+            form.setAttribute('hidden', 'true');
+            window.location.href = `/books/${id}`;
+        }
+    });
+})

@@ -34,6 +34,35 @@ block content
 		.sum-container
 			#summary
 		.review-container
+			form#form(hidden)
+				#review-field
+					#rating-container
+						span#rating-title My rating:
+						.stars#star-container
+							<svg class='star' id='star-view-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio>
+							<path id='star-path-1' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
+							</svg>
+							<svg class='star' id='star-view-2' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio>
+							<path id='star-path-2' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
+							</svg>
+							<svg class='star' id='star-view-3' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio>
+							<path id='star-path-3' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
+							</svg>
+							<svg class='star' id='star-view-4' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio>
+							<path id='star-path-4' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
+							</svg>
+							<svg class='star' id='star-view-5' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio>
+							<path id='star-path-5' d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
+							</svg>
+						span#clear-rating Clear
+					.review-content-container
+						p#what-did-you-think What did you think?
+						textarea(class='review-container__item review-container__item--content' name='content' id='content' placeholder='Enter your review')
+					#submit-container
+						button#submit-button Post
 			table#reviews
 				tr#review-title
-					th Reviews
+					th
+						div#review-header-container
+							p#review-header Reviews
+							button#review-button add review

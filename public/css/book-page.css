@@ -31,6 +31,7 @@ body {
     margin-right: 10px;
     margin-bottom: 3vh;
     margin-left: 430px;
+    padding-bottom: 11.6vh;
 }
 
 #cover {
@@ -159,4 +160,66 @@ body {
 
 span.saving {
     padding-left: 2.4vw;
+}
+
+#star-container {
+    display: flex;
+    width: 7vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+#rating-container {
+    display: flex;
+    padding-bottom: 2vh;
+}
+
+.star {
+    width: fit-content;
+}
+
+#rating-title, #clear-rating {
+    font-size: small;
+    padding-top: 0.6vh;
+}
+
+#what-did-you-think {
+    font-size: x-large;
+    padding-bottom: 2vh;
+}
+
+#content {
+    width: 23vw;
+    height: 15vh;
+    font-family: inherit;
+}
+
+#review-field {
+    padding-bottom: 3vh;
+}
+
+#submit-container {
+    padding-top: 0.3vh;
+}
+
+#submit-button {
+    width: 4vw;
+    font-family: inherit;
+}
+
+.star-on {
+    fill: #f3b421;
+}
+
+.star-on-permanent {
+    fill: #f3b421;
+}
+
+#review-header-container {
+    display: flex;
+    padding-bottom: 1vh;
+}
+
+#review-header {
+    padding-right: 1vw;
 }
