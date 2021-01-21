@@ -34,7 +34,7 @@ block content
 		.sum-container
 			#summary
 		.review-container
-			form
+			form(hidden)
 				#review-field
 					#rating-container
 						span#rating-title My rating:
@@ -62,4 +62,6 @@ block content
 						button#submit-button Post
 			table#reviews
 				tr#review-title
-					th Reviews
+					th
+						p Reviews
+						button Add review?
