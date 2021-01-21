@@ -213,3 +213,11 @@ span.saving {
 .star-on-permanent {
     fill: #f3b421;
 }
+
+#review-header-container {
+    display: flex;
+}
+
+#review-header {
+    padding-right: 1vw;
+}
